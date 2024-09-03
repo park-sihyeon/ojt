@@ -1,0 +1,43 @@
+{
+  "name": "ojt-project",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "VITE_BUILD_TYPE=LOCAL vite --port 5000 --host",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@hello-pangea/dnd": "^16.6.0",
+    "@hookform/resolvers": "^3.9.0",
+    "@mui/material": "^5.16.7",
+    "@tanstack/react-query": "^5.52.2",
+    "@vanilla-extract/css": "^1.15.5",
+    "@vanilla-extract/vite-plugin": "^4.0.15",
+    "axios": "^1.7.5",
+    "dayjs": "^1.11.13",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "^7.53.0",
+    "react-router-dom": "^6.26.1",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.9.0",
+    "@tanstack/eslint-plugin-query": "^5.52.3",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react-swc": "^3.5.0",
+    "eslint": "^9.9.0",
+    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
+    "eslint-plugin-react-refresh": "^0.4.9",
+    "globals": "^15.9.0",
+    "typescript": "^5.5.3",
+    "typescript-eslint": "^8.0.1",
+    "vite": "^5.4.1"
+  }
+}
