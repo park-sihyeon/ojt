@@ -45,7 +45,7 @@ export const interduceContainerCss = {
     borderRadius: '5px',
     fontSize: '12px',
     color: '#bbb',
-    padding: '20px 30px',
+    padding: '30px 30px',
   }),
   addButton: style({
     width: '30px',

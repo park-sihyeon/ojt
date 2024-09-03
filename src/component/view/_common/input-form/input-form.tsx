@@ -23,16 +23,7 @@ import {
   TextField,
 } from '@mui/material';
 import CompanyListContainer from '../_test/company-list/company-list-container';
-
-// react hook form  테스트
-// type Inputs = {
-//   id: number;
-//   name: string;
-//   phoneNumber: string;
-//   email: string;
-//   address: string;
-//   space: string;
-// };
+import dayjs from 'dayjs';
 
 // 정규식 이메일, 전화번호
 // const PhoneReg = new RegExp(/^01([0|1|6|7|8|9])-?([0-9]{4})-?([0-9]{4})$/);
@@ -67,39 +58,6 @@ export const InputForm: React.FC<ResumeFormProps> = ({ onResumeSaved }) => {
     // control,
     // watch, // 입력 여부 확인
   } = useForm<ResumeForm>();
-  // ({
-  //   mode: 'onChange', // why onChange mode? => 변경될 때 마다 유효성 검사
-  //   reValidateMode: 'onChange',
-  //   resolver: zodResolver(InputsSchema),
-  //   defaultValues: {
-  //     name: '',
-  //     email: '',
-  //     address: '',
-  //     phoneNumber: '',
-  //     space: '',
-  //   },
-  //   values: (() => {
-  //     return {
-  //       name: '',
-  //       email: '',
-  //       address: '',
-  //       phoneNumber: '',
-  //       space: '',
-  //     };
-  //   })(),
-  // });
-
-  // const handleFormSubmit = (event: React.FormEvent) => {
-  //   event.preventDefault();
-  //   const newResumeForm: ResumeForm = {
-  //     id: Date.now(), // 임시로 ID를 현재 시간으로 설정
-  //     name,
-  //     body,
-  //   };
-
-  //   onResumeSaved(newResumeForm);
-  //   handleNavigate();
-  // };
   const [gender, setGender] = React.useState('');
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -111,12 +69,23 @@ export const InputForm: React.FC<ResumeFormProps> = ({ onResumeSaved }) => {
     navigate('/resume');
   };
 
+  // const onSubmit = (data: ResumeForm) => {
+  //   onResumeSaved({ ...data });
+  //   reset(); // 폼 리셋
+  //   handleNavigate();
+  //   console.log('등록함');
+  // };
   const onSubmit = (data: ResumeForm) => {
-    onResumeSaved({ ...data });
+    const currentTime = dayjs().format('YYYY-MM-DD'); // 현재 시간 가져오기
+    console.log('현재 시간 입니당:', currentTime);
+    const toString = currentTime.toString(); // 이거 개짜친다 ㄷㄷ
+    onResumeSaved({ ...data, gender, date: toString }); // 폼 데이터와 함께 성별 및 타임스탬프 전달
     reset(); // 폼 리셋
-    handleNavigate();
+    handleNavigate(); // 다른 페이지로 이동
     console.log('등록함');
   };
+
+  // const nowDate = Date.now();
 
   return (
     <>
@@ -139,6 +108,7 @@ export const InputForm: React.FC<ResumeFormProps> = ({ onResumeSaved }) => {
             <FormControl fullWidth>
               <InputLabel id="select-label">성별</InputLabel>
               <Select
+                required
                 labelId="select-label"
                 id="select"
                 value={gender}

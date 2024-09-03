@@ -20,7 +20,6 @@ const CardBox = () => {
 
   useEffect(() => {
     const storedResumeForms = localStorage.getItem('resumes');
-    console.log('localStorage.get : ', storedResumeForms);
     if (storedResumeForms) {
       setResumeForms(JSON.parse(storedResumeForms));
     }
@@ -41,6 +40,16 @@ const CardBox = () => {
     resumeForms.splice(source.index, 1);
     resumeForms.splice(destination?.index, 0);
   };
+  //#endregion
+
+  //#region fomatting
+  // const date = (data: string) => {
+  //   if (data === null) {
+  //     return;
+  //   }
+  //   const date = data.slice();
+  //   return date;
+  // };
   //#endregion
 
   return (
@@ -79,9 +88,8 @@ const CardBox = () => {
                                   <br />
                                 </Typography>
                                 <Typography variant="body2" component="div">
-                                  {/* todo 마지막 편집 시간 */}
-                                  {/* 화면 구성 확인하려 넣은 코드 이후 삭제 필요 */}
-                                  최종편집 일시 : 9999년 99월 99일
+                                  {/* <div>`${date(item.date)}`</div> */}
+                                  <div>{item.date}</div>
                                 </Typography>
                               </CardContent>
                             </Card>

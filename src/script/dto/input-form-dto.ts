@@ -7,4 +7,5 @@ export interface ResumeForm {
   email: string;
   address: string;
   textarea: string;
+  date: string;
 }

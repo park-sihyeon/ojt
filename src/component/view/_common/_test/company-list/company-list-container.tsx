@@ -27,35 +27,37 @@ const CompanyListContainer = () => {
 
   return (
     <>
-      <div className={companyListContinerCss}>
+      <div className={companyListContinerCss.wrapCompanyList}>
         <AddCompanyListContent />
-        {/*  */}
-        <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable droppableId="droppableId">
-            {(provided) => (
-              <ul
-                // className={companyListContinerCss}
-                ref={provided.innerRef}
-                {...provided.droppableProps}
-              >
-                {itemList.map((item, index) => (
-                  <Draggable key={item} draggableId={item} index={index}>
-                    {(draggableProvided) => (
-                      <div
-                        ref={draggableProvided.innerRef}
-                        {...draggableProvided.draggableProps}
-                        {...draggableProvided.dragHandleProps}
-                      >
-                        <div>{item}</div>
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </ul>
-            )}
-          </Droppable>
-        </DragDropContext>
+        <div>
+          {/*  */}
+          <DragDropContext onDragEnd={onDragEnd}>
+            <Droppable droppableId="droppableId">
+              {(provided) => (
+                <ul
+                  // className={companyListContinerCss}
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                >
+                  {itemList.map((item, index) => (
+                    <Draggable key={item} draggableId={item} index={index}>
+                      {(draggableProvided) => (
+                        <div
+                          ref={draggableProvided.innerRef}
+                          {...draggableProvided.draggableProps}
+                          {...draggableProvided.dragHandleProps}
+                        >
+                          <div>{item}</div>
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </ul>
+              )}
+            </Droppable>
+          </DragDropContext>
+        </div>
       </div>
     </>
   );

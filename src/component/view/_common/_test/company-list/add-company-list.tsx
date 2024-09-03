@@ -22,9 +22,10 @@ export const AddCompanyListContent = () => {
   return (
     <>
       <div>
-        <Box sx={{ width: '100%' }}>
+        <Box sx={{ width: '95vw' }}>
           <Card
             style={{
+              minHeight: '140px',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',

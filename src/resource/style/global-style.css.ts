@@ -1,9 +1,8 @@
 import { globalStyle } from '@vanilla-extract/css';
 
 globalStyle('body', {
-  padding: '0',
+  backgroundColor: '#eee',
 });
-
 globalStyle('::-webkit-scrollbar', {
   width: '0px',
 });
