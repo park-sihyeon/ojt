@@ -38,6 +38,7 @@ export const inputFormCss = {
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
+    gap: '10px',
   }),
   height100: style({
     height: '100%',

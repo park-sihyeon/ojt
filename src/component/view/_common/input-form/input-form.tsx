@@ -77,9 +77,8 @@ export const InputForm: React.FC<ResumeFormProps> = ({ onResumeSaved }) => {
   // };
   const onSubmit = (data: ResumeForm) => {
     const currentTime = dayjs().format('YYYY-MM-DD'); // 현재 시간 가져오기
-    console.log('현재 시간 입니당:', currentTime);
-    const toString = currentTime.toString(); // 이거 개짜친다 ㄷㄷ
-    onResumeSaved({ ...data, gender, date: toString }); // 폼 데이터와 함께 성별 및 타임스탬프 전달
+    // const toString = currentTime.toString(); // 이거 개짜친다 ㄷㄷ
+    onResumeSaved({ ...data, gender, date: currentTime }); // 폼 데이터와 함께 성별 및 타임스탬프 전달
     reset(); // 폼 리셋
     handleNavigate(); // 다른 페이지로 이동
     console.log('등록함');
