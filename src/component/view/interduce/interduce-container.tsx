@@ -31,20 +31,13 @@ export const InterduceContainer = () => {
 
   useEffect(() => {
     const storedResumeTitle = localStorage.getItem('resume-title');
-    console.log('시점:', 1, storedResumeTitle);
     if (storedResumeTitle) {
-      // setResumeTitles(JSON.parse(storedResumeTitle));
       const parsedResumeTitle = JSON.parse(storedResumeTitle);
       setResumeTitles(parsedResumeTitle);
-      console.log('시점:', 2);
     }
   }, []);
 
   const saveResumeTitle = (newResumeTitle: ResumeTitle) => {
-    console.log('시점:', 3);
-    // const updateResumeTitle = [...resumeTitle, newResumeTitle];
-    // setResumeTitles(updateResumeTitle);
-    // localStorage.setItem('resume-title', JSON.stringify(updateResumeTitle));
     setResumeTitles(newResumeTitle);
     localStorage.setItem('resume-title', JSON.stringify(newResumeTitle));
   };
@@ -54,12 +47,6 @@ export const InterduceContainer = () => {
     reset(); // 폼 리셋
     console.log('자기소개 등록/수정함');
   };
-  // const onSubmit: SubmitHandler<ResumeTitle> = (data) => {
-  //   console.log('자기소개 등록/수정함', data);
-  //   saveResumeTitle(data);
-  //   reset(); // 폼 리셋
-  // };
-  //#endregion
 
   //#region handle modal
   const [open, setOpen] = useState(false);

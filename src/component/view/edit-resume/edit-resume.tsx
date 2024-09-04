@@ -8,6 +8,7 @@ import { ResumeForm } from '../../../script/dto/input-form-dto';
 export const EditResume: React.FC = () => {
   console.log('이력서 등록');
 
+  //#region handle regist companylist
   const [resumeForms, setResumeForms] = useState<ResumeForm[]>([]);
 
   useEffect(() => {
@@ -22,7 +23,9 @@ export const EditResume: React.FC = () => {
     setResumeForms(updateResumeForm);
     localStorage.setItem('resumes', JSON.stringify(updateResumeForm));
   };
+  //#endregion
 
+  //#region handle delete, edit
   // const deletResumeForm = (id: number) => {
   //   const updateResumeForm = resumeForms.filter((post) => post.id !== id);
   //   setResumeForms(updateResumeForm);
@@ -36,6 +39,7 @@ export const EditResume: React.FC = () => {
   //   setResumeForms(updateResumeForm);
   //   localStorage.setItem('resumes', JSON.stringify(updateResumeForm));
   // };
+  //#endregion
 
   return (
     <>

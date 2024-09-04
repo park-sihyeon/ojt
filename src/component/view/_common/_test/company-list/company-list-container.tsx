@@ -1,62 +1,77 @@
-import {
-  DragDropContext,
-  Draggable,
-  Droppable,
-  DropResult,
-} from '@hello-pangea/dnd';
 import { companyListContinerCss } from './company-list-container.css';
 import { AddCompanyListContent } from './add-company-list';
+import { useEffect, useState } from 'react';
+import { CompanyListDto } from '../../../../../script/dto/company-list-dto';
+import {
+  Accordion,
+  AccordionActions,
+  AccordionDetails,
+  AccordionSummary,
+  Button,
+} from '@mui/material';
+import CoreDragAndDropListView from '../../_core/core-drag-and-drop-view';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const CompanyListContainer = () => {
-  // 여기다가 목 데이터 리스트 뿌려서 보자
-  const itemList = ['1', '2', '3', '4', '5', '6'];
+  //#region get local
+  useEffect(() => {
+    const storedCompanyLists = localStorage.getItem('company-list');
+    if (storedCompanyLists) {
+      setCompanyLists(JSON.parse(storedCompanyLists));
+    }
+  }, []);
 
-  const onDragEnd = ({ draggableId, source, destination }: DropResult) => {
-    // destination => 드래그 끝난 위치, 위치가 처음과 같을 시 null
+  const [companyList, setCompanyLists] = useState<CompanyListDto[]>([]);
+  console.log('get company-list :', companyList);
+  //#endregion
 
-    // destination이 null일 때 리턴 시키기
-    if (!destination) return;
-    itemList.splice(source.index, 1);
-    itemList.splice(destination?.index, 0, draggableId);
+  //#region handle dnd
+  const handleChangeList = () => {
+    return console.log('wow');
   };
-
-  //mock data
-  // list 부분만 리렌더링 시킬 수 있는지? (되것지 뭐)
-
-  // 추가 시 가상 에러 케이스
-
+  const test = (d: CompanyListDto) => {
+    return console.log('보고싶다 친구야!!ㄴ : ', d);
+  };
+  //#endregion
   return (
     <>
       <div className={companyListContinerCss.wrapCompanyList}>
         <AddCompanyListContent />
         <div>
-          {/*  */}
-          <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable droppableId="droppableId">
-              {(provided) => (
-                <ul
-                  // className={companyListContinerCss}
-                  ref={provided.innerRef}
-                  {...provided.droppableProps}
-                >
-                  {itemList.map((item, index) => (
-                    <Draggable key={item} draggableId={item} index={index}>
-                      {(draggableProvided) => (
-                        <div
-                          ref={draggableProvided.innerRef}
-                          {...draggableProvided.draggableProps}
-                          {...draggableProvided.dragHandleProps}
-                        >
-                          <div>{item}</div>
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </ul>
-              )}
-            </Droppable>
-          </DragDropContext>
+          sad
+          <CoreDragAndDropListView
+            containerClassName={companyListContinerCss.flex}
+            items={companyList}
+            onChangeList={handleChangeList}
+            onCreateUniqueKey={(item) => {
+              test(item);
+              return item.toString();
+            }}
+            onRenderItem={(item) => (
+              <div>
+                <Accordion defaultExpanded>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel3-content"
+                    id="panel3-header"
+                  >
+                    {/* test */}
+                    {/* 회사명 / 기간 */}
+                    <div>{item.title}</div>
+                    <div>{item.period}</div>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    {/* 업무내용 */}
+                    <div>{item.content}</div>
+                  </AccordionDetails>
+                  <AccordionActions>
+                    <Button>수정</Button>
+                    <Button>삭제</Button>
+                  </AccordionActions>
+                </Accordion>
+              </div>
+            )}
+          />
         </div>
       </div>
     </>

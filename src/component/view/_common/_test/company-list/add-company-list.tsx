@@ -2,14 +2,12 @@
 
 import { Box, Card, Modal } from '@mui/material';
 import { addCompanyListCss } from './add-company-list.css';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { AddCompanyModal } from './modal/add-company-modal';
+import { CompanyListDto } from '../../../../../script/dto/company-list-dto';
 
 export const AddCompanyListContent = () => {
   //#region handle modal
-
-  //#region company list 표시
-
-  //#endregion
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -19,10 +17,27 @@ export const AddCompanyListContent = () => {
   };
   //#endregion
 
+  //#region handle regist companylist
+  const [companyList, setCompanyList] = useState<CompanyListDto[]>([]);
+
+  useEffect(() => {
+    const storedResumeForms = localStorage.getItem('company-list');
+    if (storedResumeForms) {
+      setCompanyList(JSON.parse(storedResumeForms));
+    }
+  }, []);
+
+  const saveCompanyList = (newCompanyList: CompanyListDto) => {
+    const updateCompanyList = [...companyList, newCompanyList];
+    setCompanyList(updateCompanyList);
+    localStorage.setItem('company-list', JSON.stringify(updateCompanyList));
+  };
+  //#endregion
+
   return (
     <>
       <div>
-        <Box sx={{ width: '95vw' }}>
+        <Box sx={{ width: '80vw' }}>
           <Card
             style={{
               minHeight: '140px',
@@ -40,18 +55,29 @@ export const AddCompanyListContent = () => {
                 <span className="row" />
               </div>
             </div>
-            <Modal open={open} onClose={handleClose}>
+            <Modal
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+              open={open}
+              onClose={handleClose}
+            >
               <Box
                 sx={{
-                  width: '100%',
-                  height: '90vh',
+                  width: '94vw',
+                  height: '80vh',
                   // borderTopRightRadius: 15,
                   // borderTopLeftRadius: 15,
-                  borderRadius: '15',
+                  borderRadius: '15px',
                   backgroundColor: '#fff',
                 }}
               >
                 <p>test</p>
+                <AddCompanyModal
+                  onCompanyListSaved={saveCompanyList}
+                ></AddCompanyModal>
               </Box>
             </Modal>
             {/* list */}
