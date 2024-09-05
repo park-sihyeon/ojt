@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css';
 
-export const EditResumeCss = {
+export const EditResumeContainerCss = {
   // 자기 소개
   myInfoSection: style({
     padding: '20px',

@@ -5,7 +5,6 @@ export const interduceContainerCss = {
     display: 'flex',
     justifyContent: 'center',
     backgroundColor: '#eee',
-    // marginTop: '20px',
     paddingTop: '20px',
   }),
   innerInterduceContainer: style({

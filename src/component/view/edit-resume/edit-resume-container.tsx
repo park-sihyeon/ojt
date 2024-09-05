@@ -1,11 +1,9 @@
 import { Box, Paper } from '@mui/material';
-// import { Link } from 'react-router-dom';
-// import { EditResumeCss } from './edit-resume.css';
-import { InputForm } from '../_common/input-form/input-form';
 import { useEffect, useState } from 'react';
 import { ResumeForm } from '../../../script/dto/input-form-dto';
+import { EditResumeContent } from './edit-resume-content';
 
-export const EditResume: React.FC = () => {
+export const EditResumeContainer: React.FC = () => {
   console.log('이력서 등록');
 
   //#region handle regist companylist
@@ -25,17 +23,18 @@ export const EditResume: React.FC = () => {
   };
   //#endregion
 
-  //#region handle delete, edit
-  // const deletResumeForm = (id: number) => {
-  //   const updateResumeForm = resumeForms.filter((post) => post.id !== id);
-  //   setResumeForms(updateResumeForm);
-  //   localStorage.setItem('resumes', JSON.stringify(updateResumeForm));
-  // };
+  //#region edit, delete
+  const editResumeForm = (editedResumeForm: ResumeForm) => {
+    const updateResumeForm = resumeForms.map((item) =>
+      item.id === editedResumeForm.id ? editedResumeForm : item
+    );
+    setResumeForms(updateResumeForm);
+    localStorage.setItem('resumes', JSON.stringify(updateResumeForm));
+  };
 
-  // const editResumeForm = (editedResumeForm: ResumeForm) => {
-  //   const updateResumeForm = resumeForms.map((post) =>
-  //     post.id === editedResumeForm.id ? editedResumeForm : post
-  //   );
+  // 삭제는 home list에서 삭제할 수 있도록 ㄱ
+  // const deletResumeForm = (id: number) => {
+  //   const updateResumeForm = resumeForms.filter((item) => item.id !== id);
   //   setResumeForms(updateResumeForm);
   //   localStorage.setItem('resumes', JSON.stringify(updateResumeForm));
   // };
@@ -50,13 +49,13 @@ export const EditResume: React.FC = () => {
           '& > :not(style)': {
             m: 1,
             width: '95vw',
-            height: '95vh',
+            // height: '95vh',
           },
         }}
       >
         <Paper elevation={3}>
           {/* wrap */}
-          <InputForm onResumeSaved={saveResumeForm}></InputForm>
+          <EditResumeContent onResumeSaved={saveResumeForm}></EditResumeContent>
         </Paper>
       </Box>
     </>

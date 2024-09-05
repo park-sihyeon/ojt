@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { Divider, TextField } from '@mui/material';
-import { CompanyListDto } from '../../../../../../script/dto/company-list-dto';
+import { CompanyListDto } from '../../../../script/dto/company-list-dto';
 import { useForm } from 'react-hook-form';
 import { addCompanyModalCss } from './add-company-modal.css';
 
@@ -16,7 +16,7 @@ export const AddCompanyModal: React.FC<CompanyListDtoProps> = ({
   const onSubmit = (data: CompanyListDto) => {
     const currentTime = dayjs().format('YYYY-MM-DD'); // 현재 시간 가져오기
     onCompanyListSaved({ ...data, date: currentTime }); // 폼 데이터와 함께 성별 및 타임스탬프 전달
-    reset(); // 폼 리셋/ 다른 페이지로 이동
+    reset(); // 폼 리셋
     console.log('회사 등록함');
   };
   //#endregion
@@ -24,12 +24,15 @@ export const AddCompanyModal: React.FC<CompanyListDtoProps> = ({
   return (
     <>
       <div className={addCompanyModalCss.wrapCompanyList}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <b>기본정보</b>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className={addCompanyModalCss.formSection}
+        >
+          <h2>기본정보</h2>
           <Divider />
-          {/* <input type="text" {...register('id', { required: true })} /> */}
           <div className={addCompanyModalCss.flex}>
             <TextField
+              fullWidth
               required
               id="outlined-required"
               label="회사명"
@@ -37,23 +40,33 @@ export const AddCompanyModal: React.FC<CompanyListDtoProps> = ({
               {...register('title', { required: true })}
             />
             <TextField
+              fullWidth
               id="outlined-required"
               label="링크"
               type="text"
               {...register('url', { required: false })}
             />
             <TextField
+              fullWidth
               required
               id="outlined-required"
               label="기간"
               type="text"
+              placeholder="0000.00 ~ 0000.00"
               {...register('period', { required: true })}
             />
             <TextField
+              fullWidth
               required
-              id="outlined-required"
-              label="업무 내용"
+              id="outlined-multiline-static"
+              multiline
+              rows={8}
+              // label="업무 내용"
               type="text"
+              defaultValue={`직위 -
+                
+업무 -
+                `}
               {...register('content', { required: true })}
             />
           </div>

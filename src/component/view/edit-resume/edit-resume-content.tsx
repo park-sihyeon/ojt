@@ -1,17 +1,8 @@
 // 요걸 기반으로 폼 작성
 // 일단 다 넣어놔바
-
-import {
-  // Controller,
-  // SubmitHandler,
-  useForm,
-} from 'react-hook-form';
-// import { z } from 'zod';
-// import { zodResolver } from '@hookform/resolvers/zod';
-// import { useState } from 'react';
-import { inputFormCss } from './input-form.css';
+import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import { ResumeForm } from '../../../../script/dto/input-form-dto';
+import { ResumeForm } from '../../../script/dto/input-form-dto';
 import React from 'react';
 import {
   Divider,
@@ -22,12 +13,16 @@ import {
   SelectChangeEvent,
   TextField,
 } from '@mui/material';
-import CompanyListContainer from '../_test/company-list/company-list-container';
+import CompanyListContainer from '../company-list/company-list-container';
 import dayjs from 'dayjs';
+import { editResumeContentCss } from './edit-resume-content.css';
 
-// 정규식 이메일, 전화번호
+//#region RegExp
+// 정규식 이메일, 전화번호 등 이곳에
 // const PhoneReg = new RegExp(/^01([0|1|6|7|8|9])-?([0-9]{4})-?([0-9]{4})$/);
+//#endregion
 
+//#region handle zod
 // export type InputsSchemaType = z.infer<typeof InputsSchema>; // 타입 추론 자동
 
 // const InputsSchema = z.object({
@@ -45,12 +40,15 @@ import dayjs from 'dayjs';
 //     .regex(PhoneReg, '전화번호 형식에 맞지 않습니다'),
 // });
 // or rules option으로 각각의 register('')에서 관리 가능
+//#endregion
 
 interface ResumeFormProps {
   onResumeSaved: (resumeForm: ResumeForm) => void;
 }
 
-export const InputForm: React.FC<ResumeFormProps> = ({ onResumeSaved }) => {
+export const EditResumeContent: React.FC<ResumeFormProps> = ({
+  onResumeSaved,
+}) => {
   const {
     reset,
     register,
@@ -60,43 +58,41 @@ export const InputForm: React.FC<ResumeFormProps> = ({ onResumeSaved }) => {
   } = useForm<ResumeForm>();
   const [gender, setGender] = React.useState('');
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setGender(event.target.value as string);
-  };
-
+  //#region navigate
   const navigate = useNavigate();
-  const handleNavigate = () => {
+  const goToResumeNavigate = () => {
     navigate('/resume');
   };
+  //#endregion
 
-  // const onSubmit = (data: ResumeForm) => {
-  //   onResumeSaved({ ...data });
-  //   reset(); // 폼 리셋
-  //   handleNavigate();
-  //   console.log('등록함');
-  // };
+  //#region handle change value
+  const handleChange = (event: SelectChangeEvent) => {
+    setGender(event.target.value);
+  };
+  //#endregion
+
+  //#region handle onSumit
   const onSubmit = (data: ResumeForm) => {
     const currentTime = dayjs().format('YYYY-MM-DD'); // 현재 시간 가져오기
-    // const toString = currentTime.toString(); // 이거 개짜친다 ㄷㄷ
     onResumeSaved({ ...data, gender, date: currentTime }); // 폼 데이터와 함께 성별 및 타임스탬프 전달
     reset(); // 폼 리셋
-    handleNavigate(); // 다른 페이지로 이동
+    goToResumeNavigate(); // 다른 페이지로 이동
     console.log('등록함');
   };
-
-  // const nowDate = Date.now();
+  //#endregion
 
   return (
     <>
-      <div className={inputFormCss.height100}>
+      <div className={editResumeContentCss.height100}>
         <form
-          className={inputFormCss.wrapInputFormCss}
+          className={editResumeContentCss.wrapInputFormCss}
           onSubmit={handleSubmit(onSubmit)}
         >
-          <b>기본정보</b>
+          <h2>기본정보</h2>
+          {/* 구분선 */}
           <Divider />
-          {/* <input type="text" {...register('id', { required: true })} /> */}
-          <div className={inputFormCss.row}>
+          {/* 이름, 성별  */}
+          <div className={editResumeContentCss.row}>
             <TextField
               required
               id="outlined-required"
@@ -119,6 +115,7 @@ export const InputForm: React.FC<ResumeFormProps> = ({ onResumeSaved }) => {
               </Select>
             </FormControl>
           </div>
+          {/* 전화번호 */}
           <TextField
             required
             id="outlined-required"
@@ -126,6 +123,7 @@ export const InputForm: React.FC<ResumeFormProps> = ({ onResumeSaved }) => {
             type="tel"
             {...register('phoneNumber', { required: true })}
           />
+          {/* 이메일 */}
           <TextField
             required
             id="outlined-required"
@@ -133,6 +131,7 @@ export const InputForm: React.FC<ResumeFormProps> = ({ onResumeSaved }) => {
             type="email"
             {...register('email', { required: true })}
           />
+          {/* 주소 */}
           <TextField
             required
             id="outlined-required"
@@ -140,6 +139,7 @@ export const InputForm: React.FC<ResumeFormProps> = ({ onResumeSaved }) => {
             type="text"
             {...register('address', { required: true })}
           />
+          {/* 포부 및 소개 */}
           <TextField
             required
             id="outlined-required"
@@ -169,7 +169,7 @@ export const InputForm: React.FC<ResumeFormProps> = ({ onResumeSaved }) => {
             }}
           /> */}
           {/* NAVIGATION */}
-          <b className={inputFormCss.maginTop}>경력</b>
+          <b>경력</b>
           <Divider />
           <div>
             <div>회사</div>
@@ -179,10 +179,10 @@ export const InputForm: React.FC<ResumeFormProps> = ({ onResumeSaved }) => {
             <div>프로젝트</div>
           </div>
 
-          <Link to="/" className={inputFormCss.goBack}>
+          <Link to="/" className={editResumeContentCss.goBack}>
             <p>HOME</p>
           </Link>
-          <button className={inputFormCss.submitButton} type="submit">
+          <button className={editResumeContentCss.submitButton} type="submit">
             저장
           </button>
         </form>

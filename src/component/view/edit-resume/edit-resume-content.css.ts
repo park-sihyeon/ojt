@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css';
 
-export const inputFormCss = {
+export const editResumeContentCss = {
   wrapInputFormCss: style({
     display: 'flex',
     justifyContent: 'start',
@@ -16,9 +16,9 @@ export const inputFormCss = {
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    // padding: '30px',
+    padding: '30px',
     height: '90px',
-    position: 'absolute',
+    position: 'sticky',
     bottom: '0',
     left: '0',
     backgroundColor: '#1976d2',
@@ -42,9 +42,6 @@ export const inputFormCss = {
   }),
   height100: style({
     height: '100%',
-  }),
-  maginTop: style({
-    marginTop: '20px',
   }),
   goBack: style({
     position: 'absolute',

@@ -4,7 +4,7 @@ import { Box, Card, Modal } from '@mui/material';
 import { addCompanyListCss } from './add-company-list.css';
 import React, { useEffect, useState } from 'react';
 import { AddCompanyModal } from './modal/add-company-modal';
-import { CompanyListDto } from '../../../../../script/dto/company-list-dto';
+import { CompanyListDto } from '../../../script/dto/company-list-dto';
 
 export const AddCompanyListContent = () => {
   //#region handle modal
@@ -27,7 +27,7 @@ export const AddCompanyListContent = () => {
     }
   }, []);
 
-  const saveCompanyList = (newCompanyList: CompanyListDto) => {
+  const newSaveCompanyList = (newCompanyList: CompanyListDto) => {
     const updateCompanyList = [...companyList, newCompanyList];
     setCompanyList(updateCompanyList);
     localStorage.setItem('company-list', JSON.stringify(updateCompanyList));
@@ -74,9 +74,8 @@ export const AddCompanyListContent = () => {
                   backgroundColor: '#fff',
                 }}
               >
-                <p>test</p>
                 <AddCompanyModal
-                  onCompanyListSaved={saveCompanyList}
+                  onCompanyListSaved={newSaveCompanyList}
                 ></AddCompanyModal>
               </Box>
             </Modal>
