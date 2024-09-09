@@ -1,6 +1,6 @@
 import { HomeContainer } from '../../component/view/home/home-container';
 import { AppContent } from '../../component/app-content';
-import { Resume } from '../../component/view/_common/_test/resume/resume';
+import { Resume } from '../../component/view/resume/resume';
 import { createBrowserRouter, RouteObject } from 'react-router-dom';
 import { EditResumeContainer } from '../../component/view/edit-resume/edit-resume-container';
 
@@ -10,7 +10,7 @@ const routes: Array<RouteObject> = [
     element: <HomeContainer />,
   },
   {
-    path: '/resume',
+    path: '/resume/:resumeId',
     element: <Resume />,
   },
   {

@@ -85,7 +85,7 @@ const CoreDragAndDropListView = <T,>(props: CoreDragAndDropViewProps<T>) => {
   // onCreateUniqueKey, onRenderItem이 변경될때 리렌더링
   const renderItem = useCallback(
     (item: T, index: number) => {
-      const itemId = onCreateUniqueKey(item);
+      const itemId = onCreateUniqueKey(item, index);
       // test 비활성 리스트 배열 지정
       const isDragDisabled = dragDisabledList?.some((item) => item === itemId);
 
@@ -128,8 +128,8 @@ const CoreDragAndDropListView = <T,>(props: CoreDragAndDropViewProps<T>) => {
               <CoreListView
                 className={className}
                 items={list}
-                onCreateUniqueKey={(item) => {
-                  return onCreateUniqueKey(item);
+                onCreateUniqueKey={(item, index) => {
+                  return onCreateUniqueKey(item, index);
                 }}
                 // onRenderItem={(item, index) => renderItem(item, index)}
                 // dnd 가능 여부 test

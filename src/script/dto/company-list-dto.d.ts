@@ -1,4 +1,5 @@
 export interface CompanyListDto {
+  companyListId: string; // 리스트id
   title: string; // 회사명
   date: string; // 등록 시간
   period: string; // 기간

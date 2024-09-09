@@ -1,5 +1,3 @@
-import { companyListContinerCss } from './company-list-container.css';
-import { AddCompanyListContent } from './add-company-list';
 import { useEffect, useState } from 'react';
 import {
   Accordion,
@@ -10,54 +8,59 @@ import {
 } from '@mui/material';
 import CoreDragAndDropListView from '../_common/_core/core-drag-and-drop-view';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { projectListContinerCss } from './project-list-container.css';
 import { mockGetTest } from '../../../script/mock/company-list';
+import { AddProjectListContent } from './add-project-list';
 
-const CompanyListContainer = () => {
+const ProjectListContainer = () => {
   //#region get local
   useEffect(() => {
-    const storedCompanyLists = localStorage.getItem('company-list');
-    if (storedCompanyLists) {
-      setCompanyLists(JSON.parse(storedCompanyLists));
+    const storedProjectLists = localStorage.getItem('project-list');
+    if (storedProjectLists) {
+      setProjectLists(JSON.parse(storedProjectLists));
     }
   }, []);
 
-  const [companyList, setCompanyLists] = useState(mockGetTest);
+  // const [projectList, setProjectLists] = useState<ProjectListDto[]>([]);
+  const [projectList, setProjectLists] = useState(mockGetTest);
   //#endregion
 
   //#region handle dnd
-  const handleChangeList = () => {};
+  const handleChangeList = () => {
+    return console.log('wow');
+  };
   //#endregion
 
   return (
     <>
-      <div className={companyListContinerCss.wrapCompanyList}>
-        <AddCompanyListContent />
-        <div className={companyListContinerCss.dragAndDropSection}>
+      <div className={projectListContinerCss.wrapProjectList}>
+        <AddProjectListContent />
+        <div className={projectListContinerCss.dragAndDropSection}>
           <CoreDragAndDropListView
-            // containerClassName={companyListContinerCss.flex}
-            items={companyList}
+            // containerClassName={projectListContinerCss.flex}
+            items={projectList}
             onChangeList={handleChangeList}
             onCreateUniqueKey={(item, i) => {
-              return item.companyLists[i].companyListId.toString();
+              return item.projectLists[i].projectListId.toString();
             }}
             onRenderItem={(item, i) => (
               <div>
-                <Accordion className={companyListContinerCss.accordrion}>
+                <Accordion className={projectListContinerCss.accordrion}>
                   <div className="column">
                     <div>
                       <p className="accordion-title">
-                        {item.companyLists[i].title || ''}
+                        {item.projectLists[i].title || ''}
                       </p>
                       <p className="accordion-period">
-                        {item.companyLists[i].period || ''}
+                        {item.projectLists[i].period || ''}
                       </p>
-                      <div className={companyListContinerCss.hamburger}>
+                      <div className={projectListContinerCss.hamburger}>
                         <span className="line" />
                         <span className="line" />
                         <span className="line" />
                       </div>
                     </div>
-                    <div className={companyListContinerCss.flex}>
+                    <div className={projectListContinerCss.flex}>
                       <p>상세 보기</p>
                       <AccordionSummary
                         expandIcon={<ExpandMoreIcon sx={{ width: 30 }} />}
@@ -72,7 +75,7 @@ const CompanyListContainer = () => {
                   </div>
                   <AccordionDetails>
                     {/* 업무내용 */}
-                    <div>{item.companyLists[i].content || ''}</div>
+                    <div>{item.projectLists[i].content || ''}</div>
                   </AccordionDetails>
                   <AccordionActions>
                     <Button>수정</Button>
@@ -88,4 +91,4 @@ const CompanyListContainer = () => {
   );
 };
 
-export default CompanyListContainer;
+export default ProjectListContainer;

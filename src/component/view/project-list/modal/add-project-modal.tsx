@@ -1,21 +1,19 @@
-import dayjs from 'dayjs';
 import { Divider, TextField } from '@mui/material';
-import { CompanyListDto } from '../../../../script/dto/company-list-dto';
+import { ProjectListDto } from '../../../../script/dto/project-list-dto';
 import { useForm } from 'react-hook-form';
-import { addCompanyModalCss } from './add-company-modal.css';
+import { addProjectModalCss } from './add-project-modal.css';
 
-interface CompanyListDtoProps {
-  onCompanyListSaved: (companyListDto: CompanyListDto) => void;
+interface ProjectListDtoProps {
+  onProjectListSaved: (projectListDto: ProjectListDto) => void;
 }
 
-export const AddCompanyModal: React.FC<CompanyListDtoProps> = ({
-  onCompanyListSaved,
+export const AddProjectModal: React.FC<ProjectListDtoProps> = ({
+  onProjectListSaved,
 }) => {
   //#region handle onsubmit
-  const { reset, register, handleSubmit } = useForm<CompanyListDto>();
-  const onSubmit = (data: CompanyListDto) => {
-    const currentTime = dayjs().format('YYYY-MM-DD'); // 현재 시간 가져오기
-    onCompanyListSaved({ ...data, date: currentTime }); // 폼 데이터 및 타임스탬프 전달
+  const { reset, register, handleSubmit } = useForm<ProjectListDto>();
+  const onSubmit = (data: ProjectListDto) => {
+    onProjectListSaved({ ...data }); // 폼 데이터 전달
     reset(); // 폼 리셋
     console.log('회사 등록함');
   };
@@ -23,19 +21,19 @@ export const AddCompanyModal: React.FC<CompanyListDtoProps> = ({
 
   return (
     <>
-      <div className={addCompanyModalCss.wrapCompanyList}>
+      <div className={addProjectModalCss.wrapProjectList}>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className={addCompanyModalCss.formSection}
+          className={addProjectModalCss.formSection}
         >
-          <h2>기본정보</h2>
+          <h2>프로젝트 정보</h2>
           <Divider />
-          <div className={addCompanyModalCss.flex}>
+          <div className={addProjectModalCss.flex}>
             <TextField
               fullWidth
               required
               id="outlined-required"
-              label="회사명"
+              label="프로젝트명"
               type="text"
               {...register('title', { required: true })}
             />
@@ -58,9 +56,26 @@ export const AddCompanyModal: React.FC<CompanyListDtoProps> = ({
             <TextField
               fullWidth
               required
+              id="outlined-required"
+              label="프로젝트 인원"
+              type="text"
+              {...register('period', { required: true })}
+            />
+            <TextField
+              fullWidth
+              required
+              id="outlined-required"
+              label="프로젝트 설명"
+              type="text"
+              placeholder=""
+              {...register('description', { required: true })}
+            />
+            <TextField
+              fullWidth
+              required
               id="outlined-multiline-static"
               multiline
-              rows={8}
+              rows={4}
               // label="업무 내용"
               type="text"
               defaultValue={`직위 -
@@ -70,7 +85,7 @@ export const AddCompanyModal: React.FC<CompanyListDtoProps> = ({
               {...register('content', { required: true })}
             />
           </div>
-          <button className={addCompanyModalCss.submitButton} type="submit">
+          <button className={addProjectModalCss.submitButton} type="submit">
             등록
           </button>
         </form>

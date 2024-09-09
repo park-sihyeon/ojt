@@ -77,4 +77,12 @@ export const ResumeCss = {
     fontWeight: 700,
     color: '#111',
   }),
+  list: style({
+    display: 'flex',
+    flexDirection: 'column',
+    padding: '20px 0',
+    gap: '8px',
+    borderTop: '1px solid #ddd',
+    borderBottom: '1px solid #ddd',
+  }),
 };

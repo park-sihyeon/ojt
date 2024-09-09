@@ -1,11 +1,9 @@
 import { Box, Paper } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { ResumeForm } from '../../../script/dto/input-form-dto';
+import { ResumeForm } from '../../../script/dto/resume-form-dto';
 import { EditResumeContent } from './edit-resume-content';
 
 export const EditResumeContainer: React.FC = () => {
-  console.log('이력서 등록');
-
   //#region handle regist companylist
   const [resumeForms, setResumeForms] = useState<ResumeForm[]>([]);
 
@@ -26,7 +24,7 @@ export const EditResumeContainer: React.FC = () => {
   //#region edit, delete
   const editResumeForm = (editedResumeForm: ResumeForm) => {
     const updateResumeForm = resumeForms.map((item) =>
-      item.id === editedResumeForm.id ? editedResumeForm : item
+      item.resumeId === editedResumeForm.resumeId ? editedResumeForm : item
     );
     setResumeForms(updateResumeForm);
     localStorage.setItem('resumes', JSON.stringify(updateResumeForm));
