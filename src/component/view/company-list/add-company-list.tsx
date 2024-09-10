@@ -2,9 +2,9 @@
 
 import { Box, Card, Modal } from '@mui/material';
 import { addCompanyListCss } from './add-company-list.css';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { AddCompanyModal } from './modal/add-company-modal';
-import { CompanyListDto } from '../../../script/dto/company-list-dto';
+// import { CompanyListDto } from '../../../script/dto/company-list-dto';
 
 export const AddCompanyListContent = () => {
   //#region handle modal
@@ -16,24 +16,6 @@ export const AddCompanyListContent = () => {
     setOpen(false);
   };
   //#endregion
-
-  //#region handle regist companylist
-  const [companyList, setCompanyList] = useState<CompanyListDto[]>([]);
-
-  useEffect(() => {
-    const storedResumeForms = localStorage.getItem('company-list');
-    if (storedResumeForms) {
-      setCompanyList(JSON.parse(storedResumeForms));
-    }
-  }, []);
-
-  const newSaveCompanyList = (newCompanyList: CompanyListDto) => {
-    const updateCompanyList = [...companyList, newCompanyList];
-    setCompanyList(updateCompanyList);
-    localStorage.setItem('company-list', JSON.stringify(updateCompanyList));
-  };
-  //#endregion
-
   return (
     <>
       <div>
@@ -68,15 +50,11 @@ export const AddCompanyListContent = () => {
                 sx={{
                   width: '94vw',
                   height: '80vh',
-                  // borderTopRightRadius: 15,
-                  // borderTopLeftRadius: 15,
                   borderRadius: '15px',
                   backgroundColor: '#fff',
                 }}
               >
-                <AddCompanyModal
-                  onCompanyListSaved={newSaveCompanyList}
-                ></AddCompanyModal>
+                <AddCompanyModal></AddCompanyModal>
               </Box>
             </Modal>
             {/* list */}

@@ -2,6 +2,7 @@ import { ProjectListDto } from './project-list-dto';
 import { CompanyListDto } from './company-list-dto';
 
 export interface ResumeForm {
+  index: number;
   resumeId: string; //이력서id
   title: string; // 이력서 타이틀
   name: string; // 이름

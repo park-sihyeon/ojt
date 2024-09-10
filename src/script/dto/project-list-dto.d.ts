@@ -1,4 +1,5 @@
 export interface ProjectListDto {
+  index: number;
   projectListId: string; // 프로젝트id
   title: string; // 프로젝트명
   period: string; // 기간

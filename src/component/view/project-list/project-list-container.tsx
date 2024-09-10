@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import {
   Accordion,
   AccordionActions,
@@ -9,25 +8,39 @@ import {
 import CoreDragAndDropListView from '../_common/_core/core-drag-and-drop-view';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { projectListContinerCss } from './project-list-container.css';
-import { mockGetTest } from '../../../script/mock/company-list';
 import { AddProjectListContent } from './add-project-list';
+import { useResumeStore } from '../../../script/store/use-resume-store';
+import { useParams } from 'react-router-dom';
+import { ProjectListDto } from '../../../script/dto/project-list-dto';
+import { useProjectStore } from '../../../script/store/use-project-list-store';
 
 const ProjectListContainer = () => {
   //#region get local
-  useEffect(() => {
-    const storedProjectLists = localStorage.getItem('project-list');
-    if (storedProjectLists) {
-      setProjectLists(JSON.parse(storedProjectLists));
-    }
-  }, []);
+  const { resumeId } = useParams<{ resumeId: string }>();
+  const { getResumeById } = useResumeStore();
+  const { deleteProject } = useProjectStore();
 
-  // const [projectList, setProjectLists] = useState<ProjectListDto[]>([]);
-  const [projectList, setProjectLists] = useState(mockGetTest);
+  if (!resumeId)
+    return (
+      <div>
+        이력서에 프로젝트 경력이 없어ㅇㅅㅇ 추가해줘
+        <AddProjectListContent />
+      </div>
+    );
+  const formattedResumeId = resumeId.replace(':', '');
+  const resumeData = getResumeById(formattedResumeId);
   //#endregion
 
-  //#region handle dnd
-  const handleChangeList = () => {
-    return console.log('wow');
+  //#region handle save
+  const handleEditProject = (item: ProjectListDto) => {
+    // 수정 시 모달 어픈
+    console.log('컨설 수정 모달 오쁜', item);
+  };
+  //#endregion
+
+  //#region handle delete
+  const handleDeleteProject = (id: string) => {
+    deleteProject(id);
   };
   //#endregion
 
@@ -38,22 +51,17 @@ const ProjectListContainer = () => {
         <div className={projectListContinerCss.dragAndDropSection}>
           <CoreDragAndDropListView
             // containerClassName={projectListContinerCss.flex}
-            items={projectList}
-            onChangeList={handleChangeList}
+            items={resumeData?.projectLists}
             onCreateUniqueKey={(item, i) => {
-              return item.projectLists[i].projectListId.toString();
+              return item.projectListId[i];
             }}
-            onRenderItem={(item, i) => (
+            onRenderItem={(item) => (
               <div>
                 <Accordion className={projectListContinerCss.accordrion}>
                   <div className="column">
                     <div>
-                      <p className="accordion-title">
-                        {item.projectLists[i].title || ''}
-                      </p>
-                      <p className="accordion-period">
-                        {item.projectLists[i].period || ''}
-                      </p>
+                      <p className="accordion-title">{item.title}</p>
+                      <p className="accordion-period">{item.period}</p>
                       <div className={projectListContinerCss.hamburger}>
                         <span className="line" />
                         <span className="line" />
@@ -75,11 +83,18 @@ const ProjectListContainer = () => {
                   </div>
                   <AccordionDetails>
                     {/* 업무내용 */}
-                    <div>{item.projectLists[i].content || ''}</div>
+                    <div>{item.content}</div>
                   </AccordionDetails>
                   <AccordionActions>
-                    <Button>수정</Button>
-                    <Button>삭제</Button>
+                    <Button onClick={() => handleEditProject(item)}>
+                      수정
+                    </Button>
+                    //{' '}
+                    <Button
+                      onClick={() => handleDeleteProject(item.projectListId)}
+                    >
+                      삭제
+                    </Button>
                   </AccordionActions>
                 </Accordion>
               </div>

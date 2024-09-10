@@ -3,24 +3,23 @@
 import { Controller, useForm } from 'react-hook-form';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { ResumeForm } from '../../../script/dto/resume-form-dto';
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import {
   Divider,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
-  SelectChangeEvent,
   TextField,
 } from '@mui/material';
 import CompanyListContainer from '../company-list/company-list-container';
-import dayjs from 'dayjs';
 import { editResumeContentCss } from './edit-resume-content.css';
 import ProjectListContainer from '../project-list/project-list-container';
 import { z } from 'zod';
 import { PhoneReg } from '../_common/_core/core-input-formatter';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useResumeStore } from '../../../script/store/use-resume-store';
+import dayjs from 'dayjs';
 
 //#region handle zod
 export type InputsSchemaType = z.infer<typeof InputsSchema>; // 타입 추론 자동
@@ -34,6 +33,7 @@ const InputsSchema = z.object({
     // .nonempty("이메일을 입력해주세요") // 이제 지원 안한다고 함 ㅠ
     .email('이메일 형식에 맞지 않습니다'),
   address: z.string().min(1, '주소를 입력해주세요'),
+  gender: z.string(),
   phoneNumber: z
     .string()
     .min(1, '전화번호를 입력해주세요')
@@ -50,7 +50,13 @@ interface ResumeFormProps {
 export const EditResumeContent: React.FC<ResumeFormProps> = ({
   onResumeSaved,
 }) => {
-  //#region handle zod react-hook-form
+  const { resumeId } = useParams<{ resumeId: string }>();
+  const formatResumeId = resumeId?.replace(':', '');
+  const { addResume, updateResume, getResumeById } = useResumeStore();
+  console.log('resumeId 이제 제대로 나오니?', resumeId);
+  const navigate = useNavigate();
+
+  //#region react-hook-form & resolver
   const {
     control,
     register,
@@ -63,57 +69,60 @@ export const EditResumeContent: React.FC<ResumeFormProps> = ({
   });
   //#endregion
 
-  const [gender, setGender] = React.useState('');
-
-  //#region navigate 수정해해해해해ㅐㅎ잇
-  const navigate = useNavigate();
-  const goToResumeNavigate = () => {
-    // id 값 비교해서 ㄱ
-    navigate('/resume');
-  };
-  //#endregion
-
-  //#region handle change value
-  const handleChange = (event: SelectChangeEvent) => {
-    setGender(event.target.value);
-  };
-  //#endregion
-
-  //#region createResumeId
-  // 너 이렇게 할꺼임? ㄹㅇ?
-  const [resumeForms, setResumeForms] = useState<ResumeForm[]>([]);
-  const { resumeId } = useParams<{ resumeId: string }>();
-  // console.log('resumeId 아이디', resumeId);
-  const { getResumeById } = useResumeStore();
-  const Formatting = resumeId?.replace(':', '');
-  const resume = getResumeById(Formatting as string);
-  const createResumeId = () => {
-    if (!resumeId) {
-      // resumeId 없을 때(새 이력서 추가)
-      // resumeId 있을 때(이력서 수정)
-      // resumeId가 없고 resumeForms가 없을 때 createResumeId = 1
-      return !resumeForms ? '1' : (resumeForms.length + 1).toString();
-    } else {
-      return resume;
+  //#region handle reset 수정 시 해당 이력서 데이터로 리셋
+  useEffect(() => {
+    if (formatResumeId) {
+      const resumeData = getResumeById(formatResumeId);
+      console.log('resumeData', resumeData);
+      if (resumeData) {
+        reset({
+          title: resumeData.title,
+          name: resumeData.name,
+          email: resumeData.email,
+          address: resumeData.address,
+          phoneNumber: resumeData.phoneNumber,
+          textarea: resumeData.textarea,
+          gender: resumeData.gender,
+        });
+      }
     }
-  };
+  }, [formatResumeId, getResumeById, reset]);
   //#endregion
 
-  //#region handle onSumit
+  //#region handle onsumit
   const onSubmit = (data: InputsSchemaType) => {
-    const currentTime = dayjs().format('YYYY-MM-DD'); // 현재 시간 가져오기
-    const resumeForm: ResumeForm = {
-      ...data,
-      resumeId: createResumeId(), // ID 생성?
-      gender,
-      date: currentTime,
-      companyLists: [], // 회사 list 데이Eㅏ
-      projectLists: [], // 프로젝트 list 데이Eㅏ
-    };
-    onResumeSaved(resumeForm); // 폼 데이터와 함께 성별 및 타임스탬프 전달
-    reset();
-    goToResumeNavigate();
-    console.log('등록함');
+    if (!resumeId) {
+      // 이력서 등록 (id,index는 store에서 자동 생성 ㄱ )
+      console.log('이력서 등록');
+      const newResumeId = Date.now().toString();
+      const addResumeData: Omit<ResumeForm, 'index'> = {
+        ...data,
+        date: dayjs().format('YYYY-MM-DD'),
+        resumeId: newResumeId,
+        companyLists: [], // 회사 list 데이Eㅏ
+        projectLists: [], // 프로젝트 list 데이Eㅏ
+      };
+      console.log('설마?');
+      addResume(addResumeData);
+      navigate(`/resume/${newResumeId}`);
+    } else {
+      // 이력서 수정
+      console.log('이력서 수정');
+      const resumeData = getResumeById(formatResumeId as string);
+      const updatedResumeData: ResumeForm = {
+        ...data,
+        resumeId: formatResumeId as string,
+        date: dayjs().format('YYYY-MM-DD'), // 최종편집 일시
+        index: Number(resumeData?.index),
+        companyLists: [], // 회사 list 데이Eㅏ
+        projectLists: [], // 프로젝트 list 데이Eㅏ
+      };
+      onResumeSaved(updatedResumeData); // 폼 데이터 전달
+      updateResume(updatedResumeData);
+      console.log('updatedResumeData 너 변경이 안되었니?', updatedResumeData);
+      console.log('비교갑니다잉', updatedResumeData, resumeData);
+      navigate(`/resume/${formatResumeId}`);
+    }
   };
   //#endregion
   return (
@@ -133,6 +142,8 @@ export const EditResumeContent: React.FC<ResumeFormProps> = ({
             label="이력서 타이틀"
             type="text"
             {...register('title', { required: true })}
+            error={!!errors.title}
+            helperText={errors.title?.message}
           />
           {/* 이름, 성별  */}
           <div className={editResumeContentCss.row}>
@@ -142,6 +153,8 @@ export const EditResumeContent: React.FC<ResumeFormProps> = ({
               label="이름"
               type="text"
               {...register('name', { required: true })}
+              error={!!errors.name}
+              helperText={errors.name?.message}
             />
             <FormControl fullWidth>
               <InputLabel id="select-label">성별</InputLabel>
@@ -149,9 +162,8 @@ export const EditResumeContent: React.FC<ResumeFormProps> = ({
                 required
                 labelId="select-label"
                 id="select"
-                value={gender}
                 label="gender"
-                onChange={handleChange}
+                {...register('gender', { required: true })}
               >
                 <MenuItem value="male">남성</MenuItem>
                 <MenuItem value="female">여성</MenuItem>
@@ -171,10 +183,10 @@ export const EditResumeContent: React.FC<ResumeFormProps> = ({
                   id="outlined-required"
                   label="전화번호"
                   type="tel"
-                  // error={Boolean(errors.text)} // 에러 메세지 처리는 적용 이후에..
-                  // helperText={errors.text?.message}
                   inputRef={ref}
                   {...register('phoneNumber', { required: true })}
+                  error={!!errors.phoneNumber}
+                  helperText={errors.phoneNumber?.message}
                 />
               );
             }}
@@ -186,6 +198,8 @@ export const EditResumeContent: React.FC<ResumeFormProps> = ({
             label="이메일"
             type="email"
             {...register('email', { required: true })}
+            error={!!errors.email}
+            helperText={errors.email?.message}
           />
           {/* 주소 */}
           <TextField
@@ -194,6 +208,8 @@ export const EditResumeContent: React.FC<ResumeFormProps> = ({
             label="주소"
             type="text"
             {...register('address', { required: true })}
+            error={!!errors.address}
+            helperText={errors.address?.message}
           />
           {/* 포부 및 소개 */}
           <TextField
@@ -202,6 +218,8 @@ export const EditResumeContent: React.FC<ResumeFormProps> = ({
             label="소개 및 포부"
             type="text"
             {...register('textarea', { required: false })}
+            error={!!errors.textarea}
+            helperText={errors.textarea?.message}
           />
           {/* NAVIGATION */}
           <b>경력</b>

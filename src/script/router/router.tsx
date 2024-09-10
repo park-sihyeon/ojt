@@ -10,11 +10,11 @@ const routes: Array<RouteObject> = [
     element: <HomeContainer />,
   },
   {
-    path: '/resume/:resumeId',
+    path: '/resume/:resumeId?',
     element: <Resume />,
   },
   {
-    path: '/edit-resume',
+    path: '/edit-resume/:resumeId?',
     element: <EditResumeContainer />,
   },
 ];

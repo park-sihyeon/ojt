@@ -1,8 +1,7 @@
 // 화면상으로 보기위해 생성
 
 import { Box, Card, Modal } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import { ProjectListDto } from '../../../script/dto/project-list-dto';
+import React from 'react';
 import { AddProjectModal } from './modal/add-project-modal';
 import { addProjectListCss } from './add-project-list.css';
 
@@ -16,24 +15,6 @@ export const AddProjectListContent = () => {
     setOpen(false);
   };
   //#endregion
-
-  //#region handle regist projectlist
-  const [projectList, setProjectList] = useState<ProjectListDto[]>([]);
-
-  useEffect(() => {
-    const storedResumeForms = localStorage.getItem('project-list');
-    if (storedResumeForms) {
-      setProjectList(JSON.parse(storedResumeForms));
-    }
-  }, []);
-
-  const newSaveProjectList = (newProjectList: ProjectListDto) => {
-    const updateProjectList = [...projectList, newProjectList];
-    setProjectList(updateProjectList);
-    localStorage.setItem('project-list', JSON.stringify(updateProjectList));
-  };
-  //#endregion
-
   return (
     <>
       <div>
@@ -75,9 +56,7 @@ export const AddProjectListContent = () => {
                   overflow: 'scroll',
                 }}
               >
-                <AddProjectModal
-                  onProjectListSaved={newSaveProjectList}
-                ></AddProjectModal>
+                <AddProjectModal></AddProjectModal>
               </Box>
             </Modal>
             {/* list */}

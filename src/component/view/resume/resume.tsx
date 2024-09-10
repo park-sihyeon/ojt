@@ -17,10 +17,16 @@ export const Resume: React.FC = () => {
   const { getResumeById, deleteResume } = useResumeStore();
   const resume = getResumeById(Formatting as string);
 
+  // //#region handle delete resume
+  // useEffect(() => {
+  //   console.log('지름길ㄴ', resumes);
+  // }, []);
+  // //#endregion
+
   if (!resume) {
     // 이력서 id가 잘못 매칭 되었을 때 보여줄 화면
     // 홈으로 갈 수 있게 네비처리가 필요하지 않을까???
-    return <div>겟 아웃 마이 rusume!</div>;
+    return <div>겟 아웃 마이 rusume! 삭제후 홈으로 작업해라 중생아</div>;
   }
   //#endregion
 

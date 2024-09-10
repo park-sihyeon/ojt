@@ -22,13 +22,13 @@ export const EditResumeContainer: React.FC = () => {
   //#endregion
 
   //#region edit, delete
-  const editResumeForm = (editedResumeForm: ResumeForm) => {
-    const updateResumeForm = resumeForms.map((item) =>
-      item.resumeId === editedResumeForm.resumeId ? editedResumeForm : item
-    );
-    setResumeForms(updateResumeForm);
-    localStorage.setItem('resumes', JSON.stringify(updateResumeForm));
-  };
+  // const editResumeForm = (editedResumeForm: ResumeForm) => {
+  //   const updateResumeForm = resumeForms.map((item) =>
+  //     item.resumeId === editedResumeForm.resumeId ? editedResumeForm : item
+  //   );
+  //   setResumeForms(updateResumeForm);
+  //   localStorage.setItem('resumes', JSON.stringify(updateResumeForm));
+  // };
 
   // 삭제는 home list에서 삭제할 수 있도록 ㄱ
   // const deletResumeForm = (id: number) => {
