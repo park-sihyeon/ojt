@@ -10,6 +10,7 @@ export const projectListContinerCss = {
     marginBottom: '35px',
     flexDirection: 'column',
     background: '#eee',
+    position: 'relative',
   }),
   dragAndDropSection: style({
     width: '100%',

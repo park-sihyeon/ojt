@@ -1,14 +1,14 @@
 import { style } from '@vanilla-extract/css';
 
 export const editResumeContentCss = {
-  wrapInputFormCss: style({
+  inputFormSection: style({
     display: 'flex',
     justifyContent: 'start',
     alignItems: '',
     flexDirection: 'column',
-    height: '100%',
-    position: 'relative',
-    gap: '10px',
+    // height: '100%',
+    // position: 'relative',
+    gap: '16px',
     padding: '20px',
   }),
   submitButton: style({
@@ -18,7 +18,7 @@ export const editResumeContentCss = {
     width: '100%',
     padding: '30px',
     height: '90px',
-    position: 'sticky',
+    position: 'absolute',
     bottom: '0',
     left: '0',
     backgroundColor: '#1976d2',
@@ -26,6 +26,7 @@ export const editResumeContentCss = {
     fontSize: '20px',
     fontWeight: '700',
     border: 'none',
+    zIndex: '100',
   }),
   column: style({
     display: 'flex',
@@ -39,9 +40,6 @@ export const editResumeContentCss = {
     alignItems: 'center',
     flexDirection: 'row',
     gap: '10px',
-  }),
-  height100: style({
-    height: '100%',
   }),
   goBack: style({
     position: 'absolute',

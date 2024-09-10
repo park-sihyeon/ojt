@@ -20,6 +20,7 @@ import { PhoneReg } from '../_common/_core/core-input-formatter';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useResumeStore } from '../../../script/store/use-resume-store';
 import dayjs from 'dayjs';
+import { useCompanyStore } from '../../../script/store/use-company-list-store';
 
 //#region handle zod
 export type InputsSchemaType = z.infer<typeof InputsSchema>; // 타입 추론 자동
@@ -53,6 +54,7 @@ export const EditResumeContent: React.FC<ResumeFormProps> = ({
   const { resumeId } = useParams<{ resumeId: string }>();
   const formatResumeId = resumeId?.replace(':', '');
   const { addResume, updateResume, getResumeById } = useResumeStore();
+  const { selectedCompanyIndex, companys } = useCompanyStore();
   console.log('resumeId 이제 제대로 나오니?', resumeId);
   const navigate = useNavigate();
 
@@ -92,8 +94,6 @@ export const EditResumeContent: React.FC<ResumeFormProps> = ({
   //#region handle onsumit
   const onSubmit = (data: InputsSchemaType) => {
     if (!resumeId) {
-      // 이력서 등록 (id,index는 store에서 자동 생성 ㄱ )
-      console.log('이력서 등록');
       const newResumeId = Date.now().toString();
       const addResumeData: Omit<ResumeForm, 'index'> = {
         ...data,
@@ -102,34 +102,37 @@ export const EditResumeContent: React.FC<ResumeFormProps> = ({
         companyLists: [], // 회사 list 데이Eㅏ
         projectLists: [], // 프로젝트 list 데이Eㅏ
       };
-      console.log('설마?');
       addResume(addResumeData);
+      console.log('새거', addResumeData);
       navigate(`/resume/${newResumeId}`);
     } else {
       // 이력서 수정
-      console.log('이력서 수정');
+      const companyData = (data: number) => {
+        return companys[data];
+      };
       const resumeData = getResumeById(formatResumeId as string);
       const updatedResumeData: ResumeForm = {
         ...data,
         resumeId: formatResumeId as string,
         date: dayjs().format('YYYY-MM-DD'), // 최종편집 일시
         index: Number(resumeData?.index),
-        companyLists: [], // 회사 list 데이Eㅏ
+        companyLists: selectedCompanyIndex
+          ? [companyData(selectedCompanyIndex)]
+          : [], // 회사 list 데이Eㅏ
         projectLists: [], // 프로젝트 list 데이Eㅏ
       };
       onResumeSaved(updatedResumeData); // 폼 데이터 전달
       updateResume(updatedResumeData);
-      console.log('updatedResumeData 너 변경이 안되었니?', updatedResumeData);
-      console.log('비교갑니다잉', updatedResumeData, resumeData);
+      console.log('이력서 수정 비교갑니다잉', updatedResumeData, resumeData);
       navigate(`/resume/${formatResumeId}`);
     }
   };
   //#endregion
   return (
     <>
-      <div className={editResumeContentCss.height100}>
+      <div>
         <form
-          className={editResumeContentCss.wrapInputFormCss}
+          className={editResumeContentCss.inputFormSection}
           onSubmit={handleSubmit(onSubmit)}
         >
           <h2>기본정보</h2>
@@ -171,7 +174,6 @@ export const EditResumeContent: React.FC<ResumeFormProps> = ({
             </FormControl>
           </div>
           {/* 전화번호 */}
-
           {/* controller 사용 테스트 */}
           <Controller
             name="phoneNumber"
@@ -222,16 +224,6 @@ export const EditResumeContent: React.FC<ResumeFormProps> = ({
             helperText={errors.textarea?.message}
           />
           {/* NAVIGATION */}
-          <b>경력</b>
-          <Divider />
-          <div>
-            <div>회사</div>
-            <CompanyListContainer />
-          </div>
-          <div>
-            <div>프로젝트</div>
-            <ProjectListContainer />
-          </div>
 
           <Link to="/" className={editResumeContentCss.goBack}>
             <p>HOME</p>
@@ -240,6 +232,15 @@ export const EditResumeContent: React.FC<ResumeFormProps> = ({
             저장
           </button>
         </form>
+        <div className={editResumeContentCss.inputFormSection}>
+          <b>경력</b>
+          <Divider />
+          <div>회사</div>
+          <CompanyListContainer />
+          <Divider />
+          <div>프로젝트</div>
+          <ProjectListContainer />
+        </div>
       </div>
     </>
   );

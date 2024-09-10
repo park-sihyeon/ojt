@@ -3,12 +3,10 @@ import { Divider, TextField } from '@mui/material';
 import { CompanyListDto } from '../../../../script/dto/company-list-dto';
 import { useForm } from 'react-hook-form';
 import { addCompanyModalCss } from './add-company-modal.css';
-import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useResumeStore } from '../../../../script/store/use-resume-store';
-import { ResumeForm } from '../../../../script/dto/resume-form-dto';
+import { useCompanyStore } from '../../../../script/store/use-company-list-store';
 
 //#region handle zod
 export type InputsSchemaType = z.infer<typeof InputsSchema>; // 타입 추론 자동
@@ -28,6 +26,9 @@ interface CompanyListDtoProps {
 export const AddCompanyModal: React.FC<CompanyListDtoProps> = ({
   defualtCompany,
 }) => {
+  // const { resumeId } = useParams<{ resumeId: string }>();
+  // const formatResumeId = resumeId?.replace(':', '');
+
   //#region handle zod react-hook-form
   const {
     reset,
@@ -40,100 +41,60 @@ export const AddCompanyModal: React.FC<CompanyListDtoProps> = ({
   });
   //#endregion
 
-  // const { getCompanyById, addCompany, updateCompany } = useCompanyStore();
-  const { getResumeById, addResumeCompany, updateResumeCompany } =
-    useResumeStore();
+  //#region store (useCompanyStore)
+  const {
+    selectedCompanyIndex,
+    closeModal,
+    companys,
+    updateCompany,
+    addCompany,
+    currentResumeKey,
+  } = useCompanyStore();
+  //#endregion
 
   //#region 수정으로 들어올 시 기본값으로 reset 시키기
-  const { resumeId } = useParams<{ resumeId: string }>();
-
   useEffect(() => {
-    if (resumeId) {
-      const companyData = getResumeById(resumeId)?.companyLists;
-      const index = Number(getResumeById(resumeId)?.index);
+    // 선택한 인덱스 값이 있고 0 이상일때, companylist data가 있으면? 해당 data로 디폴트값으로 리셋
+    if (selectedCompanyIndex !== null && selectedCompanyIndex >= 0) {
+      const companyData = companys[selectedCompanyIndex];
       if (companyData) {
         reset({
-          title: companyData[index].title,
-          url: companyData[index].url,
-          content: companyData[index].content,
-          period: companyData[index].period,
+          title: companyData.title,
+          url: companyData.url,
+          content: companyData.content,
+          period: companyData.period,
         });
       }
     }
-  }, [resumeId, getResumeById, reset]);
-  // const { resumeId } = useParams<{ resumeId: string }>();
-  // useEffect(() => {
-  //   if (resumeId) {
-  //     const companyData = getCompanyById(resumeId);
-  //     if (companyData) {
-  //       reset({
-  //         title: companyData.title,
-  //         url: companyData.url,
-  //         content: companyData.content,
-  //         period: companyData.period,
-  //       });
-  //     }
-  //   }
-  // }, [resumeId, getCompanyById, reset]);
+  }, [selectedCompanyIndex, companys, reset]);
   //#endregion
 
   //#region handle onsubmit
-  const onSubmit = (data: InputsSchemaType) => {
-    if (!resumeId) {
-      // 회사 리스트 등록
-      console.log('회사 리스트 등록');
-      const addCompanyData: Omit<CompanyListDto, 'companyListId' | 'index'> = {
+  const onCompanySubmit = (data: InputsSchemaType) => {
+    if (selectedCompanyIndex === -1) {
+      // 새로운 회사 추가
+      const getCompanyList = localStorage.getItem('test');
+      const newCompanyId = Date.now().toString();
+      const addCompanyData: CompanyListDto = {
+        ...data,
+        index: getCompanyList ? getCompanyList.length : 0,
+        companyListId: newCompanyId,
+        date: dayjs().format('YYYY-MM-DD'),
+      };
+      addCompany(addCompanyData);
+      console.log('회사 리스트 추가', addCompanyData);
+    } else {
+      // 기존 회사 수정
+      const updateCompanyData: CompanyListDto = {
         ...data,
         date: dayjs().format('YYYY-MM-DD'),
+        index: selectedCompanyIndex as number,
+        companyListId: companys[selectedCompanyIndex as number].companyListId,
       };
-      addResumeCompany(addCompanyData);
-      console.log('addCompanyData가 궁그메 :', addCompanyData);
-      console.log(
-        'addResumeCompany(addCompanyData)가 궁그메 :',
-        addResumeCompany(addCompanyData)
-      );
-      // addCompany(addCompanyData);
-    } else {
-      // 회사 리스트 수정
-      console.log('회사 리스트 수정');
-      const resumeData = getResumeById(resumeId);
-      const updateCompanyData: Omit<
-        ResumeForm,
-        | 'projectLists'
-        | 'title'
-        | 'name'
-        | 'gender'
-        | 'phoneNumber'
-        | 'textarea'
-        | 'email'
-      > = {
-        date: dayjs().format('YYYY-MM-DD'),
-        index: Number(resumeData?.index),
-        resumeId: resumeId,
-        companyLists: [
-          {
-            ...data,
-            date: dayjs().format('YYYY-MM-DD'),
-            index: Number(resumeData?.companyLists[resumeData?.index].index),
-            companyListId: Date.now().toString(),
-          },
-        ],
-      };
-      reset();
-      updateResumeCompany(updateCompanyData);
-      // console.log('회사 리스트 수정');
-      // const updateCompanyData: CompanyListDto = {
-      //   ...data,
-      //   date: dayjs().format('YYYY-MM-DD'),
-      //   index: Number(resumeId),
-      //   companyListId: Date.now().toString(),
-      // };
-      // reset();
-      // updateCompany(updateCompanyData);
+      updateCompany(updateCompanyData);
     }
-    reset(); // 폼 리셋
-    console.log('회사 등록함');
-    // 모달 닫힘 ? or 계속 등록? 이건 마지막에 하자
+    reset();
+    closeModal();
   };
   //#endregion
 
@@ -141,7 +102,7 @@ export const AddCompanyModal: React.FC<CompanyListDtoProps> = ({
     <>
       <div className={addCompanyModalCss.wrapCompanyList}>
         <form
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={handleSubmit(onCompanySubmit)}
           className={addCompanyModalCss.formSection}
         >
           <h2>기본정보</h2>

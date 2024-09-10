@@ -3,13 +3,12 @@ import { globalStyle, style } from '@vanilla-extract/css';
 export const companyListContinerCss = {
   wrapCompanyList: style({
     display: 'flex',
-    justifyContent: 'start',
+    justifyContent: 'center',
     alignItems: 'center',
-    padding: '10px',
+    padding: '10px 0',
     overflow: 'scroll',
-    marginBottom: '35px',
     flexDirection: 'column',
-    background: '#eee',
+    // background: '#eee',
   }),
   dragAndDropSection: style({
     width: '100%',

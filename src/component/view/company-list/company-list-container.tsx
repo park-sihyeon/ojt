@@ -13,45 +13,61 @@ import { useParams } from 'react-router-dom';
 import { useResumeStore } from '../../../script/store/use-resume-store';
 import { CompanyListDto } from '../../../script/dto/company-list-dto';
 import { useCompanyStore } from '../../../script/store/use-company-list-store';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-const CompanyListContainer = () => {
+interface CompanyListContainerProps {
+  resumeKey: string;
+}
+
+const CompanyListContainer: React.FC<CompanyListContainerProps> = ({
+  resumeKey,
+}) => {
   //#region get local
   const { resumeId } = useParams<{ resumeId: string }>();
+  const Formatting = resumeId?.replace(':', '');
+
   const { getResumeById } = useResumeStore();
-  const { deleteCompany, companys } = useCompanyStore();
+
+  const { getCompanies, openModal, updateCompanyList } = useCompanyStore();
+  const [companies, setCompanies] = useState<CompanyListDto[]>([]);
+  // const [isEmty, setIsEmty] = useState(false);
 
   // 여기다가 get 해서 ㄱㄱ
-  useEffect(() => {
-    if (resumeId) {
-      // const test = companys;
-      console.log('작업끝나고 여기 정리하는거 잊지마!!');
-    } else {
-      console.log('없으면 등록 해');
-    }
-  }, [companys]);
+  // if (!resumeId) return setIsEmty(true);
+  // <div className={companyListContinerCss.wrapCompanyList}>
+  //   이력서에 회사 경력이 없어ㅇㅅㅇ 추가해줘
+  //   <AddCompanyListContent />
+  // </div>
 
-  if (!resumeId)
+  useEffect(() => {
+    const companyList = getCompanies(resumeKey);
+    setCompanies(companyList);
+  }, [resumeKey, getCompanies]);
+
+  if (!Formatting)
     return (
-      <div>
+      <div className={companyListContinerCss.wrapCompanyList}>
         이력서에 회사 경력이 없어ㅇㅅㅇ 추가해줘
         <AddCompanyListContent />
       </div>
     );
-  const resumeData = getResumeById(resumeId);
+  // console.log('resumeId', resumeId);
+  const resumeData = getResumeById(Formatting);
+  console.log(resumeData?.companyLists, '너 먼데 자꾸?');
+  console.log(resumeData?.resumeId, Formatting, 'id  비교');
   //#endregion
 
-  //#region etc
-  const handleEditCompany = (item: CompanyListDto) => {
-    // 수정 시 모달 어픈
-    //  그냥 모달 오픈만 하고 거기서 그냥 수정 처리해 오카이?
-    console.log('컨설 수정 모달 오쁜', item);
+  const handleEditCompany = () => {
+    openModal(resumeKey);
   };
-  //#endregion
 
   //#region handle delete
-  const handleDeleteCompany = (id: string) => {
-    deleteCompany(id);
+  const handleDeleteCompany = (companyId: string) => {
+    const updatedCompanies = companies.filter(
+      (company) => company.companyListId !== companyId
+    );
+    updateCompanyList(resumeKey, updatedCompanies);
+    setCompanies(updatedCompanies);
   };
   //#endregion
 
@@ -60,7 +76,7 @@ const CompanyListContainer = () => {
       <div className={companyListContinerCss.wrapCompanyList}>
         <AddCompanyListContent />
         <div className={companyListContinerCss.dragAndDropSection}>
-          {resumeData && resumeData.companyLists.length > 0 ? (
+          {resumeData ? (
             <CoreDragAndDropListView
               // containerClassName={companyListContinerCss.flex}
               items={resumeData?.companyLists}
@@ -68,13 +84,13 @@ const CompanyListContainer = () => {
               onCreateUniqueKey={(item, i) => {
                 return item.companyListId[i];
               }}
-              onRenderItem={(item) => (
+              onRenderItem={(item, index) => (
                 <div>
                   <Accordion className={companyListContinerCss.accordrion}>
                     <div className="column">
                       <div>
-                        <p className="accordion-title">{item.title}</p>
-                        <p className="accordion-period">{item.period}</p>
+                        {/* <p className="accordion-title">{item.title}</p>
+                        <p className="accordion-period">{item.period}</p> */}
                         <div className={companyListContinerCss.hamburger}>
                           <span className="line" />
                           <span className="line" />
@@ -96,18 +112,17 @@ const CompanyListContainer = () => {
                     </div>
                     <AccordionDetails>
                       {/* 업무내용 */}
-                      <div>{item.content}</div>
+                      {/* <div>{item.content}</div> */}
                     </AccordionDetails>
                     <AccordionActions>
-                      <Button onClick={() => handleEditCompany(item)}>
+                      {/* <Button onClick={() => handleEditCompany(item, index)}>
                         수정
-                      </Button>
-                      //{' '}
-                      <Button
+                      </Button> */}{' '}
+                      {/* <Button
                         onClick={() => handleDeleteCompany(item.companyListId)}
                       >
                         삭제
-                      </Button>
+                      </Button> */}
                     </AccordionActions>
                   </Accordion>
                 </div>

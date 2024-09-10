@@ -17,7 +17,7 @@ export const EditResumeContainer: React.FC = () => {
   const saveResumeForm = (newResumeForm: ResumeForm) => {
     const updateResumeForm = [...resumeForms, newResumeForm];
     setResumeForms(updateResumeForm);
-    localStorage.setItem('resumes', JSON.stringify(updateResumeForm));
+    // localStorage.setItem('resumes', JSON.stringify(updateResumeForm));
   };
   //#endregion
 
@@ -46,12 +46,12 @@ export const EditResumeContainer: React.FC = () => {
           flexWrap: 'wrap',
           '& > :not(style)': {
             m: 1,
-            width: '95vw',
-            // height: '95vh',
+            width: '96vw',
+            height: '100%',
           },
         }}
       >
-        <Paper elevation={3}>
+        <Paper elevation={3} sx={{ position: 'relative', padding: '0 0 90px' }}>
           {/* wrap */}
           <EditResumeContent onResumeSaved={saveResumeForm}></EditResumeContent>
         </Paper>

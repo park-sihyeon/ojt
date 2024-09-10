@@ -50,7 +50,6 @@ const CoreDragAndDropListView = <T,>(props: CoreDragAndDropViewProps<T>) => {
   // items 배열 길이 변경 시 상태 업데이트 ㄱ
   useEffect(() => {
     if (items.length === list.length) return;
-    console.log('시점 찾기 : ', list);
     setList(items);
   }, [items, list]);
   //#endregion

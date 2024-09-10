@@ -2,18 +2,16 @@
 
 import { Box, Card, Modal } from '@mui/material';
 import { addCompanyListCss } from './add-company-list.css';
-import React from 'react';
 import { AddCompanyModal } from './modal/add-company-modal';
-// import { CompanyListDto } from '../../../script/dto/company-list-dto';
+import { useCompanyStore } from '../../../script/store/use-company-list-store';
 
 export const AddCompanyListContent = () => {
   //#region handle modal
-  const [open, setOpen] = React.useState(false);
+
+  const { isModalOpen, closeModal, openModal } = useCompanyStore();
+
   const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
+    openModal(-1); // -1은 새로운 회사 추가
   };
   //#endregion
   return (
@@ -43,8 +41,8 @@ export const AddCompanyListContent = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}
-              open={open}
-              onClose={handleClose}
+              open={isModalOpen}
+              onClose={closeModal}
             >
               <Box
                 sx={{
