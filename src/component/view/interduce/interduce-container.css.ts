@@ -5,7 +5,6 @@ export const interduceContainerCss = {
     display: 'flex',
     justifyContent: 'center',
     backgroundColor: '#eee',
-    // marginTop: '20px',
     paddingTop: '20px',
   }),
   innerInterduceContainer: style({
@@ -22,6 +21,14 @@ export const interduceContainerCss = {
     alignItems: 'center',
     gap: '5px',
     marginBottom: '20px',
+  }),
+  boxContianer: style({
+    width: '95vw',
+    height: '50vh',
+    borderRadius: '15px',
+    padding: '30px',
+    backgroundColor: '#fff',
+    position: 'relative',
   }),
   modalFlexAlign: style({
     display: 'flex',
@@ -45,7 +52,21 @@ export const interduceContainerCss = {
     borderRadius: '5px',
     fontSize: '12px',
     color: '#bbb',
-    padding: '20px 30px',
+    padding: '30px',
+    width: '100px',
+    height: '120px',
+  }),
+  editButton: style({
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    top: '0',
+    right: '0',
+    width: '80px',
+    height: '40px',
+    background: '#1976d2',
+    borderRadius: '8px',
   }),
   addButton: style({
     width: '30px',
@@ -98,4 +119,8 @@ globalStyle(`${interduceContainerCss.addButton} .row`, {
   backgroundColor: '#999',
 });
 
-globalStyle(`button`, {});
+globalStyle(`${interduceContainerCss.editButton} > button`, {
+  fontSize: '16px',
+  fontWeight: '500',
+  color: '#fff',
+});

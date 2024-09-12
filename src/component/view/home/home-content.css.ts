@@ -2,7 +2,8 @@ import { style } from '@vanilla-extract/css';
 
 export const homContentCss = {
   wrapHomeContent: style({
-    height: '100vh',
-    width: '100vw',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '16px',
   }),
 };

@@ -1,9 +1,19 @@
 import { globalStyle } from '@vanilla-extract/css';
 
 globalStyle('body', {
-  padding: '0',
+  backgroundColor: '#eee',
 });
-
+globalStyle(
+  `
+  a:link,
+  a:visited,
+  a:hover,
+  a:active
+  `,
+  {
+    textDecoration: 'none',
+  }
+);
 globalStyle('::-webkit-scrollbar', {
   width: '0px',
 });

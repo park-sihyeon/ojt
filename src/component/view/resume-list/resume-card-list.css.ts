@@ -1,6 +1,6 @@
 import { globalStyle, style } from '@vanilla-extract/css';
 
-export const cardBoxCss = {
+export const resumeCardListCss = {
   // container: style({
   //   padding: '30px',
   //   height: '600px',
@@ -36,7 +36,7 @@ export const cardBoxCss = {
   }),
 };
 
-globalStyle(`${cardBoxCss.hamburger} .line`, {
+globalStyle(`${resumeCardListCss.hamburger} .line`, {
   width: '90%',
   background: '#999',
   height: '3px',
