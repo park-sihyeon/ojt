@@ -20,8 +20,6 @@ export const InterduceContainer = () => {
     reset,
     register,
     handleSubmit, // 자동으로 event.preventDefault()를 호출 및 리프레시 막고 유효성 검사
-    // control,
-    // watch, // 입력 여부 확인
   } = useForm<ResumeTitle>();
 
   const [resumeTitle, setResumeTitles] = useState<ResumeTitle>({
@@ -31,20 +29,13 @@ export const InterduceContainer = () => {
 
   useEffect(() => {
     const storedResumeTitle = localStorage.getItem('resume-title');
-    console.log('시점:', 1, storedResumeTitle);
     if (storedResumeTitle) {
-      // setResumeTitles(JSON.parse(storedResumeTitle));
       const parsedResumeTitle = JSON.parse(storedResumeTitle);
       setResumeTitles(parsedResumeTitle);
-      console.log('시점:', 2);
     }
   }, []);
 
   const saveResumeTitle = (newResumeTitle: ResumeTitle) => {
-    console.log('시점:', 3);
-    // const updateResumeTitle = [...resumeTitle, newResumeTitle];
-    // setResumeTitles(updateResumeTitle);
-    // localStorage.setItem('resume-title', JSON.stringify(updateResumeTitle));
     setResumeTitles(newResumeTitle);
     localStorage.setItem('resume-title', JSON.stringify(newResumeTitle));
   };
@@ -52,21 +43,14 @@ export const InterduceContainer = () => {
   const onSubmit = (data: ResumeTitle) => {
     saveResumeTitle(data);
     reset(); // 폼 리셋
-    console.log('자기소개 등록/수정함');
   };
-  // const onSubmit: SubmitHandler<ResumeTitle> = (data) => {
-  //   console.log('자기소개 등록/수정함', data);
-  //   saveResumeTitle(data);
-  //   reset(); // 폼 리셋
-  // };
-  //#endregion
 
-  //#region handle modal
+  //#region handle modalopen
   const [open, setOpen] = useState(false);
-  const handleOpen = () => {
+  const handleModalOpen = () => {
     setOpen(true);
   };
-  const handleClose = () => {
+  const handleModalClose = () => {
     setOpen(false);
   };
   //#endregion
@@ -75,7 +59,7 @@ export const InterduceContainer = () => {
     <>
       <div className={interduceContainerCss.wrapInterduceContainer}>
         <Box sx={{ width: '95vw' }}>
-          <Card style={{ padding: 30 }}>
+          <Card style={{ padding: 16 }}>
             <div className={interduceContainerCss.innerInterduceContainer}>
               <Stack>
                 <div className={interduceContainerCss.letterAndAvatar}>
@@ -91,27 +75,19 @@ export const InterduceContainer = () => {
                 >
                   {resumeTitle.textarea || '내용없음'}
                 </Typography>
-                <div onClick={handleOpen}>
+                <div
+                  className={interduceContainerCss.editButton}
+                  onClick={handleModalOpen}
+                >
                   <Button type="button">수정</Button>
                 </div>
                 {/* 모달 전부 밖으로 빼자 */}
                 <Modal
                   open={open}
-                  onClose={handleClose}
+                  onClose={handleModalClose}
                   className={interduceContainerCss.modalFlexAlign}
                 >
-                  <Box
-                    sx={{
-                      width: '95vw',
-                      height: '50vh',
-                      // borderTopRightRadius: 15,
-                      // borderTopLeftRadius: 15,
-                      borderRadius: '15px',
-                      padding: '30px',
-                      backgroundColor: '#fff',
-                      position: 'relative',
-                    }}
-                  >
+                  <Box className={interduceContainerCss.boxContianer}>
                     <form onSubmit={handleSubmit(onSubmit)}>
                       <p>
                         <b>자기소개 수정</b>
@@ -126,6 +102,7 @@ export const InterduceContainer = () => {
                           <p>사진추가</p>
                         </div>
                         <TextField
+                          fullWidth
                           required
                           id="outlined-required"
                           label="이름"

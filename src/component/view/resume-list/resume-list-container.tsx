@@ -1,17 +1,24 @@
 import { ResumeListContainerCss } from './resume-list-container.css';
 import { AddResumeContent } from './add-resume-content';
-import CardBox from '../_common/card/card-box';
+import ResumeCardList from './resume-card-list';
+import { Divider } from '@mui/material';
 
 const ResumeListContainer = () => {
   return (
     <>
       <div className={ResumeListContainerCss.wrapResumeListContainer}>
-        <br />
-        <br />
-        이력서 추가 및 조회 영역
-        <div className={ResumeListContainerCss.line} />
+        <div className={ResumeListContainerCss.addAndListSection}>
+          <h2 className={ResumeListContainerCss.subtitle}>
+            ADD RESUME & RESUME LIST
+          </h2>
+          <Divider
+            variant="middle"
+            className={ResumeListContainerCss.divider}
+          />
+        </div>
         <AddResumeContent></AddResumeContent>
-        <CardBox></CardBox>
+        <Divider variant="middle" className={ResumeListContainerCss.divider} />
+        <ResumeCardList></ResumeCardList>
       </div>
     </>
   );
