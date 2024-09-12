@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useResumeStore } from '../../../script/store/use-resume-store';
 import { useCompanyStore } from '../../../script/store/use-company-list-store';
 import { useProjectStore } from '../../../script/store/use-project-list-store';
+import { useEffect } from 'react';
 
 export const Resume: React.FC = () => {
   const navigate = useNavigate();
@@ -21,6 +22,10 @@ export const Resume: React.FC = () => {
   const resumeData = getResumeById(Formatting as string);
   const companyData = getCompanies(resumeData?.resumeKey as string);
   const projectData = getProjectes(resumeData?.resumeKey as string);
+
+  useEffect(() => {
+    console.log('companyData', companyData);
+  }, [companyData, projectData]);
 
   const handleDeleteResume = (item: string) => {
     deleteResume(item);

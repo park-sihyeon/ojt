@@ -21,7 +21,12 @@ const CompanyListContainer: React.FC<CompanyListContainerProps> = ({
   resumeKey,
 }) => {
   //#region get companylist data, key
-  const { getCompanies, updateCompanyList, isModalOpen } = useCompanyStore();
+  const {
+    getCompanies,
+    updateCompanyList,
+    isModalOpen,
+    updateCompanyListOrder,
+  } = useCompanyStore();
   const [companies, setCompanies] = useState<CompanyListDto[]>([]);
   const resumeData = companies;
 
@@ -48,6 +53,7 @@ const CompanyListContainer: React.FC<CompanyListContainerProps> = ({
     setIsChange(true);
     console.log(isChange, 'isChange');
     console.log(companyList, 'companyList');
+    updateCompanyListOrder(resumeKey, companyList);
   };
 
   return (
