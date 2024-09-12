@@ -255,3 +255,199 @@
 //   period: formData.get('period') as string,
 //   date: new Date().toISOString(),
 // };
+
+//
+
+// export interface CompanyList {
+//   index: number;
+//   companyListId: string; // 리스트id
+//   title: string; // 회사명
+//   date: string; // 등록 시간
+//   period: string; // 기간
+//   content: string; // 회사 업무
+//   url: string; // 회사 링크
+//   // 활용기술, 업무성과 등 넣어보고 추가로 ㄱ
+// }
+// 를 아래와 같이 변경
+
+// export namespace CompanyListDto {
+//   export interface CompanyList {
+//     index: number;
+//     companyListId: string; // 리스트id
+//     title: string; // 회사명
+//     date: string; // 등록 시간
+//     period: string; // 기간
+//     content: string; // 회사 업무
+//     url: string; // 회사 링크
+//     // 활용기술, 업무성과 등 넣어보고 추가로 ㄱ
+//   }
+//   export interface Keyword {
+//     keywordId: number;
+//     name: string;
+//   }
+//   export interface KeywordWithCompanys extends Keyword {
+//     list: Array<CompanyListDto.CompanyList>;
+//   }
+// }
+
+// import { create } from 'zustand';
+// import { CompanyListDto } from '../dto/company-list-dto';
+// import { createJSONStorage, persist } from 'zustand/middleware';
+// import { produce } from 'immer';
+
+// interface CompanyStore {
+//   companies: { [key: string]: CompanyListDto.KeywordWithCompanys[] };
+//   currentResumeKey: string | null;
+//   isModalOpen: boolean;
+//   selectedCompanyIndex: number | null;
+//   setCompanies: (companies: CompanyListDto.KeywordWithCompanys[]) => void;
+//   addCompany: (company: CompanyListDto.CompanyList) => void;
+//   updateCompany: (updatedCompany: CompanyListDto.CompanyList) => void;
+//   deleteCompany: (companyListId: string) => void;
+//   getCompanyById: (companyListId: string) => CompanyListDto.CompanyList | undefined;
+//   getCompanyByIndex: (index: number) => CompanyListDto.CompanyList | undefined;
+//   updateCompanyOrder: (companies: CompanyListDto.KeywordWithCompanys[]) => void;
+//   openModal: (resumeKey: string) => void;
+//   closeModal: () => void;
+//   getCompanies: (resumeKey: string) => CompanyListDto.KeywordWithCompanys[];
+//   updateCompanyList: (resumeKey: string, companies: CompanyListDto.KeywordWithCompanys[]) => void;
+// }
+
+// export const useCompanyStore = create<CompanyStore>()(
+//   persist(
+//     (set, get) => ({
+//       companies: {},
+//       currentResumeKey: null,
+//       isModalOpen: false,
+//       selectedCompanyIndex: null,
+//       setCompanies: (companies) => set(
+//         produce((state) => {
+//           const key = state.currentResumeKey;
+//           if (key) {
+//             state.companies[key] = companies;
+//           }
+//         })
+//       ),
+//       addCompany: (company) => set(
+//         produce((state) => {
+//           const key = state.currentResumeKey;
+//           if (key) {
+//             if (!state.companies[key]) {
+//               state.companies[key] = [];
+//             }
+//             const keywordIndex = state.companies[key].findIndex(k => k.keywordId === company.keywordId);
+//             if (keywordIndex > -1) {
+//               state.companies[key][keywordIndex].list.push(company);
+//             } else {
+//               state.companies[key].push({ keywordId: company.keywordId, name: '', list: [company] });
+//             }
+//           }
+//         })
+//       ),
+//       updateCompany: (updatedCompany) => set(
+//         produce((state) => {
+//           const key = state.currentResumeKey;
+//           if (key) {
+//             state.companies[key] = state.companies[key].map(keyword => ({
+//               ...keyword,
+//               list: keyword.list.map(company =>
+//                 company.companyListId === updatedCompany.companyListId ? updatedCompany : company
+//               )
+//             }));
+//           }
+//         })
+//       ),
+//       deleteCompany: (companyListId) => set(
+//         produce((state) => {
+//           const key = state.currentResumeKey;
+//           if (key) {
+//             state.companies[key] = state.companies[key].map(keyword => ({
+//               ...keyword,
+//               list: keyword.list.filter(company => company.companyListId !== companyListId)
+//             })).filter(keyword => keyword.list.length > 0);
+//           }
+//         })
+//       ),
+//       getCompanyById: (companyListId) => {
+//         const key = get().currentResumeKey;
+//         if (key) {
+//           const companies = get().companies[key];
+//           for (const keyword of companies) {
+//             const company = keyword.list.find(c => c.companyListId === companyListId);
+//             if (company) return company;
+//           }
+//         }
+//         return undefined;
+//       },
+//       getCompanyByIndex: (index) => {
+//         const key = get().currentResumeKey;
+//         if (key) {
+//           const companies = get().companies[key];
+//           for (const keyword of companies) {
+//             const company = keyword.list.find(c => c.index === index);
+//             if (company) return company;
+//           }
+//         }
+//         return undefined;
+//       },
+//       updateCompanyOrder: (companies) => set(
+//         produce((state) => {
+//           const key = state.currentResumeKey;
+//           if (key) {
+//             state.companies[key] = companies;
+//           }
+//         })
+//       ),
+//       openModal: (resumeKey) => set({ isModalOpen: true, currentResumeKey: resumeKey }),
+//       closeModal: () => set({ isModalOpen: false, currentResumeKey: null }),
+//       getCompanies: (resumeKey) => get().companies[resumeKey] || [],
+//       updateCompanyList: (resumeKey, companies) => set(
+//         produce((state) => {
+//           state.companies[resumeKey] = companies;
+//         })
+//       ),
+//     }),
+//     {
+//       name: 'company-list',
+//       storage: createJSONStorage(() => localStorage),
+//     }
+//   )
+// );
+
+// interface CompanyListDtoProps {
+//   defualtCompany?: CompanyListDto; // 수정 시를 위한 prop
+// }
+
+// export const AddCompanyModal: React.FC<CompanyListDtoProps> = ({
+//   defualtCompany,
+// }) => {
+//   const { resumeId } = useParams<{ resumeId: string }>();
+//   // const formatResumeId = resumeId?.replace(':', '');
+
+//   //#region handle zod react-hook-form
+//   const {
+//     reset,
+//     register,
+//     handleSubmit,
+//     formState: { errors },
+//   } = useForm<InputsSchemaType>({
+//     defaultValues: defualtCompany, // 수정 하려고 defualtCompany를 기본값으로 설정
+//     resolver: zodResolver(InputsSchema),
+//   });
+//   //#endregion
+
+//   //#region store (useCompanyStore)
+//   const {
+//     selectedCompanyIndex,
+//     closeModal,
+//     companys,
+//     updateCompany,
+//     addCompany,
+//     currentResumeKey,
+//   } = useCompanyStore();
+//   //#endregion
+
+//   return (
+
+//   );
+// };

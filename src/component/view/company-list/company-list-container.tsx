@@ -9,8 +9,6 @@ import {
 } from '@mui/material';
 import CoreDragAndDropListView from '../_common/_core/core-drag-and-drop-view';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useParams } from 'react-router-dom';
-import { useResumeStore } from '../../../script/store/use-resume-store';
 import { CompanyListDto } from '../../../script/dto/company-list-dto';
 import { useCompanyStore } from '../../../script/store/use-company-list-store';
 import { useEffect, useState } from 'react';
@@ -22,44 +20,16 @@ interface CompanyListContainerProps {
 const CompanyListContainer: React.FC<CompanyListContainerProps> = ({
   resumeKey,
 }) => {
-  //#region get local
-  const { resumeId } = useParams<{ resumeId: string }>();
-  const Formatting = resumeId?.replace(':', '');
-
-  const { getResumeById } = useResumeStore();
-
-  const { getCompanies, openModal, updateCompanyList } = useCompanyStore();
+  //#region get companylist data, key
+  const { getCompanies, updateCompanyList, isModalOpen } = useCompanyStore();
   const [companies, setCompanies] = useState<CompanyListDto[]>([]);
-  // const [isEmty, setIsEmty] = useState(false);
-
-  // 여기다가 get 해서 ㄱㄱ
-  // if (!resumeId) return setIsEmty(true);
-  // <div className={companyListContinerCss.wrapCompanyList}>
-  //   이력서에 회사 경력이 없어ㅇㅅㅇ 추가해줘
-  //   <AddCompanyListContent />
-  // </div>
+  const resumeData = companies;
 
   useEffect(() => {
     const companyList = getCompanies(resumeKey);
     setCompanies(companyList);
-  }, [resumeKey, getCompanies]);
-
-  if (!Formatting)
-    return (
-      <div className={companyListContinerCss.wrapCompanyList}>
-        이력서에 회사 경력이 없어ㅇㅅㅇ 추가해줘
-        <AddCompanyListContent />
-      </div>
-    );
-  // console.log('resumeId', resumeId);
-  const resumeData = getResumeById(Formatting);
-  console.log(resumeData?.companyLists, '너 먼데 자꾸?');
-  console.log(resumeData?.resumeId, Formatting, 'id  비교');
+  }, [resumeKey, getCompanies, isModalOpen]);
   //#endregion
-
-  const handleEditCompany = () => {
-    openModal(resumeKey);
-  };
 
   //#region handle delete
   const handleDeleteCompany = (companyId: string) => {
@@ -74,23 +44,26 @@ const CompanyListContainer: React.FC<CompanyListContainerProps> = ({
   return (
     <>
       <div className={companyListContinerCss.wrapCompanyList}>
-        <AddCompanyListContent />
+        <AddCompanyListContent resumeKey={resumeKey} />
         <div className={companyListContinerCss.dragAndDropSection}>
-          {resumeData ? (
+          {!resumeData ? (
+            <div>회사목록이 없습니다 추가해주세요!!</div>
+          ) : (
             <CoreDragAndDropListView
-              // containerClassName={companyListContinerCss.flex}
-              items={resumeData?.companyLists}
+              containerClassName={companyListContinerCss.ulContent}
+              // test
+              items={resumeData}
               // onChangeList={handleChangeList}
               onCreateUniqueKey={(item, i) => {
-                return item.companyListId[i];
+                return item.resumeKey[i];
               }}
-              onRenderItem={(item, index) => (
+              onRenderItem={(item) => (
                 <div>
                   <Accordion className={companyListContinerCss.accordrion}>
                     <div className="column">
                       <div>
-                        {/* <p className="accordion-title">{item.title}</p>
-                        <p className="accordion-period">{item.period}</p> */}
+                        <p className="accordion-title">{item.title}</p>
+                        <p className="accordion-period">{item.period}</p>
                         <div className={companyListContinerCss.hamburger}>
                           <span className="line" />
                           <span className="line" />
@@ -103,33 +76,24 @@ const CompanyListContainer: React.FC<CompanyListContainerProps> = ({
                           expandIcon={<ExpandMoreIcon sx={{ width: 30 }} />}
                           aria-controls="panel3-content"
                           id="panel3-header"
-                        >
-                          {' '}
-                          {/* test */}
-                          {/* 회사명 / 기간 */}
-                        </AccordionSummary>
+                        ></AccordionSummary>
                       </div>
                     </div>
                     <AccordionDetails>
                       {/* 업무내용 */}
-                      {/* <div>{item.content}</div> */}
+                      <div>{item.content}</div>
                     </AccordionDetails>
                     <AccordionActions>
-                      {/* <Button onClick={() => handleEditCompany(item, index)}>
-                        수정
-                      </Button> */}{' '}
-                      {/* <Button
+                      <Button
                         onClick={() => handleDeleteCompany(item.companyListId)}
                       >
                         삭제
-                      </Button> */}
+                      </Button>
                     </AccordionActions>
                   </Accordion>
                 </div>
               )}
             />
-          ) : (
-            <div>회사목록이 없습니다 추가해주세요!!</div>
           )}
         </div>
       </div>

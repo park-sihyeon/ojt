@@ -1,4 +1,4 @@
-import { style } from '@vanilla-extract/css';
+import { globalStyle, style } from '@vanilla-extract/css';
 
 export const editResumeContentCss = {
   inputFormSection: style({
@@ -46,7 +46,18 @@ export const editResumeContentCss = {
     top: '0',
     right: '0',
   }),
+  divider: style({
+    background: '#1976d2',
+  }),
 };
 
-// globalStyle('', {
-// });
+globalStyle(`${editResumeContentCss.inputFormSection} .title `, {
+  fontSize: '22px',
+  fontWeight: 700,
+  color: '#1976d2',
+});
+globalStyle(`${editResumeContentCss.inputFormSection} .subtitle `, {
+  fontSize: '18px',
+  fontWeight: 700,
+  color: '#555',
+});

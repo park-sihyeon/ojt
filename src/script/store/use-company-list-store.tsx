@@ -10,7 +10,6 @@ interface CompanyStore {
   updateCompany: (updatedCompany: CompanyListDto) => void;
   deleteCompany: (companyListId: string) => void;
   getCompanyById: (companyListId: string) => CompanyListDto | undefined;
-  getCompanyByIndex: (index: number) => void;
   updateCompanyOrder: (companys: CompanyListDto[]) => void;
   isModalOpen: boolean;
   selectedCompanyIndex: number | null;
@@ -18,7 +17,8 @@ interface CompanyStore {
   // test
   companies: { [key: string]: CompanyListDto[] };
   currentResumeKey: string | null;
-  openModal: (resumeKey: string) => void;
+  resumeKey: string | null;
+  openModal: (key: string, resumeKey: string) => void;
   getCompanies: (resumeKey: string) => CompanyListDto[];
   updateCompanyList: (resumeKey: string, companies: CompanyListDto[]) => void;
 }
@@ -29,17 +29,9 @@ export const useCompanyStore = create<CompanyStore>()(
       companies: {},
       companys: [],
       currentResumeKey: null,
+      resumeKey: null,
       isModalOpen: false,
       setCompanys: (companys) => set({ companys }),
-      // addCompany: (company) =>
-      //   set((state) => {
-      //     const newCompany = {
-      //       ...company,
-      //       companyListId: Date.now().toString(),
-      //     };
-      //     return { companys: [...state.companys, newCompany] };
-      //   }),
-
       updateCompany: (updatedCompany) =>
         set((state) => ({
           companys: state.companys.map((company) =>
@@ -66,22 +58,22 @@ export const useCompanyStore = create<CompanyStore>()(
         get().companys.find(
           (company) => company.companyListId === companyListId
         ),
-      getCompanyByIndex: (index) =>
-        get().companys.find((company) => company.index === index),
       selectedCompanyIndex: null,
-      openModal: (resumeKey) =>
-        set({ isModalOpen: true, currentResumeKey: resumeKey }),
+      openModal: (key, resumeKey) =>
+        set({ isModalOpen: true, currentResumeKey: key, resumeKey: resumeKey }),
       closeModal: () => set({ isModalOpen: false, currentResumeKey: null }),
+      //
       addCompany: (company) =>
         set(
           produce((state) => {
-            const key = state.currentResumeKey;
+            const key = company.resumeKey;
             if (key) {
               if (!state.companies[key]) {
+                console.log(state.companies[key]);
                 state.companies[key] = [];
               }
-              state.companies[key].push(company);
             }
+            state.companies[key].push(company);
           })
         ),
       getCompanies: (resumeKey) => get().companies[resumeKey] || [],

@@ -1,8 +1,6 @@
-import { ProjectListDto } from './project-list-dto';
-import { CompanyListDto } from './company-list-dto';
-
 export interface ResumeForm {
-  index: number;
+  resumeKey: string;
+  index?: number;
   resumeId: string; //이력서id
   title: string; // 이력서 타이틀
   name: string; // 이름
@@ -12,6 +10,6 @@ export interface ResumeForm {
   address?: string; // 주소
   textarea: string; // 간단 설명(직군, 사용기술 등)
   date: string; // 최종편집일
-  companyLists: CompanyListDto[]; // 회사 리스트
-  projectLists: ProjectListDto[]; // 프로젝트 리스트
+  // companyLists: CompanyListDto[]; // 회사 리스트
+  // projectLists: ProjectListDto[]; // 프로젝트 리스트
 }

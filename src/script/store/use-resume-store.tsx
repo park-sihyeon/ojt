@@ -11,23 +11,8 @@ interface ResumeStore {
   projects: ProjectListDto[];
   setResumes: (resumes: ResumeForm[]) => void;
   addResume: (resume: Omit<ResumeForm, 'index'>) => void; //  사용자가 id와 index를 직접 지정 x
-  addResumeCompany: (company: Omit<CompanyListDto, 'index'>) => void;
-  addResumeProject: (project: Omit<ProjectListDto, 'index'>) => void;
   updateResume: (updatedResume: ResumeForm) => void;
-  updateResumeCompany: (
-    updateResumeCompany: Omit<
-      ResumeForm,
-      | 'projectLists'
-      | 'title'
-      | 'name'
-      | 'gender'
-      | 'phoneNumber'
-      | 'textarea'
-      | 'email'
-    >
-  ) => void;
   deleteResume: (resumeId: string) => void;
-  deleteResumeCompany: (resumeId: string) => void;
   getResumeById: (resumeId: string) => ResumeForm | undefined;
   getResumeByIndex: (index: number) => void;
   updateResumeOrder: (resumes: ResumeForm[]) => void;
@@ -50,60 +35,10 @@ export const useResumeStore = create<ResumeStore>()(
           };
           return { resumes: [...state.resumes, newResume] };
         }),
-      addResumeCompany: (company) =>
-        set((state) => {
-          const newResumeCompany = {
-            // ...resume,
-            // resumeId: Date.now().toString(),
-            // index: state.resumes.length,
-            companyLists: [
-              {
-                ...company,
-                index: state.companys.length,
-              },
-            ],
-          };
-
-          return {
-            companys: [
-              ...state.companys,
-              newResumeCompany.companyLists[state.resumes.length],
-            ],
-          };
-        }),
-      addResumeProject: (project) =>
-        set((state) => {
-          const newResumeProject = {
-            // ...resume,
-            // resumeId: Date.now().toString(),
-            // index: state.resumes.length,
-            projectLists: [
-              {
-                ...project,
-                index: state.projects.length,
-              },
-            ],
-          };
-
-          return {
-            projects: [
-              ...state.projects,
-              newResumeProject.projectLists[state.resumes.length],
-            ],
-          };
-        }),
       updateResume: (updatedResume) =>
         set((state) => ({
           resumes: state.resumes.map((resume) =>
             resume.resumeId === updatedResume.resumeId ? updatedResume : resume
-          ),
-        })),
-      updateResumeCompany: (updatedResumeCompany) =>
-        set((state) => ({
-          resumes: state.resumes.map((resume) =>
-            resume.resumeId === updatedResumeCompany.resumeId
-              ? (updatedResumeCompany as ResumeForm)
-              : resume
           ),
         })),
       deleteResume: (resumeId) =>
@@ -114,21 +49,6 @@ export const useResumeStore = create<ResumeStore>()(
           return {
             // 순서 재정렬 ㄱ
             resumes: newResume.map((resume, index) => ({ ...resume, index })),
-          };
-        }),
-      deleteResumeCompany: (resumeId) =>
-        set((state) => {
-          const newResume = state.resumes.filter(
-            (resume) =>
-              resume.companyLists[resume.index].companyListId !== resumeId
-          );
-          return {
-            // 순서 재정렬 ㄱ
-            resumes: newResume.map((resume, index) => ({
-              ...resume,
-              index,
-            })),
-            // resumes: newResume[].companyLists.map((resume, index) => ({ ...resume, index })),
           };
         }),
       updateResumeOrder: (resumes) => set({ resumes }),

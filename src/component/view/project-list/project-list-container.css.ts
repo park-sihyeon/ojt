@@ -3,10 +3,9 @@ import { globalStyle, style } from '@vanilla-extract/css';
 export const projectListContinerCss = {
   wrapProjectList: style({
     display: 'flex',
-    justifyContent: 'start',
+    justifyContent: 'center',
     alignItems: 'center',
-    padding: '10px',
-    overflow: 'scroll',
+    padding: '16px',
     marginBottom: '35px',
     flexDirection: 'column',
     background: '#eee',

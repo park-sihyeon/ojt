@@ -5,10 +5,9 @@ export const companyListContinerCss = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: '10px 0',
-    overflow: 'scroll',
+    padding: '16px',
     flexDirection: 'column',
-    // background: '#eee',
+    background: '#eee',
   }),
   dragAndDropSection: style({
     width: '100%',
@@ -17,6 +16,9 @@ export const companyListContinerCss = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+  }),
+  ulContent: style({
+    // padding: '0 16px',
   }),
   accordrion: style({
     padding: '20px 20px 20px',
@@ -63,6 +65,10 @@ globalStyle(`${companyListContinerCss.accordrion} .column`, {
 globalStyle(`${companyListContinerCss.accordrion} .accordion-title`, {
   fontSize: '20px',
   fontWeight: 700,
+  maxWidth: '200px',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
 });
 globalStyle(`${companyListContinerCss.accordrion} .accordion-period`, {
   fontSize: '16px',

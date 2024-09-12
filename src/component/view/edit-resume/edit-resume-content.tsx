@@ -3,7 +3,7 @@
 import { Controller, useForm } from 'react-hook-form';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { ResumeForm } from '../../../script/dto/resume-form-dto';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
   Divider,
   FormControl,
@@ -21,6 +21,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useResumeStore } from '../../../script/store/use-resume-store';
 import dayjs from 'dayjs';
 import { useCompanyStore } from '../../../script/store/use-company-list-store';
+import { useProjectStore } from '../../../script/store/use-project-list-store';
 
 //#region handle zod
 export type InputsSchemaType = z.infer<typeof InputsSchema>; // 타입 추론 자동
@@ -54,9 +55,37 @@ export const EditResumeContent: React.FC<ResumeFormProps> = ({
   const { resumeId } = useParams<{ resumeId: string }>();
   const formatResumeId = resumeId?.replace(':', '');
   const { addResume, updateResume, getResumeById } = useResumeStore();
-  const { selectedCompanyIndex, companys } = useCompanyStore();
-  console.log('resumeId 이제 제대로 나오니?', resumeId);
+  const { companys } = useCompanyStore();
+  const { projects } = useProjectStore();
+
   const navigate = useNavigate();
+
+  //#region 랜덤 키 테스트, 커스텀 훅으로 따로 빼야될까?
+  const generateRandomKey = (length: number = 10): string => {
+    const characters = '0123456789';
+    return Array(length)
+      .fill('')
+      .map(() =>
+        characters.charAt(Math.floor(Math.random() * characters.length))
+      )
+      .join('');
+  };
+  // useRef로 랜덤 키 저장
+  const stableKeyRef = useRef<string | null>(null);
+
+  // 컴포넌트가 마운트될 때 한 번만 실행
+  useEffect(() => {
+    if (stableKeyRef.current === null) {
+      stableKeyRef.current = generateRandomKey();
+    }
+  }, []);
+
+  const createResumeKey = () => {
+    return stableKeyRef.current;
+  };
+  const resumeKey = createResumeKey();
+  console.log(resumeKey);
+  //#endregion
 
   //#region react-hook-form & resolver
   const {
@@ -70,6 +99,8 @@ export const EditResumeContent: React.FC<ResumeFormProps> = ({
     resolver: zodResolver(InputsSchema),
   });
   //#endregion
+
+  const resumeData = getResumeById(formatResumeId as string);
 
   //#region handle reset 수정 시 해당 이력서 데이터로 리셋
   useEffect(() => {
@@ -97,33 +128,25 @@ export const EditResumeContent: React.FC<ResumeFormProps> = ({
       const newResumeId = Date.now().toString();
       const addResumeData: Omit<ResumeForm, 'index'> = {
         ...data,
+        resumeKey: resumeKey as string,
         date: dayjs().format('YYYY-MM-DD'),
         resumeId: newResumeId,
-        companyLists: [], // 회사 list 데이Eㅏ
-        projectLists: [], // 프로젝트 list 데이Eㅏ
       };
       addResume(addResumeData);
-      console.log('새거', addResumeData);
       navigate(`/resume/${newResumeId}`);
     } else {
-      // 이력서 수정
-      const companyData = (data: number) => {
-        return companys[data];
-      };
-      const resumeData = getResumeById(formatResumeId as string);
+      console.log('companys data 확인:', companys);
+      console.log('projects data 확인:', projects);
+
       const updatedResumeData: ResumeForm = {
         ...data,
+        resumeKey: resumeData?.resumeKey as string,
         resumeId: formatResumeId as string,
         date: dayjs().format('YYYY-MM-DD'), // 최종편집 일시
         index: Number(resumeData?.index),
-        companyLists: selectedCompanyIndex
-          ? [companyData(selectedCompanyIndex)]
-          : [], // 회사 list 데이Eㅏ
-        projectLists: [], // 프로젝트 list 데이Eㅏ
       };
       onResumeSaved(updatedResumeData); // 폼 데이터 전달
       updateResume(updatedResumeData);
-      console.log('이력서 수정 비교갑니다잉', updatedResumeData, resumeData);
       navigate(`/resume/${formatResumeId}`);
     }
   };
@@ -135,9 +158,9 @@ export const EditResumeContent: React.FC<ResumeFormProps> = ({
           className={editResumeContentCss.inputFormSection}
           onSubmit={handleSubmit(onSubmit)}
         >
-          <h2>기본정보</h2>
+          <h2 className="title">기본정보</h2>
           {/* 구분선 */}
-          <Divider />
+          <Divider className={editResumeContentCss.divider} />
           {/* 이력서 타이틀 */}
           <TextField
             required
@@ -174,7 +197,7 @@ export const EditResumeContent: React.FC<ResumeFormProps> = ({
             </FormControl>
           </div>
           {/* 전화번호 */}
-          {/* controller 사용 테스트 */}
+          {/* 혹시 변경할지도 모르니 */}
           <Controller
             name="phoneNumber"
             control={control}
@@ -224,7 +247,6 @@ export const EditResumeContent: React.FC<ResumeFormProps> = ({
             helperText={errors.textarea?.message}
           />
           {/* NAVIGATION */}
-
           <Link to="/" className={editResumeContentCss.goBack}>
             <p>HOME</p>
           </Link>
@@ -232,14 +254,29 @@ export const EditResumeContent: React.FC<ResumeFormProps> = ({
             저장
           </button>
         </form>
+        {/* 경력 영역 */}
         <div className={editResumeContentCss.inputFormSection}>
-          <b>경력</b>
-          <Divider />
-          <div>회사</div>
-          <CompanyListContainer />
-          <Divider />
-          <div>프로젝트</div>
-          <ProjectListContainer />
+          <b className="title">경력</b>
+          <Divider className={editResumeContentCss.divider} />
+          {/* 회사 리스트 */}
+          <div className="subtitle">회사</div>
+          <CompanyListContainer
+            resumeKey={
+              !resumeId
+                ? (resumeKey as string)
+                : (resumeData?.resumeKey as string)
+            }
+          />
+          <Divider className={editResumeContentCss.divider} />
+          {/* 프로젝트 리스트 */}
+          <div className="subtitle">프로젝트</div>
+          <ProjectListContainer
+            resumeKey={
+              !resumeId
+                ? (resumeKey as string)
+                : (resumeData?.resumeKey as string)
+            }
+          />
         </div>
       </div>
     </>

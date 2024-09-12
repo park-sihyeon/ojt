@@ -67,12 +67,6 @@ const CoreDragAndDropListView = <T,>(props: CoreDragAndDropViewProps<T>) => {
 
     // onChangeList 없으면 리턴 있으면 onChangeList 호출
     setList(newCompanyList);
-    // if (!onChangeList) {
-    //   return console.log('시점 찾기 : ', 3);
-    // } else {
-    //   onChangeList(newCompanyList);
-    // }
-    // onChangeList && onChangeList(newCompanyList);
     if (!onChangeList) {
       return;
     }
@@ -101,7 +95,7 @@ const CoreDragAndDropListView = <T,>(props: CoreDragAndDropViewProps<T>) => {
               {...provided.draggableProps}
               {...provided.dragHandleProps}
               style={{
-                marginTop: '10px',
+                marginTop: '16px',
               }}
             >
               {onRenderItem(item, index, itemId, snapshot.isDragging || false)}
@@ -130,14 +124,7 @@ const CoreDragAndDropListView = <T,>(props: CoreDragAndDropViewProps<T>) => {
                 onCreateUniqueKey={(item, index) => {
                   return onCreateUniqueKey(item, index);
                 }}
-                // onRenderItem={(item, index) => renderItem(item, index)}
-                // dnd 가능 여부 test
                 onRenderItem={(item, index) => renderItem(item, index)}
-                // onRenderItem={(item, index) =>
-                //   enableDragAndDrop
-                //     ? renderItem(item, index)
-                //     : onRenderItem(item, index)
-                // }
               />
               {provided.placeholder}
             </div>

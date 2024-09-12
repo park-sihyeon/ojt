@@ -2,6 +2,7 @@ import { ResumeForm } from '../dto/resume-form-dto';
 
 export const mockGetTest: ResumeForm[] = [
   {
+    index: 2,
     resumeId: '1',
     title: '박시현의 이력서',
     name: '박시현',
@@ -13,6 +14,7 @@ export const mockGetTest: ResumeForm[] = [
     date: '2024-09-05',
     companyLists: [
       {
+        index: 1,
         companyListId: '1',
         title: '더 파이러츠',
         date: '2002-02-20',
@@ -21,6 +23,7 @@ export const mockGetTest: ResumeForm[] = [
         url: 'http://www.wowfantastic1.co.kr',
       },
       {
+        index: 2,
         companyListId: '2',
         title: '이츠 파이러츠!',
         date: '2002-02-21',
@@ -29,6 +32,7 @@ export const mockGetTest: ResumeForm[] = [
         url: 'http://www.wowfantastic2.co.kr',
       },
       {
+        index: 3,
         companyListId: '3',
         title: '이즈 파이러츠?',
         date: '2002-02-22',
@@ -39,6 +43,7 @@ export const mockGetTest: ResumeForm[] = [
     ],
     projectLists: [
       {
+        index: 1,
         projectListId: '1',
         title: 'A-Project',
         period: '1일',
@@ -50,6 +55,7 @@ export const mockGetTest: ResumeForm[] = [
           'A한 업무를 맡아, A한 이슈가 있었으나, A하게 해결하여, A한 성과를 얻을 수 있었고, A한 아쉬운 점이 있어서, A한 기술을 도입해, A하게 마무리 지을 수 있었습니다',
       },
       {
+        index: 2,
         projectListId: '2',
         title: 'B-Project',
         period: '1일',
@@ -61,6 +67,7 @@ export const mockGetTest: ResumeForm[] = [
           'B한 업무를 맡아, B한 이슈가 있었으나, B하게 해결하여, B한 성과를 얻을 수 있었고, B한 아쉬운 점이 있어서, B한 기술을 도입해, B하게 마무리 지을 수 있었습니다',
       },
       {
+        index: 3,
         projectListId: '3',
         title: 'C-Project',
         period: '1일',
@@ -74,6 +81,7 @@ export const mockGetTest: ResumeForm[] = [
     ],
   },
   {
+    index: 2,
     resumeId: '2',
     title: '이력서의 박시현',
     name: '이력서',
@@ -85,24 +93,27 @@ export const mockGetTest: ResumeForm[] = [
     date: '2025-09-05',
     companyLists: [
       {
+        index: 1,
         companyListId: '1',
-        title: '더 PPairuts',
+        title: '더 파이러츠',
         date: '2002-02-20',
         period: '1111-11-11 ~ 9999-99-99',
         content: '망부석 역할함',
         url: 'http://www.wowfantastic1.co.kr',
       },
       {
+        index: 2,
         companyListId: '2',
-        title: '이츠 Pirates!',
+        title: '이츠 파이러츠!',
         date: '2002-02-21',
         period: '1111-11-11 ~ 9999-99-99',
         content: '망부스톤 역할함',
         url: 'http://www.wowfantastic2.co.kr',
       },
       {
+        index: 3,
         companyListId: '3',
-        title: '이즈 Fariiruts?',
+        title: '이즈 파이러츠?',
         date: '2002-02-22',
         period: '1111-11-11 ~ 9999-99-99',
         content: '망부돌 역할함',
@@ -111,6 +122,7 @@ export const mockGetTest: ResumeForm[] = [
     ],
     projectLists: [
       {
+        index: 3,
         projectListId: '1',
         title: 'A-Project',
         period: '1일',
@@ -122,6 +134,7 @@ export const mockGetTest: ResumeForm[] = [
           'A한 업무를 맡아, A한 이슈가 있었으나, A하게 해결하여, A한 성과를 얻을 수 있었고, A한 아쉬운 점이 있어서, A한 기술을 도입해, A하게 마무리 지을 수 있었습니다',
       },
       {
+        index: 2,
         projectListId: '2',
         title: 'B-Project',
         period: '1일',
@@ -133,6 +146,7 @@ export const mockGetTest: ResumeForm[] = [
           'B한 업무를 맡아, B한 이슈가 있었으나, B하게 해결하여, B한 성과를 얻을 수 있었고, B한 아쉬운 점이 있어서, B한 기술을 도입해, B하게 마무리 지을 수 있었습니다',
       },
       {
+        index: 3,
         projectListId: '3',
         title: 'C-Project',
         period: '1일',
@@ -146,6 +160,7 @@ export const mockGetTest: ResumeForm[] = [
     ],
   },
   {
+    index: 2,
     resumeId: '3',
     title: '의력서 이력서',
     name: '의',
@@ -157,6 +172,7 @@ export const mockGetTest: ResumeForm[] = [
     date: '9024-09-05',
     companyLists: [
       {
+        index: 1,
         companyListId: '1',
         title: '더 파이러츠',
         date: '2002-02-20',
@@ -165,6 +181,7 @@ export const mockGetTest: ResumeForm[] = [
         url: 'http://www.wowfantastic1.co.kr',
       },
       {
+        index: 2,
         companyListId: '2',
         title: '이츠 파이러츠!',
         date: '2002-02-21',
@@ -173,6 +190,7 @@ export const mockGetTest: ResumeForm[] = [
         url: 'http://www.wowfantastic2.co.kr',
       },
       {
+        index: 3,
         companyListId: '3',
         title: '이즈 파이러츠?',
         date: '2002-02-22',
@@ -183,6 +201,7 @@ export const mockGetTest: ResumeForm[] = [
     ],
     projectLists: [
       {
+        index: 1,
         projectListId: '1',
         title: 'A-Project',
         period: '1일',
@@ -194,6 +213,7 @@ export const mockGetTest: ResumeForm[] = [
           'A한 업무를 맡아, A한 이슈가 있었으나, A하게 해결하여, A한 성과를 얻을 수 있었고, A한 아쉬운 점이 있어서, A한 기술을 도입해, A하게 마무리 지을 수 있었습니다',
       },
       {
+        index: 2,
         projectListId: '2',
         title: 'B-Project',
         period: '1일',
@@ -205,6 +225,7 @@ export const mockGetTest: ResumeForm[] = [
           'B한 업무를 맡아, B한 이슈가 있었으나, B하게 해결하여, B한 성과를 얻을 수 있었고, B한 아쉬운 점이 있어서, B한 기술을 도입해, B하게 마무리 지을 수 있었습니다',
       },
       {
+        index: 3,
         projectListId: '3',
         title: 'C-Project',
         period: '1일',

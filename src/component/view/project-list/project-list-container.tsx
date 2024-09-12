@@ -9,97 +9,94 @@ import CoreDragAndDropListView from '../_common/_core/core-drag-and-drop-view';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { projectListContinerCss } from './project-list-container.css';
 import { AddProjectListContent } from './add-project-list';
-import { useResumeStore } from '../../../script/store/use-resume-store';
-import { useParams } from 'react-router-dom';
 import { ProjectListDto } from '../../../script/dto/project-list-dto';
 import { useProjectStore } from '../../../script/store/use-project-list-store';
+import { useEffect, useState } from 'react';
 
-const ProjectListContainer = () => {
+interface ProjectListContainerProps {
+  resumeKey: string;
+}
+
+const ProjectListContainer: React.FC<ProjectListContainerProps> = ({
+  resumeKey,
+}) => {
   //#region get local
-  const { resumeId } = useParams<{ resumeId: string }>();
-  const { getResumeById } = useResumeStore();
-  const { deleteProject } = useProjectStore();
+  const { getProjectes, updateProjectList, isModalOpen } = useProjectStore();
+  const [projectes, setProjectes] = useState<ProjectListDto[]>([]);
+  const resumeData = projectes;
 
-  if (!resumeId)
-    return (
-      <div>
-        이력서에 프로젝트 경력이 없어ㅇㅅㅇ 추가해줘
-        <AddProjectListContent />
-      </div>
-    );
-  const formattedResumeId = resumeId.replace(':', '');
-  const resumeData = getResumeById(formattedResumeId);
-  //#endregion
-
-  //#region handle save
-  const handleEditProject = (item: ProjectListDto) => {
-    // 수정 시 모달 어픈
-    console.log('컨설 수정 모달 오쁜', item);
-  };
+  useEffect(() => {
+    const projectList = getProjectes(resumeKey);
+    setProjectes(projectList);
+    console.log('시점 파악', projectList);
+  }, [resumeKey, getProjectes, isModalOpen]);
   //#endregion
 
   //#region handle delete
-  const handleDeleteProject = (id: string) => {
-    deleteProject(id);
+  const handleDeleteProject = (projectId: string) => {
+    const updatedProjectes = projectes.filter(
+      (project) => project.projectListId !== projectId
+    );
+    updateProjectList(resumeKey, updatedProjectes);
+    setProjectes(updatedProjectes);
   };
   //#endregion
 
   return (
     <>
       <div className={projectListContinerCss.wrapProjectList}>
-        <AddProjectListContent />
+        <AddProjectListContent resumeKey={resumeKey} />
         <div className={projectListContinerCss.dragAndDropSection}>
-          <CoreDragAndDropListView
-            // containerClassName={projectListContinerCss.flex}
-            items={resumeData?.projectLists}
-            onCreateUniqueKey={(item, i) => {
-              return item.projectListId[i];
-            }}
-            onRenderItem={(item) => (
-              <div>
-                <Accordion className={projectListContinerCss.accordrion}>
-                  <div className="column">
-                    <div>
-                      <p className="accordion-title">{item.title}</p>
-                      <p className="accordion-period">{item.period}</p>
-                      <div className={projectListContinerCss.hamburger}>
-                        <span className="line" />
-                        <span className="line" />
-                        <span className="line" />
+          {!resumeData ? (
+            <div>회사목록이 없습니다 추가해주세요!!</div>
+          ) : (
+            <CoreDragAndDropListView
+              items={resumeData}
+              onCreateUniqueKey={(item, i) => {
+                return item.resumeKey[i];
+              }}
+              onRenderItem={(item) => (
+                <div>
+                  <Accordion className={projectListContinerCss.accordrion}>
+                    <div className="column">
+                      <div>
+                        <p className="accordion-title">{item.title}</p>
+                        <p className="accordion-period">{item.period}</p>
+                        <div className={projectListContinerCss.hamburger}>
+                          <span className="line" />
+                          <span className="line" />
+                          <span className="line" />
+                        </div>
+                      </div>
+                      <div className={projectListContinerCss.flex}>
+                        <p>상세 보기</p>
+                        <AccordionSummary
+                          expandIcon={<ExpandMoreIcon sx={{ width: 30 }} />}
+                          aria-controls="panel3-content"
+                          id="panel3-header"
+                        >
+                          {' '}
+                          {/* test */}
+                          {/* 회사명 / 기간 */}
+                        </AccordionSummary>
                       </div>
                     </div>
-                    <div className={projectListContinerCss.flex}>
-                      <p>상세 보기</p>
-                      <AccordionSummary
-                        expandIcon={<ExpandMoreIcon sx={{ width: 30 }} />}
-                        aria-controls="panel3-content"
-                        id="panel3-header"
+                    <AccordionDetails>
+                      {/* 업무내용 */}
+                      <div>{item.content}</div>
+                    </AccordionDetails>
+                    <AccordionActions>
+                      <Button
+                        onClick={() => handleDeleteProject(item.projectListId)}
                       >
-                        {' '}
-                        {/* test */}
-                        {/* 회사명 / 기간 */}
-                      </AccordionSummary>
-                    </div>
-                  </div>
-                  <AccordionDetails>
-                    {/* 업무내용 */}
-                    <div>{item.content}</div>
-                  </AccordionDetails>
-                  <AccordionActions>
-                    <Button onClick={() => handleEditProject(item)}>
-                      수정
-                    </Button>
-                    //{' '}
-                    <Button
-                      onClick={() => handleDeleteProject(item.projectListId)}
-                    >
-                      삭제
-                    </Button>
-                  </AccordionActions>
-                </Accordion>
-              </div>
-            )}
-          />
+                        삭제
+                      </Button>
+                    </AccordionActions>
+                  </Accordion>
+                </div>
+              )}
+            />
+          )}
         </div>
       </div>
     </>
