@@ -17,9 +17,7 @@ export const companyListContinerCss = {
     justifyContent: 'center',
     alignItems: 'center',
   }),
-  ulContent: style({
-    // padding: '0 16px',
-  }),
+  ulContent: style({}),
   accordrion: style({
     padding: '20px 20px 20px',
     position: 'relative',

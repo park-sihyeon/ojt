@@ -94,9 +94,6 @@ const CoreDragAndDropListView = <T,>(props: CoreDragAndDropViewProps<T>) => {
               ref={provided.innerRef}
               {...provided.draggableProps}
               {...provided.dragHandleProps}
-              style={{
-                marginTop: '16px',
-              }}
             >
               {onRenderItem(item, index, itemId, snapshot.isDragging || false)}
             </div>
