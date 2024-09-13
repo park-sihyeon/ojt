@@ -22,7 +22,7 @@ const CompanyListContainer: React.FC<CompanyListContainerProps> = ({
 }) => {
   //#region get companylist data, key
   const {
-    getCompanies,
+    getCompaniesByKey,
     updateCompanyList,
     isModalOpen,
     updateCompanyListOrder,
@@ -31,9 +31,9 @@ const CompanyListContainer: React.FC<CompanyListContainerProps> = ({
   const resumeData = companies;
 
   useEffect(() => {
-    const companyList = getCompanies(resumeKey);
+    const companyList = getCompaniesByKey(resumeKey);
     setCompanies(companyList);
-  }, [resumeKey, getCompanies, isModalOpen]);
+  }, [resumeKey, getCompaniesByKey, isModalOpen]);
   //#endregion
 
   //#region handle delete

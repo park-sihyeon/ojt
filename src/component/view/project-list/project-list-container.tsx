@@ -21,15 +21,16 @@ const ProjectListContainer: React.FC<ProjectListContainerProps> = ({
   resumeKey,
 }) => {
   //#region get local
-  const { getProjectes, updateProjectList, isModalOpen } = useProjectStore();
+  const { getProjectesByKey, updateProjectList, isModalOpen } =
+    useProjectStore();
   const [projectes, setProjectes] = useState<ProjectListDto[]>([]);
   const resumeData = projectes;
 
   useEffect(() => {
-    const projectList = getProjectes(resumeKey);
+    const projectList = getProjectesByKey(resumeKey);
     setProjectes(projectList);
     console.log('시점 파악', projectList);
-  }, [resumeKey, getProjectes, isModalOpen]);
+  }, [resumeKey, getProjectesByKey, isModalOpen]);
   //#endregion
 
   //#region handle delete

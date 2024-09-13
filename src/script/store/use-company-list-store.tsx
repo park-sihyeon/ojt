@@ -19,7 +19,7 @@ interface CompanyStore {
   currentResumeKey: string | null;
   resumeKey: string | null;
   openModal: (key: string, resumeKey: string) => void;
-  getCompanies: (resumeKey: string) => CompanyListDto[];
+  getCompaniesByKey: (resumeKey: string) => CompanyListDto[];
   updateCompanyList: (resumeKey: string, companies: CompanyListDto[]) => void;
   updateCompanyListOrder: (
     resumeKey: string,
@@ -80,7 +80,7 @@ export const useCompanyStore = create<CompanyStore>()(
             state.companies[key].push(company);
           })
         ),
-      getCompanies: (resumeKey) => get().companies[resumeKey] || [],
+      getCompaniesByKey: (resumeKey) => get().companies[resumeKey] || [],
       updateCompanyList: (resumeKey, companies) =>
         set(
           produce((state) => {

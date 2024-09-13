@@ -5,12 +5,10 @@ import { produce } from 'immer';
 // 수정, 추가, 삭제, getId
 interface ProjectStore {
   projects: ProjectListDto[];
-  setProjects: (projects: ProjectListDto[]) => void;
   addProject: (project: Omit<ProjectListDto, 'projectListId'>) => void; //  사용자가 id와 index를 직접 지정 x
   updateProject: (updatedProject: ProjectListDto) => void;
   deleteProject: (projectListId: string) => void;
   getProjectById: (projectListId: string) => ProjectListDto | undefined;
-  updateProjectOrder: (projects: ProjectListDto[]) => void;
   isModalOpen: boolean;
   selectedProjectIndex: number | null;
   closeModal: () => void;
@@ -19,8 +17,12 @@ interface ProjectStore {
   currentResumeKey: string | null;
   resumeKey: string | null;
   openModal: (key: string, resumeKey: string) => void;
-  getProjectes: (resumeKey: string) => ProjectListDto[];
+  getProjectesByKey: (resumeKey: string) => ProjectListDto[];
   updateProjectList: (resumeKey: string, projectes: ProjectListDto[]) => void;
+  updateProjectListOrder: (
+    resumeKey: string,
+    projectes: ProjectListDto[]
+  ) => void;
 }
 
 export const useProjectStore = create<ProjectStore>()(
@@ -31,7 +33,10 @@ export const useProjectStore = create<ProjectStore>()(
       currentResumeKey: null,
       resumeKey: null,
       isModalOpen: false,
-      setProjects: (projects) => set({ projects }),
+      selectedProjectIndex: null,
+      openModal: (key, resumeKey) =>
+        set({ isModalOpen: true, currentResumeKey: key, resumeKey: resumeKey }),
+      closeModal: () => set({ isModalOpen: false, currentResumeKey: null }),
       updateProject: (updatedProject) =>
         set((state) => ({
           projects: state.projects.map((project) =>
@@ -53,16 +58,11 @@ export const useProjectStore = create<ProjectStore>()(
             })),
           };
         }),
-      updateProjectOrder: (projects) => set({ projects }),
       getProjectById: (projectListId) =>
         get().projects.find(
           (project) => project.projectListId === projectListId
         ),
-      selectedProjectIndex: null,
-      openModal: (key, resumeKey) =>
-        set({ isModalOpen: true, currentResumeKey: key, resumeKey: resumeKey }),
-      closeModal: () => set({ isModalOpen: false, currentResumeKey: null }),
-      //
+      getProjectesByKey: (resumeKey) => get().projectes[resumeKey] || [],
       addProject: (project) =>
         set(
           produce((state) => {
@@ -76,13 +76,24 @@ export const useProjectStore = create<ProjectStore>()(
             state.projectes[key].push(project);
           })
         ),
-      getProjectes: (resumeKey) => get().projectes[resumeKey] || [],
       updateProjectList: (resumeKey, projectes) =>
         set(
           produce((state) => {
             state.projectes[resumeKey] = projectes;
           })
         ),
+      updateProjectListOrder: (resumeKey, projectes) => {
+        set(
+          produce((state) => {
+            if (state.projectes[resumeKey]) {
+              state.projectes[resumeKey] = projectes.map((project, index) => ({
+                ...project,
+                index,
+              }));
+            }
+          })
+        );
+      },
     }),
     {
       name: 'project-list',
