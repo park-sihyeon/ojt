@@ -5,18 +5,16 @@ import { produce } from 'immer';
 // 수정, 추가, 삭제, getId
 interface ProjectStore {
   projects: ProjectListDto[];
-  addProject: (project: Omit<ProjectListDto, 'projectListId'>) => void; //  사용자가 id와 index를 직접 지정 x
-  updateProject: (updatedProject: ProjectListDto) => void;
-  deleteProject: (projectListId: string) => void;
-  getProjectById: (projectListId: string) => ProjectListDto | undefined;
-  isModalOpen: boolean;
-  selectedProjectIndex: number | null;
-  closeModal: () => void;
-  // test
   projectes: { [key: string]: ProjectListDto[] };
   currentResumeKey: string | null;
   resumeKey: string | null;
+  isModalOpen: boolean;
+  selectedProjectIndex: number | null;
   openModal: (key: string, resumeKey: string) => void;
+  closeModal: () => void;
+  addProject: (project: Omit<ProjectListDto, 'projectListId'>) => void; //  사용자가 id와 index를 직접 지정 x
+  deleteProject: (projectListId: string) => void;
+  getProjectById: (projectListId: string) => ProjectListDto | undefined;
   getProjectesByKey: (resumeKey: string) => ProjectListDto[];
   updateProjectList: (resumeKey: string, projectes: ProjectListDto[]) => void;
   updateProjectListOrder: (
@@ -37,14 +35,6 @@ export const useProjectStore = create<ProjectStore>()(
       openModal: (key, resumeKey) =>
         set({ isModalOpen: true, currentResumeKey: key, resumeKey: resumeKey }),
       closeModal: () => set({ isModalOpen: false, currentResumeKey: null }),
-      updateProject: (updatedProject) =>
-        set((state) => ({
-          projects: state.projects.map((project) =>
-            project.projectListId === updatedProject.projectListId
-              ? updatedProject
-              : project
-          ),
-        })),
       deleteProject: (projectListId) =>
         set((state) => {
           const newProject = state.projects.filter(
