@@ -6,6 +6,7 @@ import {
   AccordionDetails,
   AccordionSummary,
   Button,
+  Paper,
 } from '@mui/material';
 import CoreDragAndDropListView from '../_common/_core/core-drag-and-drop-view';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -59,7 +60,9 @@ const CompanyListContainer: React.FC<CompanyListContainerProps> = ({
         <AddCompanyListContent resumeKey={resumeKey} />
         <div className={companyListContinerCss.dragAndDropSection}>
           {!(resumeData && resumeData.length > 0) ? (
-            <div>회사목록이 없습니다 추가해주세요!!</div>
+            <Paper className={companyListContinerCss.noneProjectList}>
+              회사목록이 없습니다 추가해주세요!!
+            </Paper>
           ) : (
             <CoreDragAndDropListView
               containerClassName={companyListContinerCss.ulContent}
