@@ -48,8 +48,8 @@ const ProjectListContainer: React.FC<ProjectListContainerProps> = ({
       <div className={projectListContinerCss.wrapProjectList}>
         <AddProjectListContent resumeKey={resumeKey} />
         <div className={projectListContinerCss.dragAndDropSection}>
-          {!resumeData ? (
-            <div>회사목록이 없습니다 추가해주세요!!</div>
+          {!(resumeData && resumeData.length > 0) ? (
+            <div>프로젝트 목록이 없습니다 추가해주세요!!</div>
           ) : (
             <CoreDragAndDropListView
               items={resumeData}
@@ -75,11 +75,7 @@ const ProjectListContainer: React.FC<ProjectListContainerProps> = ({
                           expandIcon={<ExpandMoreIcon sx={{ width: 30 }} />}
                           aria-controls="panel3-content"
                           id="panel3-header"
-                        >
-                          {' '}
-                          {/* test */}
-                          {/* 회사명 / 기간 */}
-                        </AccordionSummary>
+                        ></AccordionSummary>
                       </div>
                     </div>
                     <AccordionDetails>

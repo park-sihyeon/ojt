@@ -41,7 +41,6 @@ export const useProjectStore = create<ProjectStore>()(
             (project) => project.projectListId !== projectListId
           );
           return {
-            // 순서 재정렬 ㄱ
             projects: newProject.map((project, index) => ({
               ...project,
               index,

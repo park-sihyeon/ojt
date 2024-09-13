@@ -55,7 +55,6 @@ export const useCompanyStore = create<CompanyStore>()(
             (company) => company.companyListId !== companyListId
           );
           return {
-            // 순서 재정렬 ㄱ
             companys: newCompany.map((company, index) => ({
               ...company,
               index,
@@ -78,7 +77,6 @@ export const useCompanyStore = create<CompanyStore>()(
         set(
           produce((state) => {
             if (state.companies[resumeKey]) {
-              // 기존 배열을 새로운 순서로 업데이트
               state.companies[resumeKey] = companies.map((company, index) => ({
                 ...company,
                 index,

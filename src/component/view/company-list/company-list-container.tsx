@@ -61,7 +61,7 @@ const CompanyListContainer: React.FC<CompanyListContainerProps> = ({
       <div className={companyListContinerCss.wrapCompanyList}>
         <AddCompanyListContent resumeKey={resumeKey} />
         <div className={companyListContinerCss.dragAndDropSection}>
-          {!resumeData ? (
+          {!(resumeData && resumeData.length > 0) ? (
             <div>회사목록이 없습니다 추가해주세요!!</div>
           ) : (
             <CoreDragAndDropListView
