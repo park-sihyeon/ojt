@@ -1,4 +1,4 @@
-import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Toolbar, Typography } from '@mui/material';
 import { toolBar } from './tool-bar.css';
 // import { toolBar } from './tool-bar.css';
 
@@ -12,7 +12,6 @@ export const ToolBar = () => {
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                 RESUME PROJECT
               </Typography>
-              <Button color="inherit">Login</Button>
             </Toolbar>
           </AppBar>
         </Box>
