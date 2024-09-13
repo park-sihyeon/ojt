@@ -5,21 +5,17 @@ import { produce } from 'immer';
 // 수정, 추가, 삭제, getId
 interface CompanyStore {
   companys: CompanyListDto[];
-  setCompanys: (companys: CompanyListDto[]) => void;
-  addCompany: (company: Omit<CompanyListDto, 'companyListId'>) => void; //  사용자가 id와 index를 직접 지정 x
-  updateCompany: (updatedCompany: CompanyListDto) => void;
-  deleteCompany: (companyListId: string) => void;
-  getCompanyById: (companyListId: string) => CompanyListDto | undefined;
-  updateCompanyOrder: (companys: CompanyListDto[]) => void;
-  isModalOpen: boolean;
-  selectedCompanyIndex: number | null;
-  closeModal: () => void;
-  // test
   companies: { [key: string]: CompanyListDto[] };
   currentResumeKey: string | null;
   resumeKey: string | null;
+  isModalOpen: boolean;
+  selectedCompanyIndex: number | null;
   openModal: (key: string, resumeKey: string) => void;
-  getCompanies: (resumeKey: string) => CompanyListDto[];
+  closeModal: () => void;
+  addCompany: (company: Omit<CompanyListDto, 'companyListId'>) => void; //  사용자가 id와 index를 직접 지정 x
+  deleteCompany: (companyListId: string) => void;
+  getCompanyById: (companyListId: string) => CompanyListDto | undefined;
+  getCompaniesByKey: (resumeKey: string) => CompanyListDto[];
   updateCompanyList: (resumeKey: string, companies: CompanyListDto[]) => void;
   updateCompanyListOrder: (
     resumeKey: string,
@@ -35,33 +31,6 @@ export const useCompanyStore = create<CompanyStore>()(
       currentResumeKey: null,
       resumeKey: null,
       isModalOpen: false,
-      setCompanys: (companys) => set({ companys }),
-      updateCompany: (updatedCompany) =>
-        set((state) => ({
-          companys: state.companys.map((company) =>
-            company.companyListId === updatedCompany.companyListId
-              ? updatedCompany
-              : company
-          ),
-        })),
-      deleteCompany: (companyListId) =>
-        set((state) => {
-          const newCompany = state.companys.filter(
-            (company) => company.companyListId !== companyListId
-          );
-          return {
-            // 순서 재정렬 ㄱ
-            companys: newCompany.map((company, index) => ({
-              ...company,
-              index,
-            })),
-          };
-        }),
-      updateCompanyOrder: (companys) => set({ companys }),
-      getCompanyById: (companyListId) =>
-        get().companys.find(
-          (company) => company.companyListId === companyListId
-        ),
       selectedCompanyIndex: null,
       openModal: (key, resumeKey) =>
         set({ isModalOpen: true, currentResumeKey: key, resumeKey: resumeKey }),
@@ -80,7 +49,24 @@ export const useCompanyStore = create<CompanyStore>()(
             state.companies[key].push(company);
           })
         ),
-      getCompanies: (resumeKey) => get().companies[resumeKey] || [],
+      deleteCompany: (companyListId) =>
+        set((state) => {
+          const newCompany = state.companys.filter(
+            (company) => company.companyListId !== companyListId
+          );
+          return {
+            companys: newCompany.map((company, index) => ({
+              ...company,
+              index,
+            })),
+          };
+        }),
+      getCompanyById: (companyListId) =>
+        get().companys.find(
+          (company) => company.companyListId === companyListId
+        ),
+
+      getCompaniesByKey: (resumeKey) => get().companies[resumeKey] || [],
       updateCompanyList: (resumeKey, companies) =>
         set(
           produce((state) => {
@@ -91,7 +77,6 @@ export const useCompanyStore = create<CompanyStore>()(
         set(
           produce((state) => {
             if (state.companies[resumeKey]) {
-              // 기존 배열을 새로운 순서로 업데이트
               state.companies[resumeKey] = companies.map((company, index) => ({
                 ...company,
                 index,

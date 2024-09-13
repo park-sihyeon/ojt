@@ -17,11 +17,11 @@ export const Resume: React.FC = () => {
   const Formatting = resumeId?.replace(':', '');
 
   const { getResumeById, deleteResume } = useResumeStore();
-  const { getCompanies, deleteCompany } = useCompanyStore();
-  const { getProjectes, deleteProject } = useProjectStore();
+  const { getCompaniesByKey, deleteCompany } = useCompanyStore();
+  const { getProjectesByKey, deleteProject } = useProjectStore();
   const resumeData = getResumeById(Formatting as string);
-  const companyData = getCompanies(resumeData?.resumeKey as string);
-  const projectData = getProjectes(resumeData?.resumeKey as string);
+  const companyData = getCompaniesByKey(resumeData?.resumeKey as string);
+  const projectData = getProjectesByKey(resumeData?.resumeKey as string);
 
   useEffect(() => {
     console.log('companyData', companyData);
