@@ -5,6 +5,9 @@ import { useResumeStore } from '../../../script/store/use-resume-store';
 import { useCompanyStore } from '../../../script/store/use-company-list-store';
 import { useProjectStore } from '../../../script/store/use-project-list-store';
 import { useEffect } from 'react';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import ApartmentOutlinedIcon from '@mui/icons-material/ApartmentOutlined';
+import AccountTreeOutlinedIcon from '@mui/icons-material/AccountTreeOutlined';
 
 export const Resume: React.FC = () => {
   const navigate = useNavigate();
@@ -55,6 +58,9 @@ export const Resume: React.FC = () => {
                 <div className={ResumeCss.header}>
                   <div className={ResumeCss.logo} />
                   <div className={ResumeCss.logoTitle} />
+                  <Link to="/">
+                    <HomeOutlinedIcon />
+                  </Link>
                 </div>
                 {/* 개인정보 */}
                 <div className={ResumeCss.myInfoSection}>
@@ -62,7 +68,6 @@ export const Resume: React.FC = () => {
                   <div className="flex">
                     <div className="title">{resumeData?.title}</div>
                     <div className="name">
-                      {' '}
                       <b className="subtitle">성명 : </b>
                       {resumeData?.name}
                     </div>
@@ -81,12 +86,10 @@ export const Resume: React.FC = () => {
                     spacing={1}
                   >
                     <div>
-                      {' '}
                       <b className="subtitle">이메일 : </b>
                       {resumeData?.email}
                     </div>
                     <div>
-                      {' '}
                       <b className="subtitle">휴대번호 : </b>
                       {resumeData?.phoneNumber}
                     </div>
@@ -109,88 +112,83 @@ export const Resume: React.FC = () => {
               </div>
 
               <Divider className={ResumeCss.sectionDivider} />
-              <div>경력</div>
+              <div className={ResumeCss.ListSection}>
+                <div>
+                  회사리스트 <ApartmentOutlinedIcon />
+                </div>
+              </div>
 
               {/* 커리어 영어 몰라서 한글 쓴거 아님 진짜임 Wrap */}
               <div className={ResumeCss.companyListWrap}>
                 {/* 회사 */}
                 <div className={ResumeCss.companyListSection}>
                   {/* 타이틀, 기간, 링크, 설명 */}
-                  <div>
+                  <div className={ResumeCss.sectionContainer}>
                     {companyData.map((company) => (
                       <div
                         key={company.companyListId}
                         className={ResumeCss.list}
                       >
                         <div>
-                          {' '}
                           <b className="subtitle">회사명 - </b>
-                          <br />
                           {company.title}
                         </div>
                         <div>
-                          {' '}
                           <b className="subtitle">기간 : </b>
                           {company.period}
                         </div>
                         <div>
-                          {' '}
                           <b className="subtitle">링크 : </b>
                           {company.url}
                         </div>
                         <div>
-                          {' '}
                           <b className="subtitle">업무내용 - </b>
-                          <br />
-                          {company.content}
+                          <p>{company.content}</p>
                         </div>
                       </div>
                     ))}
                   </div>
                 </div>
               </div>
+              <Divider className={ResumeCss.sectionDivider} />
+              <div className={ResumeCss.ListSection}>
+                <div>
+                  프로젝트 리스트 <AccountTreeOutlinedIcon />
+                </div>
+              </div>
               {/* 프로젝트 */}
               <div className={ResumeCss.projectListWrap}>
                 <div className={ResumeCss.projectListSection}>
-                  <div>
+                  <div className={ResumeCss.sectionContainer}>
                     {projectData.map((project) => (
                       <div
                         key={project.projectListId}
                         className={ResumeCss.list}
                       >
                         <div>
-                          {' '}
                           <b className="subtitle">프로젝트명 - </b>
-                          <br />
                           {project.title}
                         </div>
                         <div>
-                          {' '}
                           <b className="subtitle">기간 : </b>
                           {project.period}
                         </div>
                         <div>
                           <div>
-                            {' '}
                             <b className="subtitle">인원수 : </b>
                             {project.personCount}
                           </div>
                           <div>
-                            {' '}
                             <b className="subtitle">링크 : </b>
-                            {project.url}
+                            <a href={project.url}>{project.url}</a>
                           </div>
                           <div>
-                            {' '}
                             <b className="subtitle">프로젝트 설명 - </b>
-                            <br />
                             {project.description}
                           </div>
                           <div>
-                            {' '}
                             <b className="subtitle">업무내용 - </b>
-                            <br />
-                            {project.content}
+                            <p>{project.content}</p>
                           </div>
                         </div>
                       </div>
@@ -198,21 +196,24 @@ export const Resume: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <button>
-                <Link to="/">홈으로ㄱ</Link>
-              </button>
             </Paper>
+            <div className={ResumeCss.buttonSection}>
+              <button
+                className={ResumeCss.ctaButton}
+                onClick={() =>
+                  handleDeleteResume(resumeData?.resumeId as string)
+                }
+              >
+                <div className="delete">삭제</div>
+              </button>
+              <button
+                className={ResumeCss.ctaButton}
+                onClick={() => goToEditResume(resumeData?.resumeId as string)}
+              >
+                <div className="edit">수정</div>
+              </button>
+            </div>
           </Box>
-          <button
-            onClick={() => handleDeleteResume(resumeData?.resumeId as string)}
-          >
-            삭제
-          </button>
-          <button
-            onClick={() => goToEditResume(resumeData?.resumeId as string)}
-          >
-            수정
-          </button>
         </div>
       )}
     </>
