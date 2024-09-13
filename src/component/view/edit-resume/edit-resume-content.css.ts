@@ -41,13 +41,14 @@ export const editResumeContentCss = {
     flexDirection: 'row',
     gap: '10px',
   }),
-  goBack: style({
-    position: 'absolute',
-    top: '0',
-    right: '0',
-  }),
+  goBack: style({}),
   divider: style({
     background: '#1976d2',
+  }),
+  infoTop: style({
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   }),
 };
 
