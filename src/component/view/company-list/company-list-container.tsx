@@ -21,7 +21,12 @@ const CompanyListContainer: React.FC<CompanyListContainerProps> = ({
   resumeKey,
 }) => {
   //#region get companylist data, key
-  const { getCompanies, updateCompanyList, isModalOpen } = useCompanyStore();
+  const {
+    getCompanies,
+    updateCompanyList,
+    isModalOpen,
+    updateCompanyListOrder,
+  } = useCompanyStore();
   const [companies, setCompanies] = useState<CompanyListDto[]>([]);
   const resumeData = companies;
 
@@ -41,6 +46,16 @@ const CompanyListContainer: React.FC<CompanyListContainerProps> = ({
   };
   //#endregion
 
+  // 이부분에 구현해보자잉?
+  // 리스트 변경 감지부터 체크 ㄱ
+  const [isChange, setIsChange] = useState(false);
+  const handleChangeList = (companyList: CompanyListDto[]) => {
+    setIsChange(true);
+    console.log(isChange, 'isChange');
+    console.log(companyList, 'companyList');
+    updateCompanyListOrder(resumeKey, companyList);
+  };
+
   return (
     <>
       <div className={companyListContinerCss.wrapCompanyList}>
@@ -51,9 +66,8 @@ const CompanyListContainer: React.FC<CompanyListContainerProps> = ({
           ) : (
             <CoreDragAndDropListView
               containerClassName={companyListContinerCss.ulContent}
-              // test
               items={resumeData}
-              // onChangeList={handleChangeList}
+              onChangeList={handleChangeList}
               onCreateUniqueKey={(item, i) => {
                 return item.resumeKey[i];
               }}

@@ -21,6 +21,10 @@ interface CompanyStore {
   openModal: (key: string, resumeKey: string) => void;
   getCompanies: (resumeKey: string) => CompanyListDto[];
   updateCompanyList: (resumeKey: string, companies: CompanyListDto[]) => void;
+  updateCompanyListOrder: (
+    resumeKey: string,
+    companies: CompanyListDto[]
+  ) => void;
 }
 
 export const useCompanyStore = create<CompanyStore>()(
@@ -81,6 +85,18 @@ export const useCompanyStore = create<CompanyStore>()(
         set(
           produce((state) => {
             state.companies[resumeKey] = companies;
+          })
+        ),
+      updateCompanyListOrder: (resumeKey, companies) =>
+        set(
+          produce((state) => {
+            if (state.companies[resumeKey]) {
+              // 기존 배열을 새로운 순서로 업데이트
+              state.companies[resumeKey] = companies.map((company, index) => ({
+                ...company,
+                index,
+              }));
+            }
           })
         ),
     }),
