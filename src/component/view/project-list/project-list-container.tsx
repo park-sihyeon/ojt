@@ -20,18 +20,20 @@ interface ProjectListContainerProps {
 const ProjectListContainer: React.FC<ProjectListContainerProps> = ({
   resumeKey,
 }) => {
-  //#region get local
-  const { getProjectesByKey, updateProjectList, isModalOpen } =
-    useProjectStore();
+  const {
+    getProjectesByKey,
+    updateProjectList,
+    isModalOpen,
+    updateProjectListOrder,
+  } = useProjectStore();
   const [projectes, setProjectes] = useState<ProjectListDto[]>([]);
+  const [isChange, setIsChange] = useState(false);
   const resumeData = projectes;
 
   useEffect(() => {
     const projectList = getProjectesByKey(resumeKey);
     setProjectes(projectList);
-    console.log('시점 파악', projectList);
   }, [resumeKey, getProjectesByKey, isModalOpen]);
-  //#endregion
 
   //#region handle delete
   const handleDeleteProject = (projectId: string) => {
@@ -40,6 +42,14 @@ const ProjectListContainer: React.FC<ProjectListContainerProps> = ({
     );
     updateProjectList(resumeKey, updatedProjectes);
     setProjectes(updatedProjectes);
+  };
+  //#endregion
+
+  //#region handleChangeList
+  const handleChangeList = (projectList: ProjectListDto[]) => {
+    setIsChange(true);
+    console.log(isChange, 'isChange');
+    updateProjectListOrder(resumeKey, projectList);
   };
   //#endregion
 
@@ -53,6 +63,7 @@ const ProjectListContainer: React.FC<ProjectListContainerProps> = ({
           ) : (
             <CoreDragAndDropListView
               items={resumeData}
+              onChangeList={handleChangeList}
               onCreateUniqueKey={(item, i) => {
                 return item.resumeKey[i];
               }}

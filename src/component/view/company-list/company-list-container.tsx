@@ -20,7 +20,6 @@ interface CompanyListContainerProps {
 const CompanyListContainer: React.FC<CompanyListContainerProps> = ({
   resumeKey,
 }) => {
-  //#region get companylist data, key
   const {
     getCompaniesByKey,
     updateCompanyList,
@@ -28,13 +27,13 @@ const CompanyListContainer: React.FC<CompanyListContainerProps> = ({
     updateCompanyListOrder,
   } = useCompanyStore();
   const [companies, setCompanies] = useState<CompanyListDto[]>([]);
+  const [isChange, setIsChange] = useState(false);
   const resumeData = companies;
 
   useEffect(() => {
     const companyList = getCompaniesByKey(resumeKey);
     setCompanies(companyList);
   }, [resumeKey, getCompaniesByKey, isModalOpen]);
-  //#endregion
 
   //#region handle delete
   const handleDeleteCompany = (companyId: string) => {
@@ -46,15 +45,13 @@ const CompanyListContainer: React.FC<CompanyListContainerProps> = ({
   };
   //#endregion
 
-  // 이부분에 구현해보자잉?
-  // 리스트 변경 감지부터 체크 ㄱ
-  const [isChange, setIsChange] = useState(false);
+  //#region handleChangeList
   const handleChangeList = (companyList: CompanyListDto[]) => {
     setIsChange(true);
     console.log(isChange, 'isChange');
-    console.log(companyList, 'companyList');
     updateCompanyListOrder(resumeKey, companyList);
   };
+  //#endregion
 
   return (
     <>
