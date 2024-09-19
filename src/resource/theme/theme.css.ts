@@ -1,7 +1,10 @@
 // 여기다 색상, 폰트, 간격 요거 3가지만 일단 따라서 ㄱㄱ
 
 import { createThemeContract } from '@vanilla-extract/css';
-import { colorsContract, spacingContract } from './theme-contracts';
+import {
+  colorsContract,
+  // fontSizeContract,
+} from './theme-contracts';
 import { Theme } from '../../component/context/test-abstract-theme-context-provider';
 
 export type ServiceThemeValue = string;
@@ -9,19 +12,68 @@ export type ServiceTheme = Theme<ServiceThemeValue>;
 
 export const theme = createThemeContract({
   colors: colorsContract,
-  spacing: spacingContract,
-  fontSize: {
-    11: null,
+  // spacing: spacingContract,
+  spacing: {
+    1: null,
+    2: null,
+    3: null,
+    4: null,
+    5: null,
+    6: null,
+    7: null,
+    8: null,
+    10: null,
     12: null,
     14: null,
     16: null,
     18: null,
     20: null,
+    22: null,
     24: null,
+    26: null,
     28: null,
+    30: null,
     32: null,
+    34: null,
     36: null,
+    38: null,
     40: null,
+    42: null,
+    44: null,
+    46: null,
+    48: null,
+    50: null,
+  },
+  fontSize: {
+    1: null,
+    2: null,
+    3: null,
+    4: null,
+    5: null,
+    6: null,
+    7: null,
+    8: null,
+    10: null,
+    12: null,
+    14: null,
+    16: null,
+    18: null,
+    20: null,
+    22: null,
+    24: null,
+    26: null,
+    28: null,
+    30: null,
+    32: null,
+    34: null,
+    36: null,
+    38: null,
+    40: null,
+    42: null,
+    44: null,
+    46: null,
+    48: null,
+    50: null,
   },
   fontWeight: {
     400: null,

@@ -122,7 +122,7 @@ globalStyle(`${interduceContainerCss.addButton} .row`, {
 });
 
 globalStyle(`${interduceContainerCss.editButton} > button`, {
-  fontSize: theme.fontSize[16],
+  fontSize: theme.fontSize[32],
   fontWeight: '500',
   color: '#fff',
 });

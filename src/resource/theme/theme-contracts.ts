@@ -1,4 +1,4 @@
-import { Spacing } from './theme-implements';
+import { FontSizing, Spacing } from './theme-implements';
 import { Colors } from './theme.interface';
 
 export const colorsContract: {
@@ -89,12 +89,11 @@ export const colorsContract: {
   'blue-12': null,
 };
 
-// spacing 간격 상수 처리
+// 여기서 아예 rem 치환 처리 해버리기 ㄱ
 // 요건 연습용으로 seller에 있는 코드로 익혀보자 요런 생각도 중요!
 export const spacingArray = new Array(10).fill(null).map((_, idx) => {
   const num = (Number(idx) + 1) * 8;
-  // return `${rem(num)}`;
-  return `${num}px`;
+  return `${num}`;
 }) as (keyof Spacing)[];
 
 export const spacingContract = spacingArray.reduce((acc, curr) => {
@@ -104,4 +103,20 @@ export const spacingContract = spacingArray.reduce((acc, curr) => {
   };
 }, {}) as {
   [space in keyof Spacing]: null;
+};
+
+// fontsize 도 위와같이 처리 해보자
+export const fontSizeArray = new Array(25).fill(null).map((_, idx) => {
+  const num = (Number(idx) + 1) * 2;
+  return `${num}`;
+}) as (keyof FontSizing)[];
+
+const addFontSizingArray = ['1', '3', '5', '7', ...fontSizeArray];
+export const fontSizeContract = addFontSizingArray.reduce((acc, curr) => {
+  return {
+    ...acc,
+    [curr]: null,
+  };
+}, {}) as {
+  [size in keyof FontSizing]: null;
 };

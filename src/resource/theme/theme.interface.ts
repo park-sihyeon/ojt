@@ -1,5 +1,5 @@
-import { spacingContract } from './theme-contracts';
-import { Spacing } from './theme-implements';
+import { fontSizeContract, spacingContract } from './theme-contracts';
+import { FontSizing, rem, Spacing } from './theme-implements';
 
 export interface Colors {
   inherit: string;
@@ -94,22 +94,16 @@ export interface PxToRem {
 export const spacing = Object.entries(spacingContract).reduce((acc, [key]) => {
   return {
     ...acc,
-    [key]: key,
+    [key]: rem(Number(key)),
   };
 }, {}) as { [space in keyof Spacing]: string };
-console.log('계산 잘되었니? :', spacing);
 
-// export const spacing = Object.entries(spacingContract).reduce((acc, [key]) => {
-//   const dividerPixel = {
-//     "1px": "1px",
-//     "2px": "2px",
-//     "3px": "3px",
-//   };
-//   return {
-//     ...acc,
-//     ...dividerPixel,
-//     [key]: key,
-//   };
-// }, {}) as {
-//   [space in keyof Spacing]: string;
-// };
+export const fontSizing = Object.entries(fontSizeContract).reduce(
+  (acc, [key]) => {
+    return {
+      acc,
+      [key]: rem(Number(key)),
+    };
+  },
+  {}
+) as { [size in keyof FontSizing]: string };
