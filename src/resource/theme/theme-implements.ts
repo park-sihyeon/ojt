@@ -102,16 +102,6 @@ export const colors = {
 
 // seller 코드처럼 작성해보기
 export interface Spacing {
-  // '8px': string;
-  // '16px': string;
-  // '24px': string;
-  // '32px': string;
-  // '40px': string;
-  // '48px': string;
-  // '56px': string;
-  // '64px': string;
-  // '72px': string;
-  // '80px': string;
   '0.0625rem': string;
   '0.125rem': string;
   '0.1875rem': string;
@@ -141,10 +131,6 @@ export interface Spacing {
   '2.875rem': string;
   '3rem': string;
   '3.125rem': string;
-  // '3.5rem': string;
-  // '4rem': string;
-  // '4.5rem': string;
-  // '5rem': string;
 }
 
 export interface FontSizing {

@@ -83,7 +83,6 @@ export const interduceContainerCss = {
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    // padding: `${rem(32)}`,
     height: `${rem(90)}`,
     position: 'absolute',
     bottom: '0',
@@ -122,7 +121,7 @@ globalStyle(`${interduceContainerCss.addButton} .row`, {
 });
 
 globalStyle(`${interduceContainerCss.editButton} > button`, {
-  fontSize: theme.fontSize[32],
+  fontSize: theme.fontSize[16],
   fontWeight: '500',
   color: '#fff',
 });
