@@ -96,10 +96,11 @@ export const ResumeCss = {
     width: '100% !important',
     height: '80px !important',
     display: 'flex',
+    justifyContent: 'space-between',
     flexDirection: 'row',
   }),
   ctaButton: style({
-    width: '50%',
+    width: '49.5%',
   }),
 
   // etc
@@ -222,13 +223,14 @@ globalStyle(`${ResumeCss.projectListSection} .subtitle`, {
 globalStyle(`${ResumeCss.ctaButton} .delete`, {
   fontSize: '16px',
   fontWeight: 700,
-  background: '#2F80ED',
+  background: '#464C53',
   color: '#fff',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   width: '100%',
   height: '100%',
+  borderRadius: '4px',
 });
 globalStyle(`${ResumeCss.ctaButton} .edit`, {
   fontSize: '16px',
@@ -240,15 +242,17 @@ globalStyle(`${ResumeCss.ctaButton} .edit`, {
   alignItems: 'center',
   width: '100%',
   height: '100%',
+  borderRadius: '4px',
 });
 globalStyle(`${ResumeCss.ListSection} > div`, {
-  fontSize: '16px',
+  fontSize: '18px',
   fontWeight: 700,
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   gap: '8px',
   width: '100%',
+  color: '#1976d2',
 });
 globalStyle(':: -webkit-transition', {
   boxShadow: '300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
