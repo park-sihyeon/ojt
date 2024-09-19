@@ -1,24 +1,18 @@
 import { globalStyle, style } from '@vanilla-extract/css';
+import { rem } from '../../../resource/theme/theme-implements';
 
 export const resumeCardListCss = {
-  // container: style({
-  //   padding: '30px',
-  //   height: '600px',
-  //   minHeight: '600px',
-  //   borderRadius: '15px',
-  //   overflow: 'hidden',
-  // }),
   cardContainer: style({
     display: 'flex',
     justifyContent: 'start',
     alignItems: 'center',
-    maxHeight: '140px',
-    minHeight: '140px',
-    borderRadius: '15px',
+    maxHeight: `${rem(140)}`,
+    minHeight: `${rem(140)}`,
+    borderRadius: `${rem(16)}`,
     borderColor: 'transparent',
     overflow: 'hidden',
     width: '95vw',
-    marginBottom: '15px',
+    marginBottom: `${rem(16)}`,
     position: 'relative',
   }),
   hamburger: style({
@@ -26,18 +20,18 @@ export const resumeCardListCss = {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: '5px',
+    padding: `${rem(8)}`,
     position: 'absolute',
     top: '0',
     right: '0',
-    gap: '5px',
-    width: '30px',
-    height: '30px',
+    gap: `${rem(8)}`,
+    width: `${rem(30)}`,
+    height: `${rem(30)}`,
   }),
 };
 
 globalStyle(`${resumeCardListCss.hamburger} .line`, {
   width: '90%',
   background: '#999',
-  height: '3px',
+  height: `${rem(3)}`,
 });

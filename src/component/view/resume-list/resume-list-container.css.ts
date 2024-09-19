@@ -1,4 +1,5 @@
 import { globalStyle, style } from '@vanilla-extract/css';
+import { rem } from '../../../resource/theme/theme-implements';
 
 export const ResumeListContainerCss = {
   wrapResumeListContainer: style({
@@ -7,7 +8,7 @@ export const ResumeListContainerCss = {
     alignItems: 'center',
     flexDirection: 'column',
     backgroundColor: '#eee',
-    gap: '16px',
+    gap: `${rem(16)}`,
   }),
   addAndListSection: style({
     display: 'flex',
@@ -15,7 +16,7 @@ export const ResumeListContainerCss = {
     alignItems: 'center',
     flexDirection: 'column',
     width: '100%',
-    gap: '16px',
+    gap: `${rem(16)}`,
   }),
   listContainer: style({
     display: 'flex',
@@ -25,14 +26,14 @@ export const ResumeListContainerCss = {
   line: style({
     width: '100%',
     borderBottom: '1px solid #ddd',
-    margin: '20px 0',
+    margin: `${rem(16)} 0`,
   }),
   divider: style({
     width: '100%',
-    height: '2px',
+    height: `${rem(2)}`,
   }),
   subtitle: style({
-    fontSize: '16px',
+    fontSize: `${rem(16)}`,
     fontWeight: '700',
     color: '#555',
     lineHeight: '1.7',

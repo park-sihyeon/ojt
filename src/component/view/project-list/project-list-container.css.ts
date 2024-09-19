@@ -1,25 +1,26 @@
 import { globalStyle, style } from '@vanilla-extract/css';
+import { rem } from '../../../resource/theme/theme-implements';
 
 export const projectListContinerCss = {
   wrapProjectList: style({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: '16px',
-    marginBottom: '35px',
+    padding: `${rem(16)}`,
+    marginBottom: `${rem(35)}`,
     flexDirection: 'column',
     background: '#eee',
     position: 'relative',
-    gap: '16px',
+    gap: `${rem(16)}`,
   }),
   noneProjectList: style({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    minHeight: '140px',
+    minHeight: `${rem(140)}`,
     backgroundColor: '#8A8D90 !important',
     fontWeight: '700',
-    fontSize: '16px',
+    fontSize: `${rem(16)}`,
     letterSpacing: '1.2px',
     color: '#fff !important',
   }),
@@ -32,7 +33,7 @@ export const projectListContinerCss = {
     alignItems: 'center',
   }),
   accordrion: style({
-    padding: '20px 20px 20px',
+    padding: `${rem(20)} ${rem(20)} ${rem(20)}`,
     position: 'relative',
   }),
   hamburger: style({
@@ -40,13 +41,13 @@ export const projectListContinerCss = {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: '5px',
+    padding: `${rem(5)}`,
     position: 'absolute',
-    top: '15px',
-    right: '15px',
-    gap: '5px',
-    width: '30px',
-    height: '30px',
+    top: `${rem(15)}`,
+    right: `${rem(15)}`,
+    gap: `${rem(5)}`,
+    width: `${rem(30)}`,
+    height: `${rem(30)}`,
   }),
   absolute: style({
     position: 'absolute',
@@ -73,11 +74,11 @@ globalStyle(`${projectListContinerCss.accordrion} .column`, {
   alignItems: 'start',
 });
 globalStyle(`${projectListContinerCss.accordrion} .accordion-title`, {
-  fontSize: '20px',
+  fontSize: `${rem(20)}`,
   fontWeight: 700,
 });
 globalStyle(`${projectListContinerCss.accordrion} .accordion-period`, {
-  fontSize: '16px',
+  fontSize: `${rem(16)}`,
   fontWeight: 400,
   color: '#999',
 });
