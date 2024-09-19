@@ -1,11 +1,19 @@
 import { Colors, PxToRem } from './theme.interface';
 
+// px to rem 변환
+export const baseSize = 16;
+
+export const rem: PxToRem = (px: number) => {
+  return `${px / baseSize}rem`;
+};
+
 const darkColors: Partial<Colors> = {};
 
 const lightColors: Colors = {
   inherit: 'inherit',
   black: '#000000',
   white: '#FFFFFF',
+  blue: '#F7F8F9',
   transparent: 'transparent',
 
   'gray-1': '#F7F8F9',
@@ -92,9 +100,26 @@ export const colors = {
   dark: darkColors,
 };
 
-// px to rem 변환
-export const baseSize = 16;
-
-export const rem: PxToRem = (px: number) => {
-  return `${px / baseSize}rem`;
-};
+// seller 코드처럼 작성해보기
+export interface Spacing {
+  '8px': string;
+  '16px': string;
+  '24px': string;
+  '32px': string;
+  '40px': string;
+  '48px': string;
+  '56px': string;
+  '64px': string;
+  '72px': string;
+  '80px': string;
+  // '8rem': string;
+  // '16rem': string;
+  // '24rem': string;
+  // '32rem': string;
+  // '40rem': string;
+  // '48rem': string;
+  // '56rem': string;
+  // '64rem': string;
+  // '72rem': string;
+  // '80rem': string;
+}

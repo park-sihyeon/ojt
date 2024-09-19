@@ -1,5 +1,6 @@
 import { globalStyle, style } from '@vanilla-extract/css';
 import { rem } from '../../../resource/theme/theme-implements';
+import { theme } from '../../../resource/theme/theme.css';
 
 export const interduceContainerCss = {
   wrapInterduceContainer: style({
@@ -121,7 +122,7 @@ globalStyle(`${interduceContainerCss.addButton} .row`, {
 });
 
 globalStyle(`${interduceContainerCss.editButton} > button`, {
-  fontSize: `${rem(16)}`,
+  fontSize: theme.fontSize[16],
   fontWeight: '500',
   color: '#fff',
 });

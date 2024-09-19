@@ -1,7 +1,11 @@
+import { spacingContract } from './theme-contracts';
+import { Spacing } from './theme-implements';
+
 export interface Colors {
   inherit: string;
   black: string;
   white: string;
+  blue: string;
   transparent: string;
 
   'gray-1': string;
@@ -85,3 +89,27 @@ export interface Colors {
 export interface PxToRem {
   (px: number): string;
 }
+
+// seller 코드처럼 작성해보기
+export const spacing = Object.entries(spacingContract).reduce((acc, [key]) => {
+  return {
+    ...acc,
+    [key]: key,
+  };
+}, {}) as { [space in keyof Spacing]: string };
+console.log('계산 잘되었니? :', spacing);
+
+// export const spacing = Object.entries(spacingContract).reduce((acc, [key]) => {
+//   const dividerPixel = {
+//     "1px": "1px",
+//     "2px": "2px",
+//     "3px": "3px",
+//   };
+//   return {
+//     ...acc,
+//     ...dividerPixel,
+//     [key]: key,
+//   };
+// }, {}) as {
+//   [space in keyof Spacing]: string;
+// };

@@ -6,10 +6,10 @@ export const ToolBar = () => {
   return (
     <>
       <div className={toolBar.wrapWithToolBar}>
-        <Box sx={{ flexGrow: 1 }}>
+        <Box>
           <AppBar position="sticky">
             <Toolbar>
-              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              <Typography variant="h6" component="div">
                 RESUME PROJECT
               </Typography>
             </Toolbar>

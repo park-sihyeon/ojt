@@ -6,5 +6,6 @@ export const homContentCss = {
     display: 'flex',
     flexDirection: 'column',
     gap: `${rem(16)}`,
+    // backgroundColor: theme.colors['blue'],
   }),
 };
