@@ -4,6 +4,7 @@ import {
   AccordionDetails,
   AccordionSummary,
   Button,
+  Paper,
 } from '@mui/material';
 import CoreDragAndDropListView from '../_common/_core/core-drag-and-drop-view';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -59,7 +60,9 @@ const ProjectListContainer: React.FC<ProjectListContainerProps> = ({
         <AddProjectListContent resumeKey={resumeKey} />
         <div className={projectListContinerCss.dragAndDropSection}>
           {!(resumeData && resumeData.length > 0) ? (
-            <div>프로젝트 목록이 없습니다 추가해주세요!!</div>
+            <Paper className={projectListContinerCss.noneProjectList}>
+              프로젝트 목록이 없습니다. 추가해주세요!
+            </Paper>
           ) : (
             <CoreDragAndDropListView
               items={resumeData}

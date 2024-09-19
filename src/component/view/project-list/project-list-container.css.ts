@@ -10,6 +10,18 @@ export const projectListContinerCss = {
     flexDirection: 'column',
     background: '#eee',
     position: 'relative',
+    gap: '16px',
+  }),
+  noneProjectList: style({
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '140px',
+    backgroundColor: '#8A8D90 !important',
+    fontWeight: '700',
+    fontSize: '16px',
+    letterSpacing: '1.2px',
+    color: '#fff !important',
   }),
   dragAndDropSection: style({
     width: '100%',
@@ -22,7 +34,6 @@ export const projectListContinerCss = {
   accordrion: style({
     padding: '20px 20px 20px',
     position: 'relative',
-    minHeight: '40px',
   }),
   hamburger: style({
     display: 'flex',

@@ -121,7 +121,6 @@ export const AddCompanyListContent: React.FC<AddCompanyListContentPros> = ({
               <Box
                 sx={{
                   width: '94vw',
-                  height: '80vh',
                   borderRadius: '15px',
                   backgroundColor: '#fff',
                 }}
@@ -130,54 +129,56 @@ export const AddCompanyListContent: React.FC<AddCompanyListContentPros> = ({
                   <div className={addCompanyModalCss.wrapCompanyList}>
                     <form
                       onSubmit={handleSubmit(onCompanySubmit)}
-                      className={addCompanyModalCss.formSection}
+                      className={addCompanyModalCss.formContainer}
                     >
-                      <h2>기본정보</h2>
-                      <Divider />
-                      <div className={addCompanyModalCss.flex}>
-                        <TextField
-                          fullWidth
-                          required
-                          id="outlined-required"
-                          label="회사명"
-                          type="text"
-                          error={!!errors.title}
-                          helperText={errors.title?.message}
-                          {...register('title', { required: true })}
-                        />
-                        <TextField
-                          fullWidth
-                          id="outlined-required"
-                          label="링크"
-                          type="text"
-                          error={!!errors.url}
-                          helperText={errors.url?.message}
-                          {...register('url', { required: false })}
-                        />
-                        <TextField
-                          fullWidth
-                          required
-                          id="outlined-required"
-                          label="기간"
-                          type="text"
-                          placeholder="0000.00 ~ 0000.00"
-                          error={!!errors.period}
-                          helperText={errors.period?.message}
-                          {...register('period', { required: true })}
-                        />
-                        <TextField
-                          fullWidth
-                          required
-                          id="outlined-multiline-static"
-                          multiline
-                          rows={8}
-                          // label="업무 내용"
-                          type="text"
-                          defaultValue={`직위 -\n\n업무 -`}
-                          error={!!errors.content}
-                          helperText={errors.content?.message}
-                          {...register('content', { required: true })}
-                        />
+                      <div className={addCompanyModalCss.inputSection}>
+                        <h2>회사정보</h2>
+                        <Divider />
+                        <div className={addCompanyModalCss.flex}>
+                          <TextField
+                            fullWidth
+                            required
+                            id="outlined-required"
+                            label="회사명"
+                            type="text"
+                            error={!!errors.title}
+                            helperText={errors.title?.message}
+                            {...register('title', { required: true })}
+                          />
+                          <TextField
+                            fullWidth
+                            id="outlined-required"
+                            label="링크"
+                            type="text"
+                            error={!!errors.url}
+                            helperText={errors.url?.message}
+                            {...register('url', { required: false })}
+                          />
+                          <TextField
+                            fullWidth
+                            required
+                            id="outlined-required"
+                            label="기간"
+                            type="text"
+                            placeholder="0000.00 ~ 0000.00"
+                            error={!!errors.period}
+                            helperText={errors.period?.message}
+                            {...register('period', { required: true })}
+                          />
+                          <TextField
+                            fullWidth
+                            required
+                            id="outlined-multiline-static"
+                            multiline
+                            rows={8}
+                            // label="업무 내용"
+                            type="text"
+                            // defaultValue={`직위 -\n\n업무 -`}
+                            error={!!errors.content}
+                            helperText={errors.content?.message}
+                            {...register('content', { required: true })}
+                          />
+                        </div>
                       </div>
                       <button
                         className={addCompanyModalCss.submitButton}

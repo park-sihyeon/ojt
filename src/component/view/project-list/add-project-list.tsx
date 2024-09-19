@@ -103,7 +103,6 @@ export const AddProjectListContent: React.FC<ProjectListDtoProps> = ({
               <Box
                 sx={{
                   width: '94vw',
-                  height: '80vh',
                   borderRadius: '15px',
                   backgroundColor: '#fff',
                   overflow: 'scroll',
@@ -112,75 +111,77 @@ export const AddProjectListContent: React.FC<ProjectListDtoProps> = ({
                 <div className={addProjectModalCss.wrapProjectList}>
                   <form
                     onSubmit={handleSubmit(onProjectSubmit)}
-                    className={addProjectModalCss.formSection}
+                    className={addProjectModalCss.formContainer}
                   >
-                    <h2>프로젝트 정보</h2>
-                    <Divider />
-                    <div className={addProjectModalCss.flex}>
-                      <TextField
-                        fullWidth
-                        required
-                        id="outlined-required"
-                        label="프로젝트명"
-                        type="text"
-                        error={!!errors.title}
-                        helperText={errors.title?.message}
-                        {...register('title', { required: true })}
-                      />
-                      <TextField
-                        fullWidth
-                        id="outlined-required"
-                        label="링크"
-                        type="text"
-                        error={!!errors.url}
-                        helperText={errors.url?.message}
-                        {...register('url', { required: false })}
-                      />
-                      <TextField
-                        fullWidth
-                        required
-                        id="outlined-required"
-                        label="기간"
-                        type="text"
-                        placeholder="0000.00 ~ 0000.00"
-                        error={!!errors.period}
-                        helperText={errors.period?.message}
-                        {...register('period', { required: true })}
-                      />
-                      <TextField
-                        fullWidth
-                        required
-                        id="outlined-required"
-                        label="프로젝트 인원"
-                        type="text"
-                        error={!!errors.personCount}
-                        helperText={errors.personCount?.message}
-                        {...register('personCount', { required: true })}
-                      />
-                      <TextField
-                        fullWidth
-                        required
-                        id="outlined-required"
-                        label="프로젝트 설명"
-                        type="text"
-                        placeholder=""
-                        error={!!errors.description}
-                        helperText={errors.description?.message}
-                        {...register('description', { required: true })}
-                      />
-                      <TextField
-                        fullWidth
-                        required
-                        id="outlined-multiline-static"
-                        multiline
-                        rows={4}
-                        label="업무 내용"
-                        type="text"
-                        defaultValue={`역할 -`}
-                        error={!!errors.content}
-                        helperText={errors.content?.message}
-                        {...register('content', { required: true })}
-                      />
+                    <div className={addProjectModalCss.inputSection}>
+                      <h2>프로젝트 정보</h2>
+                      <Divider />
+                      <div className={addProjectModalCss.flex}>
+                        <TextField
+                          fullWidth
+                          required
+                          id="outlined-required"
+                          label="프로젝트명"
+                          type="text"
+                          error={!!errors.title}
+                          helperText={errors.title?.message}
+                          {...register('title', { required: true })}
+                        />
+                        <TextField
+                          fullWidth
+                          id="outlined-required"
+                          label="링크"
+                          type="text"
+                          error={!!errors.url}
+                          helperText={errors.url?.message}
+                          {...register('url', { required: false })}
+                        />
+                        <TextField
+                          fullWidth
+                          required
+                          id="outlined-required"
+                          label="기간"
+                          type="text"
+                          placeholder="0000.00 ~ 0000.00"
+                          error={!!errors.period}
+                          helperText={errors.period?.message}
+                          {...register('period', { required: true })}
+                        />
+                        <TextField
+                          fullWidth
+                          required
+                          id="outlined-required"
+                          label="프로젝트 인원"
+                          type="text"
+                          error={!!errors.personCount}
+                          helperText={errors.personCount?.message}
+                          {...register('personCount', { required: true })}
+                        />
+                        <TextField
+                          fullWidth
+                          required
+                          id="outlined-required"
+                          label="프로젝트 설명"
+                          type="text"
+                          placeholder=""
+                          error={!!errors.description}
+                          helperText={errors.description?.message}
+                          {...register('description', { required: true })}
+                        />
+                        <TextField
+                          fullWidth
+                          required
+                          id="outlined-multiline-static"
+                          multiline
+                          rows={4}
+                          label="업무 내용"
+                          type="text"
+                          defaultValue={`역할 -`}
+                          error={!!errors.content}
+                          helperText={errors.content?.message}
+                          {...register('content', { required: true })}
+                        />
+                      </div>
                     </div>
                     <button
                       className={addProjectModalCss.submitButton}

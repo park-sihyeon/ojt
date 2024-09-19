@@ -8,7 +8,6 @@ export const ResumeCss = {
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    gap: '8px',
   }),
   // section
   myInfoSection: style({
@@ -16,11 +15,12 @@ export const ResumeCss = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'start',
-    gap: '32px',
     marginBottom: '20px',
     flexDirection: 'column',
     minWidth: '300px',
     maxWidth: '460px',
+    gap: '8px',
+    background: '#F7F8F9',
   }),
   // 간략 소개
   // wrap
@@ -30,7 +30,6 @@ export const ResumeCss = {
     alignItems: 'center',
     flexDirection: 'column',
     gap: '8px',
-    background: '#eee',
   }),
   // section
   introSection: style({
@@ -44,6 +43,16 @@ export const ResumeCss = {
     minWidth: '300px',
     maxWidth: '460px',
   }),
+  // 경력
+  // section
+  ListSection: style({
+    padding: '20px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'start',
+    gap: '10px',
+    flexDirection: 'column',
+  }),
   // 회사 리스트
   // wrap
   companyListWrap: style({
@@ -51,18 +60,16 @@ export const ResumeCss = {
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    gap: '8px',
+    background: '#eee',
+    padding: '16px',
   }),
   // section
   companyListSection: style({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'start',
-    gap: '10px',
-    marginBottom: '20px',
     flexDirection: 'column',
-    minWidth: '300px',
-    maxWidth: '460px',
+    width: '100%',
   }),
   // 프로젝트 리스트
   // wrap
@@ -71,19 +78,29 @@ export const ResumeCss = {
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    gap: '8px',
+    background: '#eee',
+    padding: '16px',
   }),
   // section
   projectListSection: style({
-    padding: '20px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'start',
-    gap: '10px',
-    marginBottom: '20px',
     flexDirection: 'column',
-    minWidth: '300px',
-    maxWidth: '460px',
+    width: '100%',
+  }),
+  sectionContainer: style({
+    width: '100%',
+  }),
+  buttonSection: style({
+    width: '100% !important',
+    height: '80px !important',
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+  }),
+  ctaButton: style({
+    width: '49.5%',
   }),
 
   // etc
@@ -96,10 +113,11 @@ export const ResumeCss = {
   }),
   header: style({
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center',
-    gap: '8px',
-    height: '60px',
+    gap: '16px',
+    height: '80px',
+    width: '100%',
   }),
   logo: style({
     backgroundImage: 'url(../../../../public/logo.svg)',
@@ -147,12 +165,17 @@ export const ResumeCss = {
   list: style({
     display: 'flex',
     flexDirection: 'column',
-    padding: '20px 16px',
+    padding: '16px',
     gap: '16px',
-    // borderTop: '1px solid #ddd',
-    // borderBottom: '1px solid #ddd',
     border: '1px solid #ddd',
+    borderRadius: '16px',
     marginBottom: '16px',
+    backgroundColor: '#fff',
+    color: 'rgba(0, 0, 0, 0.87)',
+    transition: 'box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+    boxShadow:
+      '0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12)',
+    overflow: 'hidden',
   }),
 };
 
@@ -189,4 +212,48 @@ globalStyle(`${ResumeCss.companyListSection} .subtitle`, {
   fontSize: '16px',
   fontWeight: 700,
   color: '#555',
+  letterSpacing: '1.3px',
+});
+globalStyle(`${ResumeCss.projectListSection} .subtitle`, {
+  fontSize: '16px',
+  fontWeight: 700,
+  color: '#555',
+  letterSpacing: '1.3px',
+});
+globalStyle(`${ResumeCss.ctaButton} .delete`, {
+  fontSize: '16px',
+  fontWeight: 700,
+  background: '#464C53',
+  color: '#fff',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '100%',
+  height: '100%',
+  borderRadius: '4px',
+});
+globalStyle(`${ResumeCss.ctaButton} .edit`, {
+  fontSize: '16px',
+  fontWeight: 700,
+  background: '#2F80ED',
+  color: '#fff',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '100%',
+  height: '100%',
+  borderRadius: '4px',
+});
+globalStyle(`${ResumeCss.ListSection} > div`, {
+  fontSize: '18px',
+  fontWeight: 700,
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: '8px',
+  width: '100%',
+  color: '#1976d2',
+});
+globalStyle(':: -webkit-transition', {
+  boxShadow: '300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
 });

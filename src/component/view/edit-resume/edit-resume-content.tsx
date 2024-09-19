@@ -22,6 +22,7 @@ import { useResumeStore } from '../../../script/store/use-resume-store';
 import dayjs from 'dayjs';
 import { useCompanyStore } from '../../../script/store/use-company-list-store';
 import { useProjectStore } from '../../../script/store/use-project-list-store';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 
 //#region handle zod
 export type InputsSchemaType = z.infer<typeof InputsSchema>; // 타입 추론 자동
@@ -158,7 +159,13 @@ export const EditResumeContent: React.FC<ResumeFormProps> = ({
           className={editResumeContentCss.inputFormSection}
           onSubmit={handleSubmit(onSubmit)}
         >
-          <h2 className="title">기본정보</h2>
+          <div className={editResumeContentCss.infoTop}>
+            <h2 className="title">기본정보</h2>
+            {/* NAVIGATION */}
+            <Link to="/" className={editResumeContentCss.goBack}>
+              <HomeOutlinedIcon sx={{ color: '#1976d2', fontSize: '30px' }} />
+            </Link>
+          </div>
           {/* 구분선 */}
           <Divider className={editResumeContentCss.divider} />
           {/* 이력서 타이틀 */}
@@ -246,10 +253,6 @@ export const EditResumeContent: React.FC<ResumeFormProps> = ({
             error={!!errors.textarea}
             helperText={errors.textarea?.message}
           />
-          {/* NAVIGATION */}
-          <Link to="/" className={editResumeContentCss.goBack}>
-            <p>HOME</p>
-          </Link>
           <button className={editResumeContentCss.submitButton} type="submit">
             저장
           </button>

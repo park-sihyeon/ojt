@@ -50,10 +50,16 @@ export const addCompanyModalCss = {
     display: 'flex',
     justifyContent: 'start',
     padding: '16px',
-    marginBottom: '35px',
     flexDirection: 'column',
+    height: '100%',
   }),
-  formSection: style({
+  formContainer: style({
+    display: 'flex',
+    gap: '32px',
+    flexDirection: 'column',
+    height: '100%',
+  }),
+  inputSection: style({
     display: 'flex',
     gap: '16px',
     flexDirection: 'column',

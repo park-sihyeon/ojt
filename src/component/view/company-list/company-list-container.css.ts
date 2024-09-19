@@ -8,6 +8,18 @@ export const companyListContinerCss = {
     padding: '16px',
     flexDirection: 'column',
     background: '#eee',
+    gap: '16px',
+  }),
+  noneProjectList: style({
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '140px',
+    backgroundColor: '#8A8D90 !important',
+    fontWeight: '700',
+    fontSize: '16px',
+    letterSpacing: '1.2px',
+    color: '#fff !important',
   }),
   dragAndDropSection: style({
     width: '100%',
