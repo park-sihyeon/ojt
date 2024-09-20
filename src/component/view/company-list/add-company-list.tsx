@@ -43,7 +43,7 @@ export const AddCompanyListContent: React.FC<AddCompanyListContentPros> = ({
     reset,
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<InputsSchemaType>({
     // 수정 시 defualtCompany를 기본값으로 설정
     resolver: zodResolver(InputsSchema),
@@ -53,7 +53,7 @@ export const AddCompanyListContent: React.FC<AddCompanyListContentPros> = ({
   useEffect(() => {
     console.log('add-company-list 키값 :', resumeKey);
   });
-
+  // TODO : 안녕 클레오파트라
   //#region 수정으로 들어올 시 기본값으로 reset 시키기
   // 사용할 수 있으니 보류
   // useEffect(() => {
@@ -183,6 +183,7 @@ export const AddCompanyListContent: React.FC<AddCompanyListContentPros> = ({
                       </div>
                       <CoreButton
                         variant="regist"
+                        disabled={!isValid}
                         className={addCompanyModalCss.submitButton}
                         type="submit"
                       >

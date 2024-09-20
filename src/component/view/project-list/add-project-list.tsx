@@ -44,7 +44,7 @@ export const AddProjectListContent: React.FC<ProjectListDtoProps> = ({
     reset,
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<InputsSchemaType>({
     // 수정 하려고 defualtCompany를 기본값으로 설정
     resolver: zodResolver(InputsSchema),
@@ -186,6 +186,7 @@ export const AddProjectListContent: React.FC<ProjectListDtoProps> = ({
                     </div>
                     <CoreButton
                       variant="regist"
+                      disabled={!isValid}
                       className={addProjectModalCss.submitButton}
                       type="submit"
                     >

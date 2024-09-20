@@ -31,7 +31,6 @@ const getButtonStyle = (variant: string, disabled?: boolean) => {
       return coreButtonCss.deleteButton.default;
     }
   }
-
   if (variant === 'cardButton') {
     if (disabled) {
       return coreButtonCss.cardButton.disabled;
