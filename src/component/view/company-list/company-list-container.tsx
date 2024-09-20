@@ -5,7 +5,6 @@ import {
   AccordionActions,
   AccordionDetails,
   AccordionSummary,
-  Button,
   Paper,
 } from '@mui/material';
 import CoreDragAndDropListView from '../_common/_core/core-drag-and-drop-view';
@@ -13,6 +12,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { CompanyListDto } from '../../../script/dto/company-list-dto';
 import { useCompanyStore } from '../../../script/store/use-company-list-store';
 import { useEffect, useState } from 'react';
+import { CoreButton } from '../_common/_core/button/core-button';
 
 interface CompanyListContainerProps {
   resumeKey: string;
@@ -98,11 +98,12 @@ const CompanyListContainer: React.FC<CompanyListContainerProps> = ({
                       <div>{item.content}</div>
                     </AccordionDetails>
                     <AccordionActions>
-                      <Button
+                      <CoreButton
+                        variant="delete"
                         onClick={() => handleDeleteCompany(item.companyListId)}
                       >
                         삭제
-                      </Button>
+                      </CoreButton>
                     </AccordionActions>
                   </Accordion>
                 </div>

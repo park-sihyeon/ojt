@@ -23,6 +23,7 @@ import dayjs from 'dayjs';
 import { useCompanyStore } from '../../../script/store/use-company-list-store';
 import { useProjectStore } from '../../../script/store/use-project-list-store';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import { CoreButton } from '../_common/_core/button/core-button';
 
 //#region handle zod
 export type InputsSchemaType = z.infer<typeof InputsSchema>; // 타입 추론 자동
@@ -253,9 +254,13 @@ export const EditResumeContent: React.FC<ResumeFormProps> = ({
             error={!!errors.textarea}
             helperText={errors.textarea?.message}
           />
-          <button className={editResumeContentCss.submitButton} type="submit">
+          <CoreButton
+            className={editResumeContentCss.submitButton}
+            type="submit"
+            variant="submit"
+          >
             저장
-          </button>
+          </CoreButton>
         </form>
         {/* 경력 영역 */}
         <div className={editResumeContentCss.inputFormSection}>
