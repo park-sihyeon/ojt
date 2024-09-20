@@ -1,4 +1,5 @@
 import { globalStyle, style } from '@vanilla-extract/css';
+import { rem } from '../../../resource/theme/theme-implements';
 
 export const addResumeContentCss = {
   wrapAddResumeContent: style({
@@ -7,8 +8,8 @@ export const addResumeContentCss = {
     alignItems: 'center',
   }),
   addButton: style({
-    width: '30px',
-    height: '30px',
+    width: `${rem(30)}`,
+    height: `${rem(30)}`,
     border: '3px solid #999',
     borderRadius: '50%',
     display: 'flex',
@@ -23,8 +24,8 @@ globalStyle(`${addResumeContentCss.addButton} .column`, {
   position: 'absolute',
   top: '50%',
   right: '50%',
-  width: '15px',
-  height: '3px',
+  width: `${rem(15)}`,
+  height: `${rem(3)}`,
   backgroundColor: '#999',
 });
 
@@ -34,7 +35,7 @@ globalStyle(`${addResumeContentCss.addButton} .row`, {
   position: 'absolute',
   top: '50%',
   right: '50%',
-  width: '3px',
-  height: '15px',
+  width: `${rem(3)}`,
+  height: `${rem(15)}`,
   backgroundColor: '#999',
 });

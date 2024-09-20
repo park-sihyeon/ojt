@@ -1,4 +1,6 @@
 import { globalStyle, style } from '@vanilla-extract/css';
+import { rem } from '../../../resource/theme/theme-implements';
+import { theme } from '../../../resource/theme/theme.css';
 
 export const addCompanyListCss = {
   addCompanyListWrap: style({
@@ -10,8 +12,8 @@ export const addCompanyListCss = {
     alignItems: 'center',
   }),
   addButton: style({
-    width: '30px',
-    height: '30px',
+    width: `${rem(30)}`,
+    height: `${rem(30)}`,
     border: '3px solid #999',
     borderRadius: '50%',
     display: 'flex',
@@ -29,8 +31,8 @@ globalStyle(`${addCompanyListCss.addButton} .column`, {
   position: 'absolute',
   top: '50%',
   right: '50%',
-  width: '15px',
-  height: '3px',
+  width: `${rem(15)}`,
+  height: `${rem(3)}`,
   backgroundColor: '#999',
 });
 
@@ -40,8 +42,8 @@ globalStyle(`${addCompanyListCss.addButton} .row`, {
   position: 'absolute',
   top: '50%',
   right: '50%',
-  width: '3px',
-  height: '15px',
+  width: `${rem(3)}`,
+  height: `${rem(15)}`,
   backgroundColor: '#999',
 });
 
@@ -49,19 +51,19 @@ export const addCompanyModalCss = {
   wrapCompanyList: style({
     display: 'flex',
     justifyContent: 'start',
-    padding: '16px',
+    padding: theme.spacing[16],
     flexDirection: 'column',
     height: '100%',
   }),
   formContainer: style({
     display: 'flex',
-    gap: '32px',
+    gap: theme.spacing[32],
     flexDirection: 'column',
     height: '100%',
   }),
   inputSection: style({
     display: 'flex',
-    gap: '16px',
+    gap: theme.spacing[16],
     flexDirection: 'column',
   }),
   flex: style({
@@ -69,11 +71,11 @@ export const addCompanyModalCss = {
     justifyContent: 'start',
     alignItems: 'start',
     flexDirection: 'column',
-    gap: '16px',
+    gap: theme.spacing[16],
   }),
   submitButton: style({
     width: '100%',
-    padding: '20px',
+    padding: theme.spacing[16],
     color: '#fff',
     background: '#ccc',
   }),

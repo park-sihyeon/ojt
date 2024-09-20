@@ -1,25 +1,27 @@
 import { globalStyle, style } from '@vanilla-extract/css';
+import { rem } from '../../../resource/theme/theme-implements';
+import { theme } from '../../../resource/theme/theme.css';
 
 export const projectListContinerCss = {
   wrapProjectList: style({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: '16px',
-    marginBottom: '35px',
+    padding: theme.spacing[16],
+    marginBottom: `${rem(35)}`,
     flexDirection: 'column',
     background: '#eee',
     position: 'relative',
-    gap: '16px',
+    gap: theme.spacing[16],
   }),
   noneProjectList: style({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    minHeight: '140px',
+    minHeight: `${rem(140)}`,
     backgroundColor: '#8A8D90 !important',
     fontWeight: '700',
-    fontSize: '16px',
+    fontSize: theme.fontSize[16],
     letterSpacing: '1.2px',
     color: '#fff !important',
   }),
@@ -32,7 +34,7 @@ export const projectListContinerCss = {
     alignItems: 'center',
   }),
   accordrion: style({
-    padding: '20px 20px 20px',
+    padding: theme.spacing[16],
     position: 'relative',
   }),
   hamburger: style({
@@ -40,13 +42,13 @@ export const projectListContinerCss = {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: '5px',
+    padding: theme.spacing[5],
     position: 'absolute',
-    top: '15px',
-    right: '15px',
-    gap: '5px',
-    width: '30px',
-    height: '30px',
+    top: `${rem(15)}`,
+    right: `${rem(15)}`,
+    gap: theme.spacing[5],
+    width: `${rem(30)}`,
+    height: `${rem(30)}`,
   }),
   absolute: style({
     position: 'absolute',
@@ -73,11 +75,11 @@ globalStyle(`${projectListContinerCss.accordrion} .column`, {
   alignItems: 'start',
 });
 globalStyle(`${projectListContinerCss.accordrion} .accordion-title`, {
-  fontSize: '20px',
+  fontSize: theme.fontSize[20],
   fontWeight: 700,
 });
 globalStyle(`${projectListContinerCss.accordrion} .accordion-period`, {
-  fontSize: '16px',
+  fontSize: theme.fontSize[16],
   fontWeight: 400,
   color: '#999',
 });

@@ -1,4 +1,6 @@
 import { globalStyle, style } from '@vanilla-extract/css';
+import { rem } from '../../../resource/theme/theme-implements';
+import { theme } from '../../../resource/theme/theme.css';
 
 export const ResumeCss = {
   // 자기 소개
@@ -11,15 +13,15 @@ export const ResumeCss = {
   }),
   // section
   myInfoSection: style({
-    padding: '20px',
+    padding: theme.spacing[16],
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'start',
-    marginBottom: '20px',
+    marginBottom: `${rem(16)}`,
     flexDirection: 'column',
-    minWidth: '300px',
-    maxWidth: '460px',
-    gap: '8px',
+    minWidth: `${rem(300)}`,
+    maxWidth: `${rem(460)}`,
+    gap: theme.spacing[8],
     background: '#F7F8F9',
   }),
   // 간략 소개
@@ -29,28 +31,28 @@ export const ResumeCss = {
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    gap: '8px',
+    gap: theme.spacing[8],
   }),
   // section
   introSection: style({
-    padding: '20px',
+    padding: theme.spacing[16],
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'start',
-    gap: '8px',
-    marginBottom: '20px',
+    gap: theme.spacing[8],
+    marginBottom: `${rem(16)}`,
     flexDirection: 'column',
-    minWidth: '300px',
-    maxWidth: '460px',
+    minWidth: `${rem(300)}`,
+    maxWidth: `${rem(460)}`,
   }),
   // 경력
   // section
   ListSection: style({
-    padding: '20px',
+    padding: theme.spacing[16],
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'start',
-    gap: '10px',
+    gap: theme.spacing[8],
     flexDirection: 'column',
   }),
   // 회사 리스트
@@ -61,7 +63,7 @@ export const ResumeCss = {
     alignItems: 'center',
     flexDirection: 'column',
     background: '#eee',
-    padding: '16px',
+    padding: theme.spacing[16],
   }),
   // section
   companyListSection: style({
@@ -79,7 +81,7 @@ export const ResumeCss = {
     alignItems: 'center',
     flexDirection: 'column',
     background: '#eee',
-    padding: '16px',
+    padding: theme.spacing[16],
   }),
   // section
   projectListSection: style({
@@ -94,7 +96,7 @@ export const ResumeCss = {
   }),
   buttonSection: style({
     width: '100% !important',
-    height: '80px !important',
+    height: `${rem(80)} !important`,
     display: 'flex',
     justifyContent: 'space-between',
     flexDirection: 'row',
@@ -115,22 +117,22 @@ export const ResumeCss = {
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center',
-    gap: '16px',
-    height: '80px',
+    gap: theme.spacing[16],
+    height: `${rem(80)}`,
     width: '100%',
   }),
   logo: style({
     backgroundImage: 'url(../../../../public/logo.svg)',
-    width: '44px',
-    height: '44px',
+    width: `${rem(44)}`,
+    height: `${rem(44)}`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'contain',
     borderStyle: 'none',
   }),
   logoTitle: style({
     backgroundImage: 'url(../../../../public/title.svg)',
-    width: '166px',
-    height: '25px',
+    width: `${rem(166)}`,
+    height: `${rem(25)}`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'contain',
     borderStyle: 'none',
@@ -140,12 +142,12 @@ export const ResumeCss = {
   }),
   subDescription: style({
     // 일단 만들어놓고 지워
-    fontSize: '16px',
+    fontSize: theme.fontSize[16],
     fontWeight: 300,
   }),
   divider: style({
     // 일단 만들어놓고 지워
-    marginBottom: '20px',
+    marginBottom: `${rem(16)}`,
   }),
   sectionDivider: style({
     height: '0.2px',
@@ -153,9 +155,10 @@ export const ResumeCss = {
   }),
   label: style({
     // 일단 만들어놓고 지워
-    padding: '5px',
+    padding: theme.spacing[5],
     border: '1px solid #ddd',
-    borderRadius: '10px',
+    borderRadius: `${rem(8)}`,
+    // borderRadius: `${rem(8)1}`,
   }),
   legend: style({
     // 일단 만들어놓고 지워
@@ -165,11 +168,11 @@ export const ResumeCss = {
   list: style({
     display: 'flex',
     flexDirection: 'column',
-    padding: '16px',
-    gap: '16px',
+    padding: theme.spacing[16],
+    gap: theme.spacing[16],
     border: '1px solid #ddd',
-    borderRadius: '16px',
-    marginBottom: '16px',
+    borderRadius: `${rem(16)}`,
+    marginBottom: `${rem(16)}`,
     backgroundColor: '#fff',
     color: 'rgba(0, 0, 0, 0.87)',
     transition: 'box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
@@ -187,41 +190,41 @@ globalStyle(`${ResumeCss.myInfoSection} .flex`, {
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'start',
-  gap: '16px',
+  gap: theme.spacing[16],
 });
 
 globalStyle(`${ResumeCss.myInfoSection} .title`, {
-  fontSize: '24px',
+  fontSize: `${rem(24)}`,
   fontWeight: 700,
 });
 globalStyle(`${ResumeCss.myInfoSection} .name`, {
-  fontSize: '20px',
+  fontSize: theme.fontSize[16],
   fontWeight: 700,
 });
 globalStyle(`${ResumeCss.myInfoSection} .subtitle`, {
-  fontSize: '16px',
+  fontSize: theme.fontSize[16],
   fontWeight: 700,
   color: '#555',
 });
 globalStyle(`${ResumeCss.introSection} .subtitle`, {
-  fontSize: '16px',
+  fontSize: theme.fontSize[16],
   fontWeight: 700,
   color: '#555',
 });
 globalStyle(`${ResumeCss.companyListSection} .subtitle`, {
-  fontSize: '16px',
+  fontSize: theme.fontSize[16],
   fontWeight: 700,
   color: '#555',
   letterSpacing: '1.3px',
 });
 globalStyle(`${ResumeCss.projectListSection} .subtitle`, {
-  fontSize: '16px',
+  fontSize: theme.fontSize[16],
   fontWeight: 700,
   color: '#555',
   letterSpacing: '1.3px',
 });
 globalStyle(`${ResumeCss.ctaButton} .delete`, {
-  fontSize: '16px',
+  fontSize: theme.fontSize[16],
   fontWeight: 700,
   background: '#464C53',
   color: '#fff',
@@ -230,10 +233,10 @@ globalStyle(`${ResumeCss.ctaButton} .delete`, {
   alignItems: 'center',
   width: '100%',
   height: '100%',
-  borderRadius: '4px',
+  borderRadius: `${rem(4)}`,
 });
 globalStyle(`${ResumeCss.ctaButton} .edit`, {
-  fontSize: '16px',
+  fontSize: theme.fontSize[16],
   fontWeight: 700,
   background: '#2F80ED',
   color: '#fff',
@@ -242,15 +245,15 @@ globalStyle(`${ResumeCss.ctaButton} .edit`, {
   alignItems: 'center',
   width: '100%',
   height: '100%',
-  borderRadius: '4px',
+  borderRadius: `${rem(4)}`,
 });
 globalStyle(`${ResumeCss.ListSection} > div`, {
-  fontSize: '18px',
+  fontSize: theme.fontSize[18],
   fontWeight: 700,
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  gap: '8px',
+  gap: theme.spacing[8],
   width: '100%',
   color: '#1976d2',
 });

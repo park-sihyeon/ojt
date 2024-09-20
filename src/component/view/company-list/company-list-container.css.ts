@@ -1,23 +1,25 @@
 import { globalStyle, style } from '@vanilla-extract/css';
+import { rem } from '../../../resource/theme/theme-implements';
+import { theme } from '../../../resource/theme/theme.css';
 
 export const companyListContinerCss = {
   wrapCompanyList: style({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: '16px',
+    padding: theme.spacing[16],
     flexDirection: 'column',
     background: '#eee',
-    gap: '16px',
+    gap: theme.spacing[16],
   }),
   noneProjectList: style({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    minHeight: '140px',
+    minHeight: `${rem(140)}`,
     backgroundColor: '#8A8D90 !important',
     fontWeight: '700',
-    fontSize: '16px',
+    fontSize: theme.fontSize[16],
     letterSpacing: '1.2px',
     color: '#fff !important',
   }),
@@ -31,22 +33,22 @@ export const companyListContinerCss = {
   }),
   ulContent: style({}),
   accordrion: style({
-    padding: '20px 20px 20px',
+    padding: theme.spacing[16],
     position: 'relative',
-    minHeight: '40px',
+    minHeight: `${rem(40)}`,
   }),
   hamburger: style({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: '5px',
+    padding: theme.spacing[5],
     position: 'absolute',
-    top: '15px',
-    right: '15px',
-    gap: '5px',
-    width: '30px',
-    height: '30px',
+    top: `${rem(16)}`,
+    right: `${rem(16)}`,
+    gap: theme.spacing[5],
+    width: `${rem(30)}`,
+    height: `${rem(30)}`,
   }),
   absolute: style({
     position: 'absolute',
@@ -64,7 +66,7 @@ globalStyle(`${companyListContinerCss.flex} > ul`, {
 globalStyle(`${companyListContinerCss.hamburger} .line`, {
   width: '90%',
   background: '#999',
-  height: '3px',
+  height: `${rem(3)}`,
 });
 globalStyle(`${companyListContinerCss.accordrion} .column`, {
   flexDirection: 'column',
@@ -73,15 +75,15 @@ globalStyle(`${companyListContinerCss.accordrion} .column`, {
   alignItems: 'start',
 });
 globalStyle(`${companyListContinerCss.accordrion} .accordion-title`, {
-  fontSize: '20px',
+  fontSize: theme.fontSize[20],
   fontWeight: 700,
-  maxWidth: '200px',
+  maxWidth: `${rem(200)}`,
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
 });
 globalStyle(`${companyListContinerCss.accordrion} .accordion-period`, {
-  fontSize: '16px',
+  fontSize: theme.fontSize[16],
   fontWeight: 400,
   color: '#999',
 });

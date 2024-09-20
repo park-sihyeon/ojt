@@ -1,50 +1,52 @@
 import { style } from '@vanilla-extract/css';
+import { rem } from '../../../resource/theme/theme-implements';
+import { theme } from '../../../resource/theme/theme.css';
 
 export const EditResumeContainerCss = {
   // 자기 소개
   myInfoSection: style({
-    padding: '20px',
+    padding: `${rem(16)}`,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'start',
-    gap: '10px',
-    marginBottom: '20px',
+    gap: theme.spacing[8],
+    marginBottom: `${rem(16)}`,
     flexDirection: 'column',
   }),
   // 간략 소개
   introSection: style({
-    padding: '20px',
+    padding: `${rem(16)}`,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'start',
-    gap: '10px',
-    marginBottom: '20px',
+    gap: theme.spacing[8],
+    marginBottom: `${rem(16)}`,
     flexDirection: 'column',
   }),
   // 회사 리스트
   companylistSection: style({
-    padding: '20px',
+    padding: `${rem(16)}`,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'start',
-    gap: '10px',
-    marginBottom: '20px',
+    gap: theme.spacing[8],
+    marginBottom: `${rem(16)}`,
     flexDirection: 'column',
   }),
   // 프로젝트 리스트
   projectListSection: style({
-    padding: '20px',
+    padding: `${rem(16)}`,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'start',
-    gap: '10px',
-    marginBottom: '20px',
+    gap: theme.spacing[8],
+    marginBottom: `${rem(16)}`,
     flexDirection: 'column',
   }),
   // class style 미리 지정
   title: style({
     // 일단 만들어놓고 지워
-    fontSize: '24px',
+    fontSize: theme.fontSize[20],
     fontWeight: 700,
   }),
   letterLine: style({
@@ -52,25 +54,25 @@ export const EditResumeContainerCss = {
   }),
   magingBottom: style({
     // 일단 만들어놓고 지워
-    marginBottom: '20px',
+    marginBottom: `${rem(16)}`,
   }),
   description: style({
     // 일단 만들어놓고 지워
   }),
   subDescription: style({
     // 일단 만들어놓고 지워
-    fontSize: '16px',
+    fontSize: theme.fontSize[16],
     fontWeight: 300,
   }),
   divider: style({
     // 일단 만들어놓고 지워
-    marginBottom: '20px',
+    marginBottom: `${rem(16)}`,
   }),
   label: style({
     // 일단 만들어놓고 지워
-    padding: '5px',
+    padding: theme.spacing[5],
     border: '1px solid #ddd',
-    borderRadius: '10px',
+    borderRadius: `${rem(8)}`,
   }),
   legend: style({
     // 일단 만들어놓고 지워
