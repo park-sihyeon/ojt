@@ -6,6 +6,7 @@ import { useProjectStore } from '../../../script/store/use-project-list-store';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ProjectListDto } from '../../../script/dto/project-list-dto';
+import { CoreButton } from '../_common/_core/button/core-button';
 
 export type InputsSchemaType = z.infer<typeof InputsSchema>; // 타입 추론 자동
 
@@ -183,12 +184,13 @@ export const AddProjectListContent: React.FC<ProjectListDtoProps> = ({
                         />
                       </div>
                     </div>
-                    <button
+                    <CoreButton
+                      variant="regist"
                       className={addProjectModalCss.submitButton}
                       type="submit"
                     >
                       등록
-                    </button>
+                    </CoreButton>
                   </form>
                 </div>
               </Box>

@@ -8,6 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useCompanyStore } from '../../../script/store/use-company-list-store';
 import { CompanyListDto } from '../../../script/dto/company-list-dto';
 import { useEffect } from 'react';
+import { CoreButton } from '../_common/_core/button/core-button';
 //#region handle zod
 export type InputsSchemaType = z.infer<typeof InputsSchema>; // 타입 추론 자동
 
@@ -180,12 +181,13 @@ export const AddCompanyListContent: React.FC<AddCompanyListContentPros> = ({
                           />
                         </div>
                       </div>
-                      <button
+                      <CoreButton
+                        variant="regist"
                         className={addCompanyModalCss.submitButton}
                         type="submit"
                       >
                         등록
-                      </button>
+                      </CoreButton>
                     </form>
                   </div>
                 </>
