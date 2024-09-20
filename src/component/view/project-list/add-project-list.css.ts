@@ -1,5 +1,6 @@
 import { globalStyle, style } from '@vanilla-extract/css';
 import { rem } from '../../../resource/theme/theme-implements';
+import { theme } from '../../../resource/theme/theme.css';
 
 export const addProjectListCss = {
   addButton: style({
@@ -30,19 +31,19 @@ export const addProjectModalCss = {
   wrapProjectList: style({
     display: 'flex',
     justifyContent: 'start',
-    padding: `${rem(16)}`,
+    padding: theme.spacing[16],
     flexDirection: 'column',
     height: '100%',
   }),
   formContainer: style({
     display: 'flex',
-    gap: `${rem(32)}`,
+    gap: theme.spacing[32],
     flexDirection: 'column',
     height: '100%',
   }),
   inputSection: style({
     display: 'flex',
-    gap: `${rem(16)}`,
+    gap: theme.spacing[16],
     flexDirection: 'column',
   }),
   flex: style({
@@ -50,11 +51,11 @@ export const addProjectModalCss = {
     justifyContent: 'start',
     alignItems: 'start',
     flexDirection: 'column',
-    gap: `${rem(16)}`,
+    gap: theme.spacing[16],
   }),
   submitButton: style({
     width: '100%',
-    padding: `${rem(16)}`,
+    padding: theme.spacing[16],
     color: '#fff',
     background: '#ccc',
   }),

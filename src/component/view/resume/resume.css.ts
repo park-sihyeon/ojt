@@ -1,5 +1,6 @@
 import { globalStyle, style } from '@vanilla-extract/css';
 import { rem } from '../../../resource/theme/theme-implements';
+import { theme } from '../../../resource/theme/theme.css';
 
 export const ResumeCss = {
   // 자기 소개
@@ -12,7 +13,7 @@ export const ResumeCss = {
   }),
   // section
   myInfoSection: style({
-    padding: `${rem(16)}`,
+    padding: theme.spacing[16],
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'start',
@@ -20,7 +21,7 @@ export const ResumeCss = {
     flexDirection: 'column',
     minWidth: `${rem(300)}`,
     maxWidth: `${rem(460)}`,
-    gap: `${rem(8)}`,
+    gap: theme.spacing[8],
     background: '#F7F8F9',
   }),
   // 간략 소개
@@ -30,15 +31,15 @@ export const ResumeCss = {
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    gap: `${rem(8)}`,
+    gap: theme.spacing[8],
   }),
   // section
   introSection: style({
-    padding: `${rem(16)}`,
+    padding: theme.spacing[16],
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'start',
-    gap: `${rem(8)}`,
+    gap: theme.spacing[8],
     marginBottom: `${rem(16)}`,
     flexDirection: 'column',
     minWidth: `${rem(300)}`,
@@ -47,11 +48,11 @@ export const ResumeCss = {
   // 경력
   // section
   ListSection: style({
-    padding: `${rem(16)}`,
+    padding: theme.spacing[16],
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'start',
-    gap: `${rem(8)}`,
+    gap: theme.spacing[8],
     flexDirection: 'column',
   }),
   // 회사 리스트
@@ -62,7 +63,7 @@ export const ResumeCss = {
     alignItems: 'center',
     flexDirection: 'column',
     background: '#eee',
-    padding: `${rem(16)}`,
+    padding: theme.spacing[16],
   }),
   // section
   companyListSection: style({
@@ -80,7 +81,7 @@ export const ResumeCss = {
     alignItems: 'center',
     flexDirection: 'column',
     background: '#eee',
-    padding: `${rem(16)}`,
+    padding: theme.spacing[16],
   }),
   // section
   projectListSection: style({
@@ -116,7 +117,7 @@ export const ResumeCss = {
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center',
-    gap: `${rem(16)}`,
+    gap: theme.spacing[16],
     height: `${rem(80)}`,
     width: '100%',
   }),
@@ -141,7 +142,7 @@ export const ResumeCss = {
   }),
   subDescription: style({
     // 일단 만들어놓고 지워
-    fontSize: `${rem(16)}`,
+    fontSize: theme.fontSize[16],
     fontWeight: 300,
   }),
   divider: style({
@@ -154,9 +155,10 @@ export const ResumeCss = {
   }),
   label: style({
     // 일단 만들어놓고 지워
-    padding: `${rem(5)}`,
+    padding: theme.spacing[5],
     border: '1px solid #ddd',
     borderRadius: `${rem(8)}`,
+    // borderRadius: `${rem(8)1}`,
   }),
   legend: style({
     // 일단 만들어놓고 지워
@@ -166,8 +168,8 @@ export const ResumeCss = {
   list: style({
     display: 'flex',
     flexDirection: 'column',
-    padding: `${rem(16)}`,
-    gap: `${rem(16)}`,
+    padding: theme.spacing[16],
+    gap: theme.spacing[16],
     border: '1px solid #ddd',
     borderRadius: `${rem(16)}`,
     marginBottom: `${rem(16)}`,
@@ -188,7 +190,7 @@ globalStyle(`${ResumeCss.myInfoSection} .flex`, {
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'start',
-  gap: `${rem(16)}`,
+  gap: theme.spacing[16],
 });
 
 globalStyle(`${ResumeCss.myInfoSection} .title`, {
@@ -196,33 +198,33 @@ globalStyle(`${ResumeCss.myInfoSection} .title`, {
   fontWeight: 700,
 });
 globalStyle(`${ResumeCss.myInfoSection} .name`, {
-  fontSize: `${rem(16)}`,
+  fontSize: theme.fontSize[16],
   fontWeight: 700,
 });
 globalStyle(`${ResumeCss.myInfoSection} .subtitle`, {
-  fontSize: `${rem(16)}`,
+  fontSize: theme.fontSize[16],
   fontWeight: 700,
   color: '#555',
 });
 globalStyle(`${ResumeCss.introSection} .subtitle`, {
-  fontSize: `${rem(16)}`,
+  fontSize: theme.fontSize[16],
   fontWeight: 700,
   color: '#555',
 });
 globalStyle(`${ResumeCss.companyListSection} .subtitle`, {
-  fontSize: `${rem(16)}`,
+  fontSize: theme.fontSize[16],
   fontWeight: 700,
   color: '#555',
   letterSpacing: '1.3px',
 });
 globalStyle(`${ResumeCss.projectListSection} .subtitle`, {
-  fontSize: `${rem(16)}`,
+  fontSize: theme.fontSize[16],
   fontWeight: 700,
   color: '#555',
   letterSpacing: '1.3px',
 });
 globalStyle(`${ResumeCss.ctaButton} .delete`, {
-  fontSize: `${rem(16)}`,
+  fontSize: theme.fontSize[16],
   fontWeight: 700,
   background: '#464C53',
   color: '#fff',
@@ -234,7 +236,7 @@ globalStyle(`${ResumeCss.ctaButton} .delete`, {
   borderRadius: `${rem(4)}`,
 });
 globalStyle(`${ResumeCss.ctaButton} .edit`, {
-  fontSize: `${rem(16)}`,
+  fontSize: theme.fontSize[16],
   fontWeight: 700,
   background: '#2F80ED',
   color: '#fff',
@@ -246,12 +248,12 @@ globalStyle(`${ResumeCss.ctaButton} .edit`, {
   borderRadius: `${rem(4)}`,
 });
 globalStyle(`${ResumeCss.ListSection} > div`, {
-  fontSize: `${rem(18)}`,
+  fontSize: theme.fontSize[18],
   fontWeight: 700,
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  gap: `${rem(8)}`,
+  gap: theme.spacing[8],
   width: '100%',
   color: '#1976d2',
 });

@@ -1,5 +1,6 @@
 import { style } from '@vanilla-extract/css';
 import { rem } from '../../../resource/theme/theme-implements';
+import { theme } from '../../../resource/theme/theme.css';
 
 export const EditResumeContainerCss = {
   // 자기 소개
@@ -8,7 +9,7 @@ export const EditResumeContainerCss = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'start',
-    gap: `${rem(8)}`,
+    gap: theme.spacing[8],
     marginBottom: `${rem(16)}`,
     flexDirection: 'column',
   }),
@@ -18,7 +19,7 @@ export const EditResumeContainerCss = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'start',
-    gap: `${rem(8)}`,
+    gap: theme.spacing[8],
     marginBottom: `${rem(16)}`,
     flexDirection: 'column',
   }),
@@ -28,7 +29,7 @@ export const EditResumeContainerCss = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'start',
-    gap: `${rem(8)}`,
+    gap: theme.spacing[8],
     marginBottom: `${rem(16)}`,
     flexDirection: 'column',
   }),
@@ -38,14 +39,14 @@ export const EditResumeContainerCss = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'start',
-    gap: `${rem(8)}`,
+    gap: theme.spacing[8],
     marginBottom: `${rem(16)}`,
     flexDirection: 'column',
   }),
   // class style 미리 지정
   title: style({
     // 일단 만들어놓고 지워
-    fontSize: `${rem(24)}`,
+    fontSize: theme.fontSize[20],
     fontWeight: 700,
   }),
   letterLine: style({
@@ -60,7 +61,7 @@ export const EditResumeContainerCss = {
   }),
   subDescription: style({
     // 일단 만들어놓고 지워
-    fontSize: `${rem(16)}`,
+    fontSize: theme.fontSize[16],
     fontWeight: 300,
   }),
   divider: style({
@@ -69,7 +70,7 @@ export const EditResumeContainerCss = {
   }),
   label: style({
     // 일단 만들어놓고 지워
-    padding: `${rem(5)}`,
+    padding: theme.spacing[5],
     border: '1px solid #ddd',
     borderRadius: `${rem(8)}`,
   }),

@@ -1,5 +1,6 @@
 import { globalStyle, style } from '@vanilla-extract/css';
 import { rem } from '../../../resource/theme/theme-implements';
+import { theme } from '../../../resource/theme/theme.css';
 
 export const resumeCardListCss = {
   cardContainer: style({
@@ -20,11 +21,11 @@ export const resumeCardListCss = {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: `${rem(8)}`,
+    padding: theme.spacing[8],
     position: 'absolute',
     top: '0',
     right: '0',
-    gap: `${rem(8)}`,
+    gap: theme.spacing[8],
     width: `${rem(30)}`,
     height: `${rem(30)}`,
   }),

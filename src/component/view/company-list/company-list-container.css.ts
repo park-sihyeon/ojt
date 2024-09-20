@@ -1,15 +1,16 @@
 import { globalStyle, style } from '@vanilla-extract/css';
 import { rem } from '../../../resource/theme/theme-implements';
+import { theme } from '../../../resource/theme/theme.css';
 
 export const companyListContinerCss = {
   wrapCompanyList: style({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: `${rem(16)}`,
+    padding: theme.spacing[16],
     flexDirection: 'column',
     background: '#eee',
-    gap: `${rem(16)}`,
+    gap: theme.spacing[16],
   }),
   noneProjectList: style({
     display: 'flex',
@@ -18,7 +19,7 @@ export const companyListContinerCss = {
     minHeight: `${rem(140)}`,
     backgroundColor: '#8A8D90 !important',
     fontWeight: '700',
-    fontSize: `${rem(16)}`,
+    fontSize: theme.fontSize[16],
     letterSpacing: '1.2px',
     color: '#fff !important',
   }),
@@ -32,7 +33,7 @@ export const companyListContinerCss = {
   }),
   ulContent: style({}),
   accordrion: style({
-    padding: `${rem(16)}`,
+    padding: theme.spacing[16],
     position: 'relative',
     minHeight: `${rem(40)}`,
   }),
@@ -41,11 +42,11 @@ export const companyListContinerCss = {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: `${rem(5)}`,
+    padding: theme.spacing[5],
     position: 'absolute',
     top: `${rem(16)}`,
     right: `${rem(16)}`,
-    gap: `${rem(5)}`,
+    gap: theme.spacing[5],
     width: `${rem(30)}`,
     height: `${rem(30)}`,
   }),
@@ -74,7 +75,7 @@ globalStyle(`${companyListContinerCss.accordrion} .column`, {
   alignItems: 'start',
 });
 globalStyle(`${companyListContinerCss.accordrion} .accordion-title`, {
-  fontSize: `${rem(20)}`,
+  fontSize: theme.fontSize[20],
   fontWeight: 700,
   maxWidth: `${rem(200)}`,
   overflow: 'hidden',
@@ -82,7 +83,7 @@ globalStyle(`${companyListContinerCss.accordrion} .accordion-title`, {
   whiteSpace: 'nowrap',
 });
 globalStyle(`${companyListContinerCss.accordrion} .accordion-period`, {
-  fontSize: `${rem(16)}`,
+  fontSize: theme.fontSize[16],
   fontWeight: 400,
   color: '#999',
 });

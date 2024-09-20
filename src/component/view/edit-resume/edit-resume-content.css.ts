@@ -1,5 +1,6 @@
 import { globalStyle, style } from '@vanilla-extract/css';
 import { rem } from '../../../resource/theme/theme-implements';
+import { theme } from '../../../resource/theme/theme.css';
 
 export const editResumeContentCss = {
   inputFormSection: style({
@@ -9,22 +10,22 @@ export const editResumeContentCss = {
     flexDirection: 'column',
     // height: '100%',
     // position: 'relative',
-    gap: `${rem(16)}`,
-    padding: `${rem(16)}`,
+    gap: theme.spacing[16],
+    padding: theme.spacing[16],
   }),
   submitButton: style({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    padding: `${rem(32)}`,
+    padding: theme.spacing[32],
     height: `${rem(90)}`,
     position: 'absolute',
     bottom: '0',
     left: '0',
     backgroundColor: '#1976d2',
     color: '#fff',
-    fontSize: `${rem(20)}`,
+    fontSize: theme.fontSize[20],
     fontWeight: '700',
     border: 'none',
     zIndex: '100',
@@ -40,7 +41,7 @@ export const editResumeContentCss = {
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    gap: `${rem(8)}`,
+    gap: theme.spacing[8],
   }),
   goBack: style({}),
   divider: style({
@@ -54,7 +55,7 @@ export const editResumeContentCss = {
 };
 
 globalStyle(`${editResumeContentCss.inputFormSection} .title `, {
-  fontSize: `${rem(22)}`,
+  fontSize: '22px',
   fontWeight: 700,
   color: '#1976d2',
 });
