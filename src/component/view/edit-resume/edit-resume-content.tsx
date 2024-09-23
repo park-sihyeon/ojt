@@ -16,18 +16,17 @@ import CompanyListContainer from '../company-list/company-list-container';
 import { editResumeContentCss } from './edit-resume-content.css';
 import ProjectListContainer from '../project-list/project-list-container';
 import { z } from 'zod';
-import { PhoneReg } from '../_common/_core/core-input-formatter';
+import { PhoneReg } from '../../../script/util/input-util';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useResumeStore } from '../../../script/store/use-resume-store';
 import dayjs from 'dayjs';
-import { useCompanyStore } from '../../../script/store/use-company-list-store';
-import { useProjectStore } from '../../../script/store/use-project-list-store';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import { CoreButton } from '../_common/_core/button/core-button';
 
 //#region handle zod
 export type InputsSchemaType = z.infer<typeof InputsSchema>; // 타입 추론 자동
 
+// TODO 인풋스키마 유틸화? 고려
 const InputsSchema = z.object({
   title: z.string().min(1, '제목을 입력해주세요'),
   name: z.string().min(1, '이름을 입력해주세요'),
@@ -57,11 +56,23 @@ export const EditResumeContent: React.FC<ResumeFormProps> = ({
   const { resumeId } = useParams<{ resumeId: string }>();
   const formatResumeId = resumeId?.replace(':', '');
   const { addResume, updateResume, getResumeById } = useResumeStore();
-  const { companys } = useCompanyStore();
-  const { projects } = useProjectStore();
+
+  //#region react-hook-form & resolver
+  const {
+    control,
+    register,
+    handleSubmit, // 자동으로 event.preventDefault()를 호출 및 리프레시 막고 유효성 검사
+    reset,
+    formState: { errors },
+    // watch, // 입력 여부 확인
+  } = useForm<InputsSchemaType>({
+    resolver: zodResolver(InputsSchema),
+  });
+  //#endregion
 
   const navigate = useNavigate();
 
+  // TODO  랜덤 키 generater 유틸화
   //#region 랜덤 키 테스트, 커스텀 훅으로 따로 빼야될까?
   const generateRandomKey = (length: number = 10): string => {
     const characters = '0123456789';
@@ -86,20 +97,6 @@ export const EditResumeContent: React.FC<ResumeFormProps> = ({
     return stableKeyRef.current;
   };
   const resumeKey = createResumeKey();
-  console.log(resumeKey);
-  //#endregion
-
-  //#region react-hook-form & resolver
-  const {
-    control,
-    register,
-    handleSubmit, // 자동으로 event.preventDefault()를 호출 및 리프레시 막고 유효성 검사
-    reset,
-    formState: { errors },
-    // watch, // 입력 여부 확인
-  } = useForm<InputsSchemaType>({
-    resolver: zodResolver(InputsSchema),
-  });
   //#endregion
 
   const resumeData = getResumeById(formatResumeId as string);
@@ -108,7 +105,6 @@ export const EditResumeContent: React.FC<ResumeFormProps> = ({
   useEffect(() => {
     if (formatResumeId) {
       const resumeData = getResumeById(formatResumeId);
-      console.log('resumeData', resumeData);
       if (resumeData) {
         reset({
           title: resumeData.title,
@@ -137,9 +133,6 @@ export const EditResumeContent: React.FC<ResumeFormProps> = ({
       addResume(addResumeData);
       navigate(`/resume/${newResumeId}`);
     } else {
-      console.log('companys data 확인:', companys);
-      console.log('projects data 확인:', projects);
-
       const updatedResumeData: ResumeForm = {
         ...data,
         resumeKey: resumeData?.resumeKey as string,

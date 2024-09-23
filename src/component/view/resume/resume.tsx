@@ -4,7 +4,6 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useResumeStore } from '../../../script/store/use-resume-store';
 import { useCompanyStore } from '../../../script/store/use-company-list-store';
 import { useProjectStore } from '../../../script/store/use-project-list-store';
-import { useEffect } from 'react';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import ApartmentOutlinedIcon from '@mui/icons-material/ApartmentOutlined';
 import AccountTreeOutlinedIcon from '@mui/icons-material/AccountTreeOutlined';
@@ -25,10 +24,6 @@ export const Resume: React.FC = () => {
   const resumeData = getResumeById(Formatting as string);
   const companyData = getCompaniesByKey(resumeData?.resumeKey as string);
   const projectData = getProjectesByKey(resumeData?.resumeKey as string);
-
-  useEffect(() => {
-    console.log('companyData', companyData);
-  }, [companyData, projectData]);
 
   const handleDeleteResume = (item: string) => {
     deleteResume(item);

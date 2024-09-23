@@ -16,6 +16,7 @@ import { IntroDto } from '../../../script/dto/intro-dto';
 import { useIntroStore } from '../../../script/store/use-introduce-store';
 
 export const InterduceContainer = () => {
+  const [open, setOpen] = useState(false);
   //#region handle onSumit
   const {
     reset,
@@ -41,8 +42,7 @@ export const InterduceContainer = () => {
     handleModalClose();
   };
 
-  //#region handle modalopen
-  const [open, setOpen] = useState(false);
+  //#region handle modal
   const handleModalOpen = () => {
     setOpen(true);
   };

@@ -11,6 +11,7 @@ export const AddResumeContent = () => {
     navigate('/edit-resume');
   };
 
+  // TODO add 카드 분리1
   return (
     <>
       <div onClick={handleNavigate}>

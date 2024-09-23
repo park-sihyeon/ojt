@@ -58,7 +58,6 @@ export const useProjectStore = create<ProjectStore>()(
             const key = project.resumeKey;
             if (key) {
               if (!state.projectes[key]) {
-                console.log(state.projectes[key]);
                 state.projectes[key] = [];
               }
             }

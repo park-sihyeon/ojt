@@ -7,7 +7,6 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useCompanyStore } from '../../../script/store/use-company-list-store';
 import { CompanyListDto } from '../../../script/dto/company-list-dto';
-import { useEffect } from 'react';
 import { CoreButton } from '../_common/_core/button/core-button';
 //#region handle zod
 export type InputsSchemaType = z.infer<typeof InputsSchema>; // 타입 추론 자동
@@ -30,14 +29,6 @@ export const AddCompanyListContent: React.FC<AddCompanyListContentPros> = ({
     useCompanyStore();
   //#endregion
 
-  //#region handle modal open and key
-  const handleModalOpen = () => {
-    const newResumeKey = resumeKey;
-    // 모달 오픈 시 오픈여부 값, 이력서 매칭 키값 넘기기
-    openModal(currentResumeKey as string, newResumeKey);
-  };
-  //#endregion
-
   //#region handle zod react-hook-form
   const {
     reset,
@@ -50,12 +41,15 @@ export const AddCompanyListContent: React.FC<AddCompanyListContentPros> = ({
   });
   //#endregion
 
-  useEffect(() => {
-    console.log('add-company-list 키값 :', resumeKey);
-  });
-  // TODO : 안녕 클레오파트라
-  //#region 수정으로 들어올 시 기본값으로 reset 시키기
-  // 사용할 수 있으니 보류
+  //#region handle modal open and key
+  const handleModalOpen = () => {
+    const newResumeKey = resumeKey;
+    // 모달 오픈 시 오픈여부 값, 이력서 매칭 키값 넘기기
+    openModal(currentResumeKey as string, newResumeKey);
+  };
+  //#endregion
+
+  // TODO : 수정으로 들어올 시 기본값으로 reset 시키기 / 회사목록만 수정 작업 시
   // useEffect(() => {
   //   // 선택한 인덱스 값이 있고 0 이상일때, companylist data가 있으면? 해당 data로 디폴트값으로 리셋
   //   if (selectedCompanyIndex !== null && selectedCompanyIndex >= 0) {

@@ -49,7 +49,7 @@ const CompanyListContainer: React.FC<CompanyListContainerProps> = ({
   //#region handleChangeList
   const handleChangeList = (companyList: CompanyListDto[]) => {
     setIsChange(true);
-    console.log(isChange, 'isChange');
+    console.log('check isChange', isChange);
     updateCompanyListOrder(resumeKey, companyList);
   };
   //#endregion

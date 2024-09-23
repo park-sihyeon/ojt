@@ -49,7 +49,7 @@ const ProjectListContainer: React.FC<ProjectListContainerProps> = ({
   //#region handleChangeList
   const handleChangeList = (projectList: ProjectListDto[]) => {
     setIsChange(true);
-    console.log(isChange, 'isChange');
+    console.log('check isChange', isChange);
     updateProjectListOrder(resumeKey, projectList);
   };
   //#endregion

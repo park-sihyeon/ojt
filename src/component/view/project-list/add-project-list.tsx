@@ -1,5 +1,5 @@
 import { Box, Card, Divider, Modal, TextField } from '@mui/material';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { addProjectListCss, addProjectModalCss } from './add-project-list.css';
 import { z } from 'zod';
 import { useProjectStore } from '../../../script/store/use-project-list-store';
@@ -31,14 +31,6 @@ export const AddProjectListContent: React.FC<ProjectListDtoProps> = ({
     useProjectStore();
   //#endregion
 
-  //#region handle modal
-  const handleOpen = () => {
-    const newResumeKey = resumeKey;
-    // 모달 오픈 시 오픈여부 값, 이력서 매칭 키값 넘기기
-    openModal(currentResumeKey as string, newResumeKey);
-  };
-  //#endregion
-
   //#region handle zod react-hook-form
   const {
     reset,
@@ -51,9 +43,13 @@ export const AddProjectListContent: React.FC<ProjectListDtoProps> = ({
   });
   //#endregion
 
-  useEffect(() => {
-    console.log('add-project-list 키값 :', resumeKey);
-  });
+  //#region handle modal
+  const handleOpen = () => {
+    const newResumeKey = resumeKey;
+    // 모달 오픈 시 오픈여부 값, 이력서 매칭 키값 넘기기
+    openModal(currentResumeKey as string, newResumeKey);
+  };
+  //#endregion
 
   //#region handle onsubmit
   const onProjectSubmit = (data: InputsSchemaType) => {
@@ -65,7 +61,6 @@ export const AddProjectListContent: React.FC<ProjectListDtoProps> = ({
       projectListId: newProjectId,
     };
     addProject(addProjectData);
-    console.log('프로젝트 리스트 추가', addProjectData);
     reset();
     closeModal();
   };
