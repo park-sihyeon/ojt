@@ -72,8 +72,7 @@ export const EditResumeContent: React.FC<ResumeFormProps> = ({
 
   const navigate = useNavigate();
 
-  // TODO  랜덤 키 generater 유틸화
-  //#region 랜덤 키 테스트, 커스텀 훅으로 따로 빼야될까?
+  // // TODO  랜덤 키 generater 유틸화
   const generateRandomKey = (length: number = 10): string => {
     const characters = '0123456789';
     return Array(length)
@@ -93,10 +92,7 @@ export const EditResumeContent: React.FC<ResumeFormProps> = ({
     }
   }, []);
 
-  const createResumeKey = () => {
-    return stableKeyRef.current;
-  };
-  const resumeKey = createResumeKey();
+  const resumeKey = stableKeyRef.current;
   //#endregion
 
   const resumeData = getResumeById(formatResumeId as string);
@@ -264,7 +260,9 @@ export const EditResumeContent: React.FC<ResumeFormProps> = ({
           <CompanyListContainer
             resumeKey={
               !resumeId
-                ? (resumeKey as string)
+                ? !resumeKey
+                  ? '00'
+                  : (resumeKey as string)
                 : (resumeData?.resumeKey as string)
             }
           />

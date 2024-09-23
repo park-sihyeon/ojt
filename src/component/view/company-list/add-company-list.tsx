@@ -45,6 +45,7 @@ export const AddCompanyListContent: React.FC<AddCompanyListContentPros> = ({
   const handleModalOpen = () => {
     const newResumeKey = resumeKey;
     // 모달 오픈 시 오픈여부 값, 이력서 매칭 키값 넘기기
+    console.log(newResumeKey, 'company에 키 값 전달');
     openModal(currentResumeKey as string, newResumeKey);
   };
   //#endregion
