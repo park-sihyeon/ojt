@@ -10,39 +10,35 @@ import {
   Typography,
 } from '@mui/material';
 import { interduceContainerCss } from './interduce-container.css';
-import { useEffect, useState } from 'react';
-import { ResumeTitle } from '../../../script/dto/resume-title-dto';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { IntroDto } from '../../../script/dto/intro-dto';
+import { useIntroStore } from '../../../script/store/use-introduce-store';
 
 export const InterduceContainer = () => {
-  //#region handle set localStorage & onSumit
+  //#region handle onSumit
   const {
     reset,
     register,
     handleSubmit, // 자동으로 event.preventDefault()를 호출 및 리프레시 막고 유효성 검사
-  } = useForm<ResumeTitle>();
+  } = useForm<IntroDto>();
 
-  const [resumeTitle, setResumeTitles] = useState<ResumeTitle>({
-    name: '',
-    textarea: '',
-  });
+  const { addIntro, getIntro, updateIntro } = useIntroStore();
 
-  useEffect(() => {
-    const storedResumeTitle = localStorage.getItem('resume-title');
-    if (storedResumeTitle) {
-      const parsedResumeTitle = JSON.parse(storedResumeTitle);
-      setResumeTitles(parsedResumeTitle);
+  const introData = getIntro();
+
+  const onSubmit = (data: IntroDto) => {
+    if (!introData) {
+      addIntro(data);
+    } else {
+      updateIntro(data);
     }
-  }, []);
-
-  const saveResumeTitle = (newResumeTitle: ResumeTitle) => {
-    setResumeTitles(newResumeTitle);
-    localStorage.setItem('resume-title', JSON.stringify(newResumeTitle));
-  };
-
-  const onSubmit = (data: ResumeTitle) => {
-    saveResumeTitle(data);
-    reset(); // 폼 리셋
+    reset({
+      name: introData?.name,
+      description: introData?.description,
+      imageUrl: introData?.imageUrl,
+    }); // 폼 리셋
+    handleModalClose();
   };
 
   //#region handle modalopen
@@ -65,7 +61,7 @@ export const InterduceContainer = () => {
                 <div className={interduceContainerCss.letterAndAvatar}>
                   <Avatar>P</Avatar>
                   <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                    {resumeTitle.name || '이름없음'}
+                    {introData?.name || '이름없음'}
                   </Typography>
                 </div>
                 <Typography
@@ -73,7 +69,7 @@ export const InterduceContainer = () => {
                   component="div"
                   sx={{ flexGrow: 1, height: '40px', overflow: 'hidden' }}
                 >
-                  {resumeTitle.textarea || '내용없음'}
+                  {introData?.description || '내용없음'}
                 </Typography>
                 <div
                   className={interduceContainerCss.editButton}
@@ -119,7 +115,7 @@ export const InterduceContainer = () => {
                           type="text"
                           placeholder="내용을 적어주세요"
                           className={interduceContainerCss.width}
-                          {...register('textarea', { required: false })}
+                          {...register('description', { required: false })}
                         />
                       </div>
                       <button
