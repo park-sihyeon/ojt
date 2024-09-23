@@ -42,6 +42,7 @@ export const useCompanyStore = create<CompanyStore>()(
             const key = company.resumeKey;
             if (key) {
               if (!state.companies[key]) {
+                console.log(state.companies[key]);
                 state.companies[key] = [];
               }
             }
